@@ -1,5 +1,6 @@
 #include "Window.h"
-#include <GLFW\glfw3.h>
+#include "..\glfw-3.2.1\include\GLFW\glfw3.h"
+
 
 
 Window::Window()
