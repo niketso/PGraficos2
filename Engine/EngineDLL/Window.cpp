@@ -1,6 +1,5 @@
 #include "Window.h"
-#include "..\glfw-3.2.1\include\GLFW\glfw3.h"
-
+#include <GLFW\glfw3.h>
 
 
 Window::Window()
@@ -21,7 +20,7 @@ bool Window::Start(int w, int h, const char* n) {
 	window = glfwCreateWindow(w, h, n, NULL, NULL);
 
 	if (window == NULL) {
-		fprintf(stderr, "Failed to open GLFW window");
+		cout << "Failed to open GLFW window" << endl;
 		glfwTerminate();
 		return false;
 	}

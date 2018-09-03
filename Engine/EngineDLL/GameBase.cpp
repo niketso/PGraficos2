@@ -13,17 +13,18 @@ bool Gamebase::Start() {
 		return false;
 
 	render = new Renderer();
-	if (!render->Start())
+	if (!render->Start(window))
 		return false;
+	render->ClearColor(0.0f, 0.0f, 4.0f, 0.0f);
 	return OnStart();
 }
 void Gamebase::Loop() {
 	bool loop = true;
 	while (loop && !window->ShouldClose()) {
 		loop = OnUpdate();
+		render->ClearScreen();
 
-
-
+		render->SwapBuffers();
 		window->PollEvents();
 	}
 }
