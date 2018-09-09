@@ -16,9 +16,9 @@ bool Renderer::Start(Window * windowPTR) {
 	{
 		window = windowPTR;
 		glfwMakeContextCurrent((GLFWwindow*)window->GetWindow());
-		GLuint VertexArrayID;
-		glGenVertexArrays(1, &VertexArrayID);
-		glBindVertexArray(VertexArrayID);
+		//GLuint VertexArrayID;
+		//glGenVertexArrays(1, &VertexArrayID);
+		//glBindVertexArray(VertexArrayID);
 		cout << "Renderer::Start()" << endl;
 		return true;
 	}
@@ -55,6 +55,7 @@ void Renderer::GenBuffer(float* buffer, int size)
 	// Darle nuestros vértices a  OpenGL.
 	glBufferData(GL_ARRAY_BUFFER, size , buffer , GL_STATIC_DRAW);
 }
+
 void Renderer::DrawBuffer(unsigned int vtxbuffer, int size) 
 {
 	// 1rst attribute buffer : vértices

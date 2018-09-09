@@ -5,6 +5,8 @@ class ENGINEDLL_API Triangle :public Entity
 {
 private:
 	Renderer * renderer;
+	Material * material;
+	
 public:
 	Triangle();
 	~Triangle();

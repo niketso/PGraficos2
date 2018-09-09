@@ -1,4 +1,5 @@
 #include "../EngineDLL/Gamebase.h"
+#include "../EngineDLL/Triangle.h"
 #include <iostream>
 class Game : public Gamebase {
 	int i;
