@@ -19,7 +19,6 @@ Triangle::Triangle(Renderer *render) :Entity(render)
  Triangle::~Triangle()
 {
 	 Dispose();
-
 }
 
 void Triangle::SetVertices(float* vertices, int count)
@@ -33,13 +32,15 @@ void Triangle::SetVertices(float* vertices, int count)
 
 void Triangle::Draw() 
 {
+	if (material != NULL)
+		material->Bind();
+
 	render->DrawBuffer(bufferId,vtxCount);
 }
 
 void Triangle::SetMaterial(Material* material)
 {
-
-
+	this->material = material;
 }
 
 void Triangle::Dispose() 

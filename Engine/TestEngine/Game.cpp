@@ -9,7 +9,10 @@ Game::~Game()
 {
 }
 bool Game::OnStart() {
+	mat1 = new Material();
+	unsigned int programID = mat1->LoadShaders("vertexshader.txt", "fragmentshader.txt");
 	tr1 = new Triangle(render);
+	tr1->SetMaterial(mat1);
 	cout << "Game::OnStart()" << endl;
 	return true;
 }
