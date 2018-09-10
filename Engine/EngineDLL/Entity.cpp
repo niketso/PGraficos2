@@ -2,11 +2,10 @@
 
 
 
-Entity::Entity()
+Entity::Entity(Renderer *renderPTR)
 {
+	render = renderPTR;
 }
 
 
-Entity::~Entity()
-{
-}
+

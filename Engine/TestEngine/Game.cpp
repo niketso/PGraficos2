@@ -2,11 +2,14 @@
 Game::Game()
 {
 	i = 0;
+	
+	
 }
 Game::~Game()
 {
 }
 bool Game::OnStart() {
+	tr1 = new Triangle(render);
 	cout << "Game::OnStart()" << endl;
 	return true;
 }
@@ -21,3 +24,10 @@ bool Game::OnUpdate() {
 	//return false;
 	return true;
 }
+
+void Game::OnDraw()
+{
+	tr1->Draw();
+	cout << "Game::OnDraw(): " << i << endl;
+}
+

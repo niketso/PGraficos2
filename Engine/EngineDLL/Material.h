@@ -5,5 +5,6 @@ class ENGINEDLL_API Material
 public:
 	Material();
 	~Material();
+	void Bind();
 };
 

@@ -23,7 +23,7 @@ void Gamebase::Loop() {
 	while (loop && !window->ShouldClose()) {
 		loop = OnUpdate();
 		render->ClearScreen();
-
+		OnDraw();
 		render->SwapBuffers();
 		window->PollEvents();
 	}
@@ -38,3 +38,5 @@ bool Gamebase::Stop() {
 	delete window;
 	return true;
 }
+
+

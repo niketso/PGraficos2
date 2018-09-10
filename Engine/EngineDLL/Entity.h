@@ -5,8 +5,11 @@
 using namespace std;
 class ENGINEDLL_API Entity
 {
+protected:
+	Renderer * render;
 public:
-	Entity();
-	~Entity();
+	Entity(Renderer * renderPTR);
+	
+	virtual void Draw() = 0;
 };
 

@@ -1,3 +1,4 @@
+#pragma once
 #include "Exports.h"
 #include "Window.h"
 
@@ -6,6 +7,7 @@ using namespace std;
 class ENGINEDLL_API Renderer
 {
 private:
+	unsigned int VertexArrayID;
 	Window * window;
 
 public:
@@ -16,6 +18,7 @@ public:
 	void ClearScreen();
 	void ClearColor(float r, float g, float b, float a);
 	void SwapBuffers();
-	void GenBuffer(float* buffer, int size);
+	unsigned int  GenBuffer(float* buffer, int size);
 	void DrawBuffer(unsigned int vtxbuffer, int size);
+	void DestroyBuffer(unsigned int buffer);
 };

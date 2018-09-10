@@ -4,14 +4,19 @@
 class ENGINEDLL_API Triangle :public Entity
 {
 private:
-	Renderer * renderer;
 	Material * material;
+	bool shouldDispose;
+	unsigned int bufferId;
+	float * vertex;
+	int vtxCount;
 	
 public:
-	Triangle();
+	Triangle(Renderer *render);	
 	~Triangle();
-	void SetVertices();
-	void Draw();
+	void SetVertices(float * vertices, int count);
+	void Draw() override;
+	void SetMaterial(Material* material);
+	void Dispose();
 	
 };
 
