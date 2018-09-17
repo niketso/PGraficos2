@@ -7,11 +7,16 @@ class ENGINEDLL_API Entity
 {
 private:
 	glm::vec3 pos;
-	glm::vec3 scale;
 	glm::vec3 rot;
+	glm::vec3 scale;
+	
 protected:
 	Renderer * render;
 	glm::mat4 WorldMatrix;
+	glm::mat4 TranslateMatrix;
+	glm::mat4 RotMatrix;
+	glm::mat4 ScaleMatrix;
+	void UpdateWorldMatrix();
 public:
 
 	Entity(Renderer * renderPTR);	
