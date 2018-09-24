@@ -86,3 +86,38 @@ void Renderer::DestroyBuffer(unsigned int buffer)
 	glDeleteBuffers(1, &buffer);
 }
 
+unsigned int Renderer::BindBuffer() 
+{
+
+}
+void Renderer::BeginDraw()
+{
+
+}
+void Renderer::Endraw()
+{
+
+}
+void Renderer::LoadIdentityMatrix()
+{
+	WorldMatrix = glm::mat4(1.0f);
+}
+void Renderer::UpdateWVP() 
+{
+	wvp = ProjectionMatrix * ViewMatrix * WorldMatrix ;
+}
+glm::mat4& Renderer::GetWvp()
+{
+	return wvp;
+}
+void Renderer::MultiplyWorldMatrix(glm::mat4 mat)
+{
+	WorldMatrix *= mat;
+	UpdateWVP();
+}
+void Renderer::SetWorldMatrix(glm::mat4 mat) 
+{
+	WorldMatrix = mat;
+	UpdateWVP();
+}
+

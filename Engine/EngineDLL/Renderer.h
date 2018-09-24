@@ -2,6 +2,7 @@
 #include "Exports.h"
 #include "Window.h"
 #include<glm/glm.hpp>
+
 #include<glm\gtc\matrix_transform.hpp>
 
 #include <iostream>
@@ -14,6 +15,7 @@ private:
 	glm::mat4 WorldMatrix;
 	glm::mat4 ViewMatrix;
 	glm::mat4 ProjectionMatrix;
+	glm::mat4 wvp;
 
 public:
 	Renderer();
@@ -24,6 +26,14 @@ public:
 	void ClearColor(float r, float g, float b, float a);
 	void SwapBuffers();
 	unsigned int  GenBuffer(float* buffer, int size);
+	unsigned int BindBuffer();
+	void BeginDraw();
+	void Endraw();
 	void DrawBuffer(unsigned int vtxbuffer, int size);
 	void DestroyBuffer(unsigned int buffer);
+	void UpdateWVP();
+	glm::mat4&  GetWvp();
+	void LoadIdentityMatrix();
+	void SetWorldMatrix(glm::mat4 mat);
+	void MultiplyWorldMatrix(glm::mat4 mat);
 };
