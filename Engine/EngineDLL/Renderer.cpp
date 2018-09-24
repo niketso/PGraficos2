@@ -24,6 +24,19 @@ bool Renderer::Start(Window * windowPTR) {
 		
 		glGenVertexArrays(1, &VertexArrayID);
 		glBindVertexArray(VertexArrayID);
+
+		
+		ProjectionMatrix = glm::ortho(-10.0f, 10.0f, -10.0f,10.0f, 0.0f, 100.f);
+
+		ViewMatrix = glm::lookAt(
+			glm::vec3(0, 0, 3),
+			glm::vec3(0, 0, 0),
+			glm::vec3(0, 1, 0)
+		);
+		
+		WorldMatrix = glm::mat4(1.0f);
+		
+		UpdateWVP();
 		cout << "Renderer::Start()" << endl;
 		return true;
 	}
@@ -66,19 +79,9 @@ unsigned int Renderer::GenBuffer(float* buffer, int size)
 void Renderer::DrawBuffer(unsigned int vtxbuffer, int size) 
 {
 																		// 1rst attribute buffer : vértices
-	glEnableVertexAttribArray(0);
-	glBindBuffer(GL_ARRAY_BUFFER, vtxbuffer);
-	glVertexAttribPointer(
-		0,																// atributo 0. No hay razón particular para el 0, pero debe corresponder en el shader.
-		3,																// tamaño
-		GL_FLOAT,														// tipo
-		GL_FALSE,														// normalizado?
-		0,																// Paso
-		(void*)0														// desfase del buffer
-	);
-																		// Dibujar el triángulo !
+	glBindBuffer(GL_ARRAY_BUFFER, vtxbuffer);																			// Dibujar el triángulo !
 	glDrawArrays(GL_TRIANGLES, 0, size);								// Empezar desde el vértice 0S; 3 vértices en total -> 1 triángulo
-	glDisableVertexAttribArray(0);
+	
 }
 
 void Renderer::DestroyBuffer(unsigned int buffer) 
@@ -86,17 +89,25 @@ void Renderer::DestroyBuffer(unsigned int buffer)
 	glDeleteBuffers(1, &buffer);
 }
 
-unsigned int Renderer::BindBuffer() 
+void Renderer::BindBuffer(unsigned int atribId) 
 {
+	glVertexAttribPointer(
+		atribId,														// Le paso la ubicacion de donde se guardo la mempria del vertice
+		3,																// tamaño
+		GL_FLOAT,														// tipo
+		GL_FALSE,														// normalizado?
+		0,																// Paso
+		(void*)0														// desfase del buffer
+	);
 
 }
-void Renderer::BeginDraw()
+void Renderer::BeginDraw(unsigned int atribId )
 {
-
+	glEnableVertexAttribArray(atribId);
 }
-void Renderer::Endraw()
+void Renderer::EndDraw(unsigned int atribId)
 {
-
+	glDisableVertexAttribArray(atribId);
 }
 void Renderer::LoadIdentityMatrix()
 {

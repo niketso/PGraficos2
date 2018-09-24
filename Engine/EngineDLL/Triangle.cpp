@@ -32,10 +32,19 @@ void Triangle::SetVertices(float* vertices, int count)
 
 void Triangle::Draw() 
 {
-	if (material != NULL)
+	
+	render->LoadIdentityMatrix();
+	render->SetWorldMatrix(WorldMatrix);
+	
+	if (material != NULL) {
 		material->Bind();
-
-	render->DrawBuffer(bufferId,vtxCount);
+		material->SetMatrixProperty("WVP", render->GetWvp());
+	}
+		
+	render->BeginDraw(0);
+	render->BindBuffer(0);		
+	render->DrawBuffer(bufferId, vtxCount);
+	render->EndDraw(0);
 }
 
 void Triangle::SetMaterial(Material* material)

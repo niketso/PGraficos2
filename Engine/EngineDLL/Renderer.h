@@ -2,7 +2,6 @@
 #include "Exports.h"
 #include "Window.h"
 #include<glm/glm.hpp>
-
 #include<glm\gtc\matrix_transform.hpp>
 
 #include <iostream>
@@ -26,9 +25,9 @@ public:
 	void ClearColor(float r, float g, float b, float a);
 	void SwapBuffers();
 	unsigned int  GenBuffer(float* buffer, int size);
-	unsigned int BindBuffer();
-	void BeginDraw();
-	void Endraw();
+	void BindBuffer(unsigned int name);
+	void BeginDraw(unsigned int name);
+	void EndDraw(unsigned int name);
 	void DrawBuffer(unsigned int vtxbuffer, int size);
 	void DestroyBuffer(unsigned int buffer);
 	void UpdateWVP();

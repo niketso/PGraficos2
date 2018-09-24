@@ -5,5 +5,5 @@ uniform mat4 WVP;
 
 void main()
 {
-	gl_Position = WVP * vec4(vertexPosition_modelscape,1)
+	gl_Position = WVP * vec4(vertexPosition_modelspace,1);
 }
