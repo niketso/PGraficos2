@@ -1,9 +1,7 @@
 #include "Game.h"
 Game::Game()
 {
-	i = 0;
-	
-	
+	i = 0;	
 }
 Game::~Game()
 {
@@ -12,7 +10,9 @@ bool Game::OnStart() {
 	mat1 = new Material();
 	unsigned int programID = mat1->LoadShaders("vertexshader.txt", "fragmentshader.txt");
 	tr1 = new Triangle(render);
+	rec1 = new Rectangle(render);
 	tr1->SetMaterial(mat1);
+	rec1->SetMaterial(mat1);
 	cout << "Game::OnStart()" << endl;
 	return true;
 }
@@ -30,7 +30,8 @@ bool Game::OnUpdate() {
 
 void Game::OnDraw()
 {
-	tr1->Draw();
+	//tr1->Draw();
+	rec1->Draw();	
 	cout << "Game::OnDraw(): " << i << endl;
 }
 
