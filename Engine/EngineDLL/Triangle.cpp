@@ -42,8 +42,8 @@ void Triangle::Draw()
 	}
 		
 	render->BeginDraw(0);
-	render->BindBuffer(0);		
-	render->DrawBuffer(bufferId, vtxCount);
+	render->BindBuffer(bufferId, 0);
+	render->DrawBuffer( vtxCount);
 	render->EndDraw(0);
 }
 

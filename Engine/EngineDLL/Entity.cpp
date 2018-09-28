@@ -1,7 +1,5 @@
 #include "Entity.h"
 
-
-
 Entity::Entity(Renderer *renderPTR)
 {
 	render = renderPTR;
@@ -15,7 +13,6 @@ Entity::Entity(Renderer *renderPTR)
 	scale[0] = scale[1] = scale[2] = 1.0f;
 
 }
-
 void Entity::SetPos(float x, float y,float z) 
 {
 	pos[0] = x;
@@ -25,7 +22,6 @@ void Entity::SetPos(float x, float y,float z)
 	TranslateMatrix = glm::translate(glm::mat4(1.0f), pos);
 	UpdateWorldMatrix();
 }
-
 void Entity::SetRot(float x, float y, float z)
 {
 	rot[0] = x;
@@ -38,7 +34,6 @@ void Entity::SetRot(float x, float y, float z)
 
 	UpdateWorldMatrix();
 }
-
 void Entity::SetScale(float x, float y, float z)
 {
 	scale[0] = x;
@@ -49,7 +44,6 @@ void Entity::SetScale(float x, float y, float z)
 
 	UpdateWorldMatrix();
 }
-
 void Entity::UpdateWorldMatrix() 
 {
 	WorldMatrix = TranslateMatrix  * RotMatrix * ScaleMatrix;
