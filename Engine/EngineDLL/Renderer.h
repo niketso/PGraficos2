@@ -25,7 +25,9 @@ public:
 	void ClearColor(float r, float g, float b, float a);
 	void SwapBuffers();
 	unsigned int  GenBuffer(float* buffer, int size);
+	unsigned int  GenColorBuffer(float* buffer, int size);
 	void BindBuffer(unsigned int vtxbuffer, unsigned int name);
+	void BindColorBuffer(unsigned int clrbuffer, unsigned int name);
 	void BeginDraw(unsigned int name);
 	void EndDraw(unsigned int name);
 	void DrawBuffer( int size);

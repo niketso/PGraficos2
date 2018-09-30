@@ -75,6 +75,16 @@ unsigned int Renderer::GenBuffer(float* buffer, int size)
 	return vertexbuffer;
 }
 
+unsigned int Renderer::GenColorBuffer(float* buffer, int size)
+{
+	unsigned int colorbuffer;
+	glGenBuffers(1, &colorbuffer);
+	glBindBuffer(GL_ARRAY_BUFFER, colorbuffer);
+	glBufferData(GL_ARRAY_BUFFER, size, buffer, GL_STATIC_DRAW);
+
+	return colorbuffer;
+}
+
 void Renderer::DrawBuffer(int size) 
 {																																		
 	glDrawArrays(GL_TRIANGLE_STRIP, 0, size);								
@@ -98,6 +108,20 @@ void Renderer::BindBuffer(unsigned int vtxbuffer, unsigned int atribId)
 	);
 
 }
+void Renderer::BindColorBuffer(unsigned int clrbuffer, unsigned int atribId)
+{
+	glBindBuffer(GL_ARRAY_BUFFER, clrbuffer);
+	glVertexAttribPointer(
+		atribId,														// Le paso la ubicacion de donde se guardo la mempria del vertice
+		3,																// tamaño
+		GL_FLOAT,														// tipo
+		GL_FALSE,														// normalizado?
+		0,																// Paso
+		(void*)0														// desfase del buffer
+	);
+
+}
+
 void Renderer::BeginDraw(unsigned int atribId )
 {
 	glEnableVertexAttribArray(atribId);

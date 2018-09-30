@@ -15,6 +15,15 @@ Rectangle::Rectangle(Renderer *render) :Entity(render)
 	};
 
 	SetVertices(vertex, 4);
+
+	colorvertex = new float[12]
+	{
+		0.583f,  0.771f,  0.014f,
+		0.609f,  0.115f,  0.436f,
+		0.327f,  0.483f,  0.844f,
+		0.822f,  0.569f,  0.201f
+	};
+	SetColorVertices(colorvertex, 4);
 }
 
 Rectangle::~Rectangle()
@@ -30,6 +39,14 @@ void Rectangle::SetVertices(float* vertices, int count)
 	bufferId = render->GenBuffer(vertices, sizeof(float)* count * 3);
 
 }
+void Rectangle::SetColorVertices(float* vertices, int count)
+{
+	
+	colorVtxCount = count;
+	shouldDispose = true;
+	colorBufferId = render->GenColorBuffer(vertices, sizeof(float)* count * 3);
+
+}
 
 void Rectangle::Draw()
 {
@@ -43,9 +60,12 @@ void Rectangle::Draw()
 	}
 
 	render->BeginDraw(0);
+	render->BeginDraw(1);
 	render->BindBuffer(bufferId, 0);
+	render->BindColorBuffer(colorBufferId, 1);
 	render->DrawBuffer(vtxCount);
 	render->EndDraw(0);
+	render->EndDraw(1);
 }
 
 void Rectangle::SetMaterial(Material* material)

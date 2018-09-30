@@ -9,6 +9,7 @@ private:
 	Triangle * tr1 ;
 	Rectangle *rec1;
 	Material * mat1;
+	Material * mat2;
 public:
 	Game();
 	~Game();
