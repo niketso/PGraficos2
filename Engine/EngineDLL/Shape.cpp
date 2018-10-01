@@ -12,7 +12,8 @@ Shape::Shape(Renderer* render): Entity(render)
 }
 Shape::~Shape()
 {
-	
+	Dispose();
+	DisposeColor();
 }
 void Shape::SetVertices(float* vertices, int count) 
 {
@@ -53,8 +54,7 @@ void Shape::Dispose()
 {
 	if (shouldDispose)
 	{
-		render->DestroyBuffer(bufferId);	
-		delete[] vertex;		
+		render->DestroyBuffer(bufferId);			
 		shouldDispose = false;
 	}
 }
@@ -63,7 +63,6 @@ void Shape::DisposeColor()
 	if (shouldDisposeColor)
 	{		
 		render->DestroyBuffer(colorBufferId);		
-		delete[] clrvertex;
 		shouldDispose = false;
 	}
 }

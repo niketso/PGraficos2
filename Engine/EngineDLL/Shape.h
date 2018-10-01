@@ -8,8 +8,6 @@
 
 class  ENGINEDLL_API Shape :public Entity
 {
-
-
 protected:
 	Material * material;
 	bool shouldDispose;

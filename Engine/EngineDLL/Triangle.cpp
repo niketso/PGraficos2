@@ -23,7 +23,8 @@ Triangle::Triangle(Renderer *render) :Shape(render)
 }
  Triangle::~Triangle()
 {
-	 Dispose();	 
+	 delete[] vertex;
+	 delete[] clrvertex;
 }
 void  Triangle::Draw() 
  {

@@ -3,8 +3,6 @@
 #include "Material.h"
 class ENGINEDLL_API Triangle : public Shape
 {
-private:
-	bool shouldDispose;
 	
 public:
 	Triangle(Renderer *render);	

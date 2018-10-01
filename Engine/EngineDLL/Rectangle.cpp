@@ -23,8 +23,8 @@ Rectangle::Rectangle(Renderer *render) :Shape(render)
 
 Rectangle::~Rectangle()
 {	
-	Dispose();
-	DisposeColor();
+	delete[] vertex;
+	delete[] clrvertex;
 }
 
 void Rectangle::Draw() 
