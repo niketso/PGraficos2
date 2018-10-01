@@ -9,7 +9,7 @@ Game::~Game()
 bool Game::OnStart() {
 	mat1 = new Material();
 	mat2 = new Material();
-	unsigned int programID = mat1->LoadShaders("vertexshader.txt", "fragmentshader.txt");
+	unsigned int programID = mat1->LoadShaders("colorvertexshader.txt", "colorfragmentshader.txt");
 	unsigned int programID2 = mat2->LoadShaders("colorvertexshader.txt", "colorfragmentshader.txt");
 	tr1 = new Triangle(render);
 	tr1->SetMaterial(mat1);
@@ -20,6 +20,12 @@ bool Game::OnStart() {
 	return true;
 }
 bool Game::OnStop() {
+
+	delete mat1;
+	delete mat2;
+	delete tr1;
+	delete rec1;
+
 	cout << "Game::OnStop()" << endl;
 	return false;
 }

@@ -30,7 +30,7 @@ public:
 	void BindColorBuffer(unsigned int clrbuffer, unsigned int name);
 	void BeginDraw(unsigned int name);
 	void EndDraw(unsigned int name);
-	void DrawBuffer( int size);
+	void DrawBuffer( int size,int drawType);
 	void DestroyBuffer(unsigned int buffer);
 	void UpdateWVP();
 	glm::mat4&  GetWvp();

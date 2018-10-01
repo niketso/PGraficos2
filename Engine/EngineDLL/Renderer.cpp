@@ -85,9 +85,9 @@ unsigned int Renderer::GenColorBuffer(float* buffer, int size)
 	return colorbuffer;
 }
 
-void Renderer::DrawBuffer(int size) 
+void Renderer::DrawBuffer(int size, int drawType) 
 {																																		
-	glDrawArrays(GL_TRIANGLE_STRIP, 0, size);								
+	glDrawArrays(drawType, 0, size);								
 }
 
 void Renderer::DestroyBuffer(unsigned int buffer) 
