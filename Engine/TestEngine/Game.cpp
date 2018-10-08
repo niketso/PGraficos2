@@ -21,6 +21,7 @@ bool Game::OnStart() {
 	rec1->SetPos(3, 0, 0);
 	cir1->SetPos(0, 0, 0);
 
+	unsigned char i = Importer::LoadBMP("perro.bmp");
 	cout << "Game::OnStart()" << endl;
 	return true;
 }
@@ -44,9 +45,9 @@ bool Game::OnUpdate() {
 
 void Game::OnDraw()
 {
-	tr1->Draw();
-	rec1->Draw();
-	cir1->Draw();
+	//tr1->Draw();
+	//rec1->Draw();
+	//cir1->Draw();
 		
 	cout << "Game::OnDraw(): " << i << endl;
 }

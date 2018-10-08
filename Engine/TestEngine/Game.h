@@ -3,6 +3,7 @@
 #include "../EngineDLL/Rectangle.h"
 #include "../EngineDLL/Circle.h"
 #include "../EngineDLL/Material.h"
+#include "../EngineDLL/Importer.h"
 #include <iostream>
 class Game : public Gamebase {
 private:

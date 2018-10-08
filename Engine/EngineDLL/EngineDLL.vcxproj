@@ -39,7 +39,7 @@
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v141</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
@@ -89,6 +89,8 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(SolutionDir)external\glfw-3.2.1.bin.WIN64\include;$(SolutionDir)external\glm-0.9.9.0;$(SolutionDir)external\glew-2.1.0\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>ENGINEDLL_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -124,6 +126,7 @@
     <ClInclude Include="Entity.h" />
     <ClInclude Include="Exports.h" />
     <ClInclude Include="GameBase.h" />
+    <ClInclude Include="Importer.h" />
     <ClInclude Include="Material.h" />
     <ClInclude Include="Rectangle.h" />
     <ClInclude Include="Renderer.h" />
@@ -136,6 +139,7 @@
     <ClCompile Include="Circle.cpp" />
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="GameBase.cpp" />
+    <ClCompile Include="Importer.cpp" />
     <ClCompile Include="Material.cpp" />
     <ClCompile Include="Rectangle.cpp" />
     <ClCompile Include="Renderer.cpp" />
