@@ -8,12 +8,12 @@ layout(location = 1) in vec2 vertexUV;
 out vec2 UV;
 
 // Valores que permanecen constantes para toda la malla. .
-uniform mat4 MVP;
+uniform mat4 WVP;
 
 void main(){
 
-    // Posición de salida del vértice. En el espacio clip: MVP * position
-    gl_Position =  MVP * vec4(vertexPosition_modelspace,1);
+    // Posición de salida del vértice. En el espacio clip: WVP * position
+    gl_Position =  WVP * vec4(vertexPosition_modelspace,1);
 
     // UV de los vértices. No se necesita un espacio especial para esta línea.
     UV = vertexUV;

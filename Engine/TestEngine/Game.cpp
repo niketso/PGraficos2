@@ -14,14 +14,17 @@ bool Game::OnStart() {
 	
 	rec1 = new Rectangle(render);
 	rec1->SetMaterial(mat1);
+
 	cir1 = new Circle(render,1,20);
 	cir1->SetMaterial(mat1);
+
+	spr1 = new Sprite(render, "perro.bmp");
+	spr1->SetMaterial(mat1);
 
 	tr1->SetPos(6, 0, 0);
 	rec1->SetPos(3, 0, 0);
 	cir1->SetPos(0, 0, 0);
 
-	unsigned char i = Importer::LoadBMP("perro.bmp");
 	cout << "Game::OnStart()" << endl;
 	return true;
 }
@@ -31,6 +34,7 @@ bool Game::OnStop() {
 	delete tr1;
 	delete rec1;
 	delete cir1;
+	delete spr1;
 
 	cout << "Game::OnStop()" << endl;
 	return false;
@@ -48,6 +52,7 @@ void Game::OnDraw()
 	//tr1->Draw();
 	//rec1->Draw();
 	//cir1->Draw();
+	spr1->Draw();
 		
 	cout << "Game::OnDraw(): " << i << endl;
 }

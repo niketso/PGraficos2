@@ -26,7 +26,7 @@ public:
 	void SwapBuffers();
 	unsigned int  GenBuffer(float* buffer, int size);
 	unsigned int  GenColorBuffer(float* buffer, int size);
-	unsigned int GenTextureBuffer(float* buffer, int size, int width, int height, const void* data);
+	unsigned int GenTextureBuffer(int width, int height, const void* data);
 	void BindBuffer(unsigned int vtxbuffer, unsigned int name);
 	void BindColorBuffer(unsigned int clrbuffer, unsigned int name);
 	void BindTextureBuffer(unsigned int txtrebuffer, unsigned int name);

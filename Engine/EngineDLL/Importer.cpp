@@ -2,14 +2,14 @@
 
 
 
-unsigned char Importer::LoadBMP(const char * BMPname) 
+BMPheader Importer::LoadBMP(const char * BMPname) 
 {
 	unsigned char header[54]; 
 	BMPheader bmph;
 	FILE * file;
 	 fopen_s(&file,BMPname, "rb");
 
-	if (RightBMPFormat(BMPname, header, file))
+	if (RightBMPFormat(header, file))
 	{
 		bmph.dataPos = *(int*)&(header[0x0A]);
 		bmph.imageSize = *(int*)&(header[0x22]);
@@ -27,10 +27,11 @@ unsigned char Importer::LoadBMP(const char * BMPname)
 	fread(bmph.data, 1, bmph.imageSize, file);
 	fclose(file);
 
-	return *bmph.data;
+	return bmph;
 	
 }
-bool Importer::RightBMPFormat(const char* BMPname, unsigned char  BMPheader[] , FILE * BMPfile)
+
+bool Importer::RightBMPFormat(unsigned char  BMPheader[], FILE * BMPfile)
 {	
 	if (!BMPfile)
 	{

@@ -85,7 +85,7 @@ unsigned int Renderer::GenColorBuffer(float* buffer, int size)
 	return colorbuffer;
 }
 
-unsigned int Renderer::GenTextureBuffer(float* buffer, int size, int width, int height,const void* data)
+unsigned int Renderer::GenTextureBuffer( int width, int height,const void* data)
 {
 	// Se Crea una textura OpenGL
 	unsigned int  texturebuffer;
@@ -145,7 +145,7 @@ void Renderer::BindTextureBuffer(unsigned int txtrebuffer, unsigned int atribId)
 	glBindBuffer(GL_ARRAY_BUFFER, txtrebuffer);
 	glVertexAttribPointer(
 		atribId,														// Le paso la ubicacion de donde se guardo la mempria del vertice
-		3,																// tamaño
+		2,																// tamaño
 		GL_FLOAT,														// tipo
 		GL_FALSE,														// normalizado?
 		0,																// Paso

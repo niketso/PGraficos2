@@ -4,6 +4,7 @@
 #include "../EngineDLL/Circle.h"
 #include "../EngineDLL/Material.h"
 #include "../EngineDLL/Importer.h"
+#include "../EngineDLL/Sprite.h"
 #include <iostream>
 class Game : public Gamebase {
 private:
@@ -12,6 +13,7 @@ private:
 	Rectangle *rec1;
 	Circle   *cir1;
 	Material * mat1;
+	Sprite  * spr1;
 public:
 	Game();
 	~Game();
