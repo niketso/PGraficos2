@@ -85,6 +85,24 @@ unsigned int Renderer::GenColorBuffer(float* buffer, int size)
 	return colorbuffer;
 }
 
+unsigned int Renderer::GenTextureBuffer(float* buffer, int size, int width, int height,const void* data)
+{
+	// Se Crea una textura OpenGL
+	unsigned int  texturebuffer;
+	glGenTextures(1, &texturebuffer);
+
+	// Se "Ata" la nueva textura : Todas las futuras funciones de texturas van a modificar esta textura
+	glBindTexture(GL_TEXTURE_2D, texturebuffer);
+
+	// Se le pasa la imagen a OpenGL
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_BGR, GL_UNSIGNED_BYTE, data);
+
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+
+	return texturebuffer;
+}
+
 void Renderer::DrawBuffer(int size, int drawType) 
 {																																		
 	glDrawArrays(drawType, 0, size);								
@@ -120,6 +138,19 @@ void Renderer::BindColorBuffer(unsigned int clrbuffer, unsigned int atribId)
 		(void*)0														// desfase del buffer
 	);
 
+}
+
+void Renderer::BindTextureBuffer(unsigned int txtrebuffer, unsigned int atribId) 
+{
+	glBindBuffer(GL_ARRAY_BUFFER, txtrebuffer);
+	glVertexAttribPointer(
+		atribId,														// Le paso la ubicacion de donde se guardo la mempria del vertice
+		3,																// tamaño
+		GL_FLOAT,														// tipo
+		GL_FALSE,														// normalizado?
+		0,																// Paso
+		(void*)0														// desfase del buffer
+	);
 }
 
 void Renderer::BeginDraw(unsigned int atribId )

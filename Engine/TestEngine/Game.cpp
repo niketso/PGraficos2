@@ -8,7 +8,7 @@ Game::~Game()
 }
 bool Game::OnStart() {
 	mat1 = new Material();
-	unsigned int programID = mat1->LoadShaders("colorvertexshader.txt", "colorfragmentshader.txt");
+	unsigned int programID = mat1->LoadShaders("texturevertexshader.txt", "texturefragmentshader.txt");
 	tr1 = new Triangle(render);
 	tr1->SetMaterial(mat1);
 	

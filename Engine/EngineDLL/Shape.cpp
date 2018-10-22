@@ -7,13 +7,16 @@ Shape::Shape(Renderer* render): Entity(render)
 	material = NULL;
 	vertex = NULL;
 	clrvertex = NULL;
+	txtrevertex = NULL;
 	bufferId = -1;
 	colorBufferId = -1;
+	textureBufferId -1;
 }
 Shape::~Shape()
 {
 	Dispose();
 	DisposeColor();
+	DisposeTexture();
 }
 void Shape::SetVertices(float* vertices, int count) 
 {
@@ -26,6 +29,12 @@ void Shape::SetColorVertices(float* vertices, int count)
 	colorVtxCount = count;
 	shouldDisposeColor = true;
 	colorBufferId = render->GenColorBuffer(vertices, sizeof(float)* count * 3);
+}
+void Shape::SetTextureVertices(float* vertices, int count) 
+{
+	textreVtxCount = count;
+	shouldDisposeTexture = true;
+	//textureBufferId = render->GenTextureBuffer(vertices, sizeof(float)* count * 3);
 }
 
 void Shape::SetMaterial(Material* material)
@@ -44,8 +53,9 @@ void Shape::DrawMesh(int drawType)
 	}
 	render->BeginDraw(0);
 	render->BeginDraw(1);
-	render->BindBuffer(bufferId, 0);
+	render->BindBuffer(bufferId, 0);	
 	render->BindColorBuffer(colorBufferId, 1);
+	render->BindTextureBuffer(textureBufferId, 1);
 	render->DrawBuffer(vtxCount,drawType);
 	render->EndDraw(0);
 	render->EndDraw(1);
@@ -63,6 +73,15 @@ void Shape::DisposeColor()
 	if (shouldDisposeColor)
 	{		
 		render->DestroyBuffer(colorBufferId);		
+		shouldDispose = false;
+	}
+}
+
+void Shape::DisposeTexture()
+{
+	if (shouldDisposeTexture)
+	{
+		render->DestroyBuffer(textureBufferId);
 		shouldDispose = false;
 	}
 }

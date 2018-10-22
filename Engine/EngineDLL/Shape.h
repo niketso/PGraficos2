@@ -12,22 +12,28 @@ protected:
 	Material * material;
 	bool shouldDispose;
 	bool shouldDisposeColor;
+	bool shouldDisposeTexture;
 	unsigned int bufferId;
 	unsigned int colorBufferId;
+	unsigned int textureBufferId;
 	float * vertex;
 	float * clrvertex;
+	float *txtrevertex;
 	int vtxCount;
 	int colorVtxCount;
+	int textreVtxCount;
 
 public:
 	Shape(Renderer *render);
 	~Shape();
 	void SetVertices(float* vertices, int count);
 	void SetColorVertices(float* vertices, int count);
+	void SetTextureVertices(float* vertices, int count);
 	virtual void Draw() = 0;
 	void DrawMesh(int drawType);
 	void SetMaterial(Material* material);
 	void Dispose();
 	void DisposeColor();
+	void DisposeTexture();
 };
 
