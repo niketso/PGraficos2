@@ -125,3 +125,8 @@ void Material::SetMatrixProperty(const char* name, glm::mat4& mat)
 	 unsigned int matrixId = glGetUniformLocation(ProgramID, name);
 	 glUniformMatrix4fv(matrixId, 1, GL_FALSE, &mat[0][0]);
 }
+
+void Material::BindTexture(const char* name)
+{
+	 textureId = glGetUniformLocation(ProgramID, name);	
+}

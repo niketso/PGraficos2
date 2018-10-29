@@ -9,6 +9,7 @@ Game::~Game()
 bool Game::OnStart() {
 	mat1 = new Material();
 	unsigned int programID = mat1->LoadShaders("texturevertexshader.txt", "texturefragmentshader.txt");
+	//unsigned int programID = mat1->LoadShaders("vert.glsl", "frag.glsl");
 	tr1 = new Triangle(render);
 	tr1->SetMaterial(mat1);
 	
@@ -18,8 +19,10 @@ bool Game::OnStart() {
 	cir1 = new Circle(render,1,20);
 	cir1->SetMaterial(mat1);
 
-	spr1 = new Sprite(render, "perro.bmp");
+	spr1 = new Sprite(render);	
 	spr1->SetMaterial(mat1);
+	spr1->LoadTexture("sample2.bmp");
+	
 
 	tr1->SetPos(6, 0, 0);
 	rec1->SetPos(3, 0, 0);

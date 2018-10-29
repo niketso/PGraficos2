@@ -1,24 +1,23 @@
 #include "Sprite.h"
 
-
-
-Sprite::Sprite(Renderer* render, const char* name): Shape (render)
+Sprite::Sprite(Renderer* render): Shape (render)
 {
-	header = Importer::LoadBMP(name);
-	txtrevertex = NULL;
-	textureBufferId - 1;
+	
+	txtreUVvertex = NULL;
+	textureBufferId = - 1;
+	textureUVBufferId = - 1;
 
 	vertex = new float[12]
 	{
 		-1.0f,-1.0f , 0.0f ,
-		1.0f,-1.0f , 0.0f ,
-		-1.0f, 1.0f , 0.0f ,
+		-1.0f,1.0f , 0.0f ,
+		1.0f, -1.0f , 0.0f ,
 		1.0f, 1.0f , 0.0f
 	};
 
 	SetVertices(vertex, 4);
 
-	txtrevertex = new float[8]
+	txtreUVvertex = new float[8]
 	{
 		0.0f,0.0f,
 		0.0f,1.0f,
@@ -26,7 +25,8 @@ Sprite::Sprite(Renderer* render, const char* name): Shape (render)
 		1.0f,1.0f	
 	};
 
-	SetTextureVertices(txtrevertex, 4);
+	SetTextureVertices(txtreUVvertex, 4);
+	
 }
 
 
@@ -37,9 +37,18 @@ Sprite::~Sprite()
 
 void Sprite::SetTextureVertices(float* vertices, int count)
 {
+	DisposeTexture();
 	textreVtxCount = count;
 	shouldDisposeTexture = true;
-	textureBufferId = render->GenTextureBuffer(header.width,header.height,header.data);
+	
+	textureBufferId = render->GenBuffer(vertices, sizeof(float)* count * 2);
+}
+
+void Sprite::LoadTexture(const char* name)
+{
+	header = Importer::LoadBMP(name);
+	textureUVBufferId = render->GenTextureBuffer(header.width,header.height,header.data);
+	material->BindTexture("myTextureSampler");
 }
 
 void Sprite::DisposeTexture()
@@ -50,10 +59,7 @@ void Sprite::DisposeTexture()
 		shouldDispose = false;
 	}
 }
-void Sprite::Draw() 
-{
-	DrawMesh(GL_TRIANGLE_STRIP);
-}
+
 
 void Sprite::DrawMesh(int drawType)
 {
@@ -64,11 +70,18 @@ void Sprite::DrawMesh(int drawType)
 		material->Bind();
 		material->SetMatrixProperty("WVP", render->GetWvp());
 	}
-	render->BeginDraw(0);
+	
+	render->BindTexture(textureBufferId,textureUVBufferId);	
+	render->BeginDraw(0);	
 	render->BeginDraw(1);
 	render->BindBuffer(bufferId, 0);
-	render->BindTextureBuffer(textureBufferId, 1);
-	render->DrawBuffer(textreVtxCount, drawType);
+	render->BindTextureBuffer(textureUVBufferId, 1);
+	render->DrawBuffer(vtxCount, drawType);
 	render->EndDraw(0);
 	render->EndDraw(1);
+}
+
+void Sprite::Draw() 
+{
+	DrawMesh(GL_TRIANGLE_STRIP);
 }

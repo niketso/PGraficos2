@@ -26,10 +26,11 @@ public:
 	void SwapBuffers();
 	unsigned int  GenBuffer(float* buffer, int size);
 	unsigned int  GenColorBuffer(float* buffer, int size);
-	unsigned int GenTextureBuffer(int width, int height, const void* data);
+	unsigned int GenTextureBuffer(int width, int height, unsigned char* data);
 	void BindBuffer(unsigned int vtxbuffer, unsigned int name);
 	void BindColorBuffer(unsigned int clrbuffer, unsigned int name);
 	void BindTextureBuffer(unsigned int txtrebuffer, unsigned int name);
+	void BindTexture(unsigned int Id, unsigned int txtrebuffer);
 	void BeginDraw(unsigned int name);
 	void EndDraw(unsigned int name);
 	void DrawBuffer( int size,int drawType);

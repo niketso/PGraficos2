@@ -9,13 +9,15 @@ class ENGINEDLL_API Sprite:public Shape
 	const char* file;
 	bool shouldDisposeTexture;
 	unsigned int textureBufferId;
-	float *txtrevertex;
+	unsigned int textureUVBufferId;
+	float *txtreUVvertex;
 	int textreVtxCount;
 	
 public:
-	Sprite(Renderer * render, const char* name);
+	Sprite(Renderer * render);
 	~Sprite();
 	void SetTextureVertices(float* vertices, int count);
+	void LoadTexture(const char* name);
 	void DisposeTexture();
 	void Draw() override;
 	void DrawMesh(int drawType) override;
