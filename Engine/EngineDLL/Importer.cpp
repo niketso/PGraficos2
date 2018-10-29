@@ -23,7 +23,7 @@ BMPheader Importer::LoadBMP(const char * BMPname)
 
 	bmph.data = new unsigned char[bmph.imageSize];
 
-	
+	fseek(file, bmph.dataPos, 0);
 	fread(bmph.data, 1, bmph.imageSize, file);
 	fclose(file);
 

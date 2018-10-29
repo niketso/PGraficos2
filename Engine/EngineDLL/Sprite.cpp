@@ -6,6 +6,8 @@ Sprite::Sprite(Renderer* render): Shape (render)
 	txtreUVvertex = NULL;
 	textureBufferId = - 1;
 	textureUVBufferId = - 1;
+	
+	shouldDisposeTexture = false;
 
 	vertex = new float[12]
 	{
@@ -48,7 +50,7 @@ void Sprite::LoadTexture(const char* name)
 {
 	header = Importer::LoadBMP(name);
 	textureUVBufferId = render->GenTextureBuffer(header.width,header.height,header.data);
-	material->BindTexture("myTextureSampler");
+	//material->BindTexture("myTextureSampler", textureUVBufferId);
 }
 
 void Sprite::DisposeTexture()
@@ -69,13 +71,14 @@ void Sprite::DrawMesh(int drawType)
 	if (material != NULL) {
 		material->Bind();
 		material->SetMatrixProperty("WVP", render->GetWvp());
+		material->BindTexture("myTextureSampler", textureUVBufferId);
 	}
 	
-	render->BindTexture(textureBufferId,textureUVBufferId);	
+	//render->BindTexture(textureBufferId,textureUVBufferId);	
 	render->BeginDraw(0);	
 	render->BeginDraw(1);
 	render->BindBuffer(bufferId, 0);
-	render->BindTextureBuffer(textureUVBufferId, 1);
+	render->BindTextureBuffer(textureBufferId, 1);
 	render->DrawBuffer(vtxCount, drawType);
 	render->EndDraw(0);
 	render->EndDraw(1);
