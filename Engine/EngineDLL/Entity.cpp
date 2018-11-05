@@ -7,6 +7,7 @@ Entity::Entity(Renderer *renderPTR)
 	TranslateMatrix = glm::mat4(1.0f);
 	RotMatrix = glm::mat4(1.0f);
 	ScaleMatrix = glm::mat4(1.0f);
+	pivotPosition = glm::vec3(0.0f);
 
 	pos[0] = pos[1] = pos[2] = 0.0f;
 	rot[0] = rot[1] = rot[2] = 0.0f;
@@ -59,6 +60,36 @@ glm::vec3 Entity::GetRot()
 glm::vec3 Entity::GetScale()
 {
 	return scale;
+}
+
+void Entity::SetBoundingBox(glm::vec3 pPos, float h, float w, Layers lyr)
+{
+	pivotPosition = pPos;
+	height = h;
+	width = w;
+	layer = lyr;
+
+}
+
+unsigned int Entity::GetX()
+{
+	return pivotPosition.x;
+}
+unsigned int Entity::GetY()
+{
+	return pivotPosition.y;
+}
+glm::vec2 Entity::GetPivot()
+{
+	return pivotPosition;
+}
+unsigned int Entity::GetHeight()
+{
+	return height;
+}
+unsigned int Entity::GetWidth()
+{
+	return width;
 }
 
 

@@ -6,7 +6,7 @@ enum  Layers
 {
 	player,
 	enemy,
-	bullet,
+	map,
 	count
 
 };
