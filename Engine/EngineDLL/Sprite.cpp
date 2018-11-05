@@ -4,8 +4,8 @@ Sprite::Sprite(Renderer* render): Shape (render)
 {
 	
 	txtreUVvertex = NULL;
+	UVBufferId = - 1;
 	textureBufferId = - 1;
-	textureUVBufferId = - 1;
 	
 	shouldDisposeTexture = false;
 
@@ -43,13 +43,13 @@ void Sprite::SetTextureVertices(float* vertices, int count)
 	textreVtxCount = count;
 	shouldDisposeTexture = true;
 	
-	textureBufferId = render->GenBuffer(vertices, sizeof(float)* count * 2);
+	UVBufferId = render->GenBuffer(vertices, sizeof(float)* count * 2);
 }
 
 void Sprite::LoadTexture(const char* name)
 {
 	header = Importer::LoadBMP(name);
-	textureUVBufferId = render->GenTextureBuffer(header.width,header.height,header.data);
+	textureBufferId = render->GenTextureBuffer(header.width,header.height,header.data);
 	//material->BindTexture("myTextureSampler", textureUVBufferId);
 }
 
@@ -57,7 +57,7 @@ void Sprite::DisposeTexture()
 {
 	if (shouldDisposeTexture)
 	{
-		render->DestroyBuffer(textureBufferId);
+		render->DestroyBuffer(UVBufferId);
 		shouldDispose = false;
 	}
 }
@@ -71,14 +71,14 @@ void Sprite::DrawMesh(int drawType)
 	if (material != NULL) {
 		material->Bind();
 		material->SetMatrixProperty("WVP", render->GetWvp());
-		material->BindTexture("myTextureSampler", textureUVBufferId);
+		material->BindTexture("myTextureSampler", textureBufferId);
 	}
 	
 	//render->BindTexture(textureBufferId,textureUVBufferId);	
 	render->BeginDraw(0);	
 	render->BeginDraw(1);
 	render->BindBuffer(bufferId, 0);
-	render->BindTextureBuffer(textureBufferId, 1);
+	render->BindTextureBuffer(UVBufferId, 1);
 	render->DrawBuffer(vtxCount, drawType);
 	render->EndDraw(0);
 	render->EndDraw(1);

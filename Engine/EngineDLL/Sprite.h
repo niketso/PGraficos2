@@ -9,7 +9,7 @@ class ENGINEDLL_API Sprite:public Shape
 	const char* file;
 	bool shouldDisposeTexture;
 	unsigned int textureBufferId;
-	unsigned int textureUVBufferId;
+	unsigned int UVBufferId;
 	float *txtreUVvertex;
 	int textreVtxCount;
 	
