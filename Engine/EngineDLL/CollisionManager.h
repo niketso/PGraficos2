@@ -16,11 +16,10 @@ public:
 	CollisionManager();
 	~CollisionManager();
 	void AddCollisionEntity(Entity* e, Layers lyr);
-	void CheckCollisionsBetweenLayers(int A, int B);
 	void CollisionBoxDetector();
-	void CollisionCircleDetector();
-	void CollisionBoxMath();
-	void CollisionCircleMath();
+	void CheckCollisionsBetweenLayers(list<Entity*> *layerA, list<Entity*> *layerB);	
+	void CollisionBoxResolver(Entity* A, Entity* B);
+	
 
 };
 
