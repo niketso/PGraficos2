@@ -17,7 +17,7 @@ public:
 	~CollisionManager();
 	void AddCollisionEntity(Entity* e, Layers lyr);
 	void CollisionBoxDetector();
-	void CheckCollisionsBetweenLayers(list<Entity*> *layerA, list<Entity*> *layerB);	
+	void CheckCollisionsBetweenLayers( list<Entity*> *layerA,  list<Entity*> *layerB);	
 	void CollisionBoxResolver(Entity* A, Entity* B);
 	
 

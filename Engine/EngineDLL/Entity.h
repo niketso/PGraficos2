@@ -2,6 +2,7 @@
 #include "Exports.h"
 #include "Renderer.h"
 #include "Definitions.h"
+#include "BoundingBox.h"
 #include<iostream>
 using namespace std;
 class ENGINEDLL_API Entity
@@ -12,8 +13,12 @@ private:
 	glm::vec3 scale;
 	float height;
 	float width;
+	bool isStatic;
+	bool isTrigger;
 	glm::vec3 pivotPosition;
 	Layers layer;
+	BoundingBox *bBox;
+	
 	
 protected:
 	Renderer * render;
@@ -34,11 +39,12 @@ public:
 	glm::vec3 GetScale();
 
 	//BoundingBox
-	void SetBoundingBox(glm::vec3 pPos, float height, float width, Layers layer);
+	void SetBoundingBox(glm::vec3 pPos, float height, float width, Layers layer,bool isStatic, bool isTrigger);
 	unsigned int GetX();
 	unsigned int GetY();
 	glm::vec2 GetPivot();
 	unsigned int GetHeight();
 	unsigned int GetWidth();
+	BoundingBox* GetBoundingBox();
 };
 

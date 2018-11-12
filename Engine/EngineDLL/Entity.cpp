@@ -12,6 +12,7 @@ Entity::Entity(Renderer *renderPTR)
 	pos[0] = pos[1] = pos[2] = 0.0f;
 	rot[0] = rot[1] = rot[2] = 0.0f;
 	scale[0] = scale[1] = scale[2] = 1.0f;
+	bBox = NULL;
 
 }
 void Entity::SetPos(float x, float y,float z) 
@@ -62,12 +63,15 @@ glm::vec3 Entity::GetScale()
 	return scale;
 }
 
-void Entity::SetBoundingBox(glm::vec3 pPos, float h, float w, Layers lyr)
+void Entity::SetBoundingBox(glm::vec3 pPos, float h, float w, Layers lyr, bool isStc, bool isTrggr)
 {
 	pivotPosition = pPos;
 	height = h;
 	width = w;
 	layer = lyr;
+	isStatic = isStc;
+	isTrigger = isTrggr;
+	
 
 }
 
@@ -90,6 +94,11 @@ unsigned int Entity::GetHeight()
 unsigned int Entity::GetWidth()
 {
 	return width;
+}
+
+BoundingBox* Entity::GetBoundingBox()
+{
+	return bBox;
 }
 
 
