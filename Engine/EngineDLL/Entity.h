@@ -40,11 +40,11 @@ public:
 
 	//BoundingBox
 	void SetBoundingBox(glm::vec3 pPos, float height, float width, Layers layer,bool isStatic, bool isTrigger);
-	unsigned int GetX();
-	unsigned int GetY();
+	float GetX();
+	float GetY();
 	glm::vec2 GetPivot();
-	unsigned int GetHeight();
-	unsigned int GetWidth();
+	float GetHeight();
+	float GetWidth();
 	BoundingBox* GetBoundingBox();
 };
 

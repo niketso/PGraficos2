@@ -5,6 +5,7 @@
 #include "../EngineDLL/Material.h"
 #include "../EngineDLL/Importer.h"
 #include "../EngineDLL/Sprite.h"
+#include "../EngineDLL/CollisionManager.h"
 #include <iostream>
 class Game : public Gamebase {
 private:

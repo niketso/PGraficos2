@@ -2,15 +2,21 @@
 #include <math.h>
 
 
+CollisionManager* CollisionManager::instance = NULL;
 
 CollisionManager::CollisionManager()
 {
-	/*for (int i = 0; i < (int)Layers::count; i++)
+	
+	for (int i = 0; i < (int)Layers::count; i++) 
 	{
-		CollisionGroups[i];
-	}*/
-	
-	
+		//CollisionGroups[i] = new list<Entity*>();
+		//CollisionGroups[i]->push_back(new list<Entity*>());
+		//CollisionGroups.emplace(new list<Entity*>());
+				
+	}
+
+	//CollisionGroups.reserve((int)Layers::count);
+		
 	
 }
 
@@ -21,7 +27,8 @@ CollisionManager::~CollisionManager()
 
 void CollisionManager::AddCollisionEntity(Entity* e , Layers lyr)
 {
-	CollisionGroups[lyr].push_back(e);                                            // tengo que inicializar el vector??
+	
+	 CollisionGroups[lyr]->push_back(e);                                            // tengo que inicializar el vector??
 
 }
 
@@ -31,7 +38,7 @@ void CollisionManager::CollisionBoxDetector()
 	{
 		for (int j = i+1; j < (int)Layers::count; j++)
 		{
-			CheckCollisionsBetweenLayers(&CollisionGroups[i] ,&CollisionGroups[j]);                                           //Como le paso la layer??
+			CheckCollisionsBetweenLayers(CollisionGroups[i] ,CollisionGroups[j]);                                           //Como le paso la layer??
 		}
 	}
 }
@@ -57,18 +64,27 @@ void CollisionManager::CollisionBoxResolver(Entity* A, Entity* B)
 	float moduleY = abs(yDiff);
 
 
-	if (moduleX <((A->GetWidth() + B->GetWidth()) / 2 ) && moduleY < ((A->GetHeight + B->GetHeight) / 2))
+	if (moduleX < (A->GetWidth() / 2.0f + B->GetWidth() / 2.0f ) && moduleY < (A->GetHeight() / 2.0f + B->GetHeight()/2.0f ))
 	{
 		//Penetracion
-		float xP = (A->GetWidth() + B->GetWidth() / 2) - moduleX;
-		float yP = (A->GetHeight() + B->GetHeight() / 2) - moduleY;
+		float xP = (A->GetWidth()/2.0f + B->GetWidth()/ 2.0f) - moduleX;
+		float yP = (A->GetHeight()/2.0f + B->GetHeight()/ 2.0f) - moduleY;
 
 		if (xP > yP)
 		{
 			//vertical
 			if (A->GetBoundingBox()->GetStatic())
 			{
-
+				B->SetPos(B->GetX(), B->GetY() - (yP), 0);
+			}
+			else if (B->GetBoundingBox()->GetStatic())
+			{
+				A->SetPos(A->GetX(), A->GetY() - (yP), 0);
+			}
+			else 
+			{
+				A->SetPos(A->GetX(),A->GetY() - (yP / 2) , 0);
+				B->SetPos(B->GetX(), B->GetY() - (yP / 2), 0);
 			}
 
 
@@ -76,6 +92,19 @@ void CollisionManager::CollisionBoxResolver(Entity* A, Entity* B)
 		else 
 		{
 			//horizontal
+			if (A->GetBoundingBox()->GetStatic())
+			{
+				B->SetPos(B->GetX() - (xP), B->GetY(), 0);
+			}
+			else if (B->GetBoundingBox()->GetStatic())
+			{
+				A->SetPos(A->GetX() - (xP), A->GetY(), 0);
+			}
+			else
+			{
+				A->SetPos(A->GetX() - (xP / 2), A->GetY() , 0);
+				B->SetPos(B->GetX() - (xP / 2), B->GetY() , 0);
+			}
 
 		}
 		 

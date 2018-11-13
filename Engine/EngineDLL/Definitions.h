@@ -4,7 +4,7 @@
 
 enum  Layers
 {
-	player,
+	player = 0,
 	enemy,
 	map,
 	count

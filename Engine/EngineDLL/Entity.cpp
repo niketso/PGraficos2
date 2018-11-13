@@ -75,11 +75,11 @@ void Entity::SetBoundingBox(glm::vec3 pPos, float h, float w, Layers lyr, bool i
 
 }
 
-unsigned int Entity::GetX()
+float Entity::GetX()
 {
 	return pivotPosition.x;
 }
-unsigned int Entity::GetY()
+float Entity::GetY()
 {
 	return pivotPosition.y;
 }
@@ -87,11 +87,11 @@ glm::vec2 Entity::GetPivot()
 {
 	return pivotPosition;
 }
-unsigned int Entity::GetHeight()
+float Entity::GetHeight()
 {
 	return height;
 }
-unsigned int Entity::GetWidth()
+float Entity::GetWidth()
 {
 	return width;
 }

@@ -10,7 +10,9 @@ using namespace std;
 class  ENGINEDLL_API CollisionManager
 {
 private:
-	vector<list<Entity*>> CollisionGroups;
+	static CollisionManager* instance;
+
+	vector<list<Entity*>*> CollisionGroups;
 	//vector<list<BoundingCircle>*>* CircleListVector;
 public:
 	CollisionManager();
@@ -20,6 +22,16 @@ public:
 	void CheckCollisionsBetweenLayers( list<Entity*> *layerA,  list<Entity*> *layerB);	
 	void CollisionBoxResolver(Entity* A, Entity* B);
 	
+	static CollisionManager* Instance()
+	{
+		if (instance == NULL)
+		{
+			instance = new CollisionManager();
+		}
+		return instance;
+	}
 
+	CollisionManager(CollisionManager const&) = delete;
+	void operator = (CollisionManager const&) = delete;
 };
 
