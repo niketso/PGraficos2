@@ -5,19 +5,11 @@
 CollisionManager* CollisionManager::instance = NULL;
 
 CollisionManager::CollisionManager()
-{
-	
+{	
 	for (int i = 0; i < (int)Layers::count; i++) 
-	{
-		//CollisionGroups[i] = new list<Entity*>();
-		//CollisionGroups[i]->push_back(new list<Entity*>());
-		//CollisionGroups.emplace(new list<Entity*>());
-				
-	}
-
-	//CollisionGroups.reserve((int)Layers::count);
-		
-	
+	{		
+		CollisionGroups.push_back(new list<Entity*>());						
+	}			
 }
 
 
@@ -63,7 +55,7 @@ void CollisionManager::CollisionBoxResolver(Entity* A, Entity* B)
 	float yDiff = (A->GetY() + B->GetY());
 	float moduleY = abs(yDiff);
 
-
+	
 	if (moduleX < (A->GetWidth() / 2.0f + B->GetWidth() / 2.0f ) && moduleY < (A->GetHeight() / 2.0f + B->GetHeight()/2.0f ))
 	{
 		//Penetracion
@@ -75,16 +67,16 @@ void CollisionManager::CollisionBoxResolver(Entity* A, Entity* B)
 			//vertical
 			if (A->GetBoundingBox()->GetStatic())
 			{
-				B->SetPos(B->GetX(), B->GetY() - (yP), 0);
+				B->SetPos(B->GetX(), B->GetY() - (yP), 0.0f);
 			}
 			else if (B->GetBoundingBox()->GetStatic())
 			{
-				A->SetPos(A->GetX(), A->GetY() - (yP), 0);
+				A->SetPos(A->GetX(), A->GetY() - (yP), 0.0f);
 			}
 			else 
 			{
-				A->SetPos(A->GetX(),A->GetY() - (yP / 2) , 0);
-				B->SetPos(B->GetX(), B->GetY() - (yP / 2), 0);
+				A->SetPos(A->GetX(),A->GetY() - (yP / 2.0f) , 0.0f);
+				B->SetPos(B->GetX(), B->GetY() - (yP / 2.0f), 0.0f);
 			}
 
 
@@ -94,16 +86,16 @@ void CollisionManager::CollisionBoxResolver(Entity* A, Entity* B)
 			//horizontal
 			if (A->GetBoundingBox()->GetStatic())
 			{
-				B->SetPos(B->GetX() - (xP), B->GetY(), 0);
+				B->SetPos(B->GetX() - (xP), B->GetY(), 0.0f);
 			}
 			else if (B->GetBoundingBox()->GetStatic())
 			{
-				A->SetPos(A->GetX() - (xP), A->GetY(), 0);
+				A->SetPos(A->GetX() - (xP), A->GetY(), 0.0f);
 			}
 			else
 			{
-				A->SetPos(A->GetX() - (xP / 2), A->GetY() , 0);
-				B->SetPos(B->GetX() - (xP / 2), B->GetY() , 0);
+				A->SetPos(A->GetX() - (xP / 2), A->GetY() , 0.0f);
+				B->SetPos(B->GetX() - (xP / 2), B->GetY() , 0.0f);
 			}
 
 		}
