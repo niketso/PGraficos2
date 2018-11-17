@@ -21,6 +21,6 @@ public:
 	void DisposeTexture();
 	void Draw() override;
 	void DrawMesh(int drawType) override;
-	void SetFrame(unsigned int id);
+	//void SetFrame(unsigned int id);
 };
 

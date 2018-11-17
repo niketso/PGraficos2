@@ -20,7 +20,8 @@ CollisionManager::~CollisionManager()
 void CollisionManager::AddCollisionEntity(Entity* e , Layers lyr)
 {
 	
-	 CollisionGroups[lyr]->push_back(e);                                            // tengo que inicializar el vector??
+	 CollisionGroups[lyr]->push_back(e); 
+	 
 
 }
 
@@ -30,17 +31,18 @@ void CollisionManager::CollisionBoxDetector()
 	{
 		for (int j = i+1; j < (int)Layers::count; j++)
 		{
-			CheckCollisionsBetweenLayers(CollisionGroups[i] ,CollisionGroups[j]);                                           //Como le paso la layer??
+			CheckCollisionsBetweenLayers(CollisionGroups[i] ,CollisionGroups[j]);                                           
 		}
 	}
 }
 
 void CollisionManager::CheckCollisionsBetweenLayers( list<Entity*> *layerA, list<Entity*> *layerB)
 {
-	//list<Entity*> groupA = CollisionGroups[A];
+	
 	for (list<Entity*>::iterator i = layerA->begin(); i != layerA->end(); ++i) {
 		for (list<Entity*>::iterator j = layerB->begin(); j != layerB->end(); ++j) {
-			CollisionBoxResolver(*i, *j);                                                                //Como paso la layer??
+			CollisionBoxResolver(*i, *j); 
+			
 		}
 	}
 	
@@ -56,7 +58,7 @@ void CollisionManager::CollisionBoxResolver(Entity* A, Entity* B)
 	float moduleY = abs(yDiff);
 
 	
-	if (moduleX < (A->GetWidth() / 2.0f + B->GetWidth() / 2.0f ) && moduleY < (A->GetHeight() / 2.0f + B->GetHeight()/2.0f ))
+	if (moduleX <= (A->GetWidth() / 2.0f + B->GetWidth() / 2.0f ) && moduleY <= (A->GetHeight() / 2.0f + B->GetHeight()/2.0f ))
 	{
 		//Penetracion
 		float xP = (A->GetWidth()/2.0f + B->GetWidth()/ 2.0f) - moduleX;
@@ -64,6 +66,7 @@ void CollisionManager::CollisionBoxResolver(Entity* A, Entity* B)
 
 		if (xP > yP)
 		{
+			cout << yP  <<endl;
 			//vertical
 			if (A->GetBoundingBox()->GetStatic())
 			{
@@ -78,11 +81,12 @@ void CollisionManager::CollisionBoxResolver(Entity* A, Entity* B)
 				A->SetPos(A->GetX(),A->GetY() - (yP / 2.0f) , 0.0f);
 				B->SetPos(B->GetX(), B->GetY() - (yP / 2.0f), 0.0f);
 			}
-
+			//falta determinar de que lado viene
 
 		}
 		else 
 		{
+			cout << xP << endl;
 			//horizontal
 			if (A->GetBoundingBox()->GetStatic())
 			{
@@ -97,7 +101,7 @@ void CollisionManager::CollisionBoxResolver(Entity* A, Entity* B)
 				A->SetPos(A->GetX() - (xP / 2), A->GetY() , 0.0f);
 				B->SetPos(B->GetX() - (xP / 2), B->GetY() , 0.0f);
 			}
-
+			//falta determinar de que lado viene
 		}
 		 
 	}

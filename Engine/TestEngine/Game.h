@@ -15,6 +15,7 @@ private:
 	Circle   *cir1;
 	Material * mat1;
 	Sprite  * spr1;
+	Sprite * spr2;
 public:
 	Game();
 	~Game();

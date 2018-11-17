@@ -9,21 +9,22 @@ using namespace std;
 class ENGINEDLL_API BoundingBox
 {
 private:
+glm::vec3 boxPosition;
  float height;
  float width;
  bool isStatic;
  bool isTrigger;
- glm::vec2 pivotPosition;
- Layers layer;
 
 public:
-	BoundingBox(glm::vec2 pPos,float height, float width, Layers layer,bool isStc, bool isTrggr);
+	BoundingBox(glm::vec3 bPos,float height, float width,bool isStc, bool isTrggr);
 	~BoundingBox();
 	unsigned int GetX();
 	unsigned int GetY();
-	glm::vec2 GetPivot();
-	unsigned int GetHeight();
-	unsigned int GetWidth();
+	void SetBoxPos(glm::vec3 bpos);
+	void SetHeight(float h);
+	void SetWidth(float w);
+	float GetHeight();
+	float GetWidth();
 	void SetStatic(bool enable);
 	bool GetStatic();
 	void SetTrigger(bool enableTrigger);

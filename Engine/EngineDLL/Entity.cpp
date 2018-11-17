@@ -12,7 +12,7 @@ Entity::Entity(Renderer *renderPTR)
 	pos[0] = pos[1] = pos[2] = 0.0f;
 	rot[0] = rot[1] = rot[2] = 0.0f;
 	scale[0] = scale[1] = scale[2] = 1.0f;
-	bBox = NULL;
+	
 
 }
 void Entity::SetPos(float x, float y,float z) 
@@ -63,16 +63,50 @@ glm::vec3 Entity::GetScale()
 	return scale;
 }
 
-void Entity::SetBoundingBox(glm::vec3 pPos, float h, float w, Layers lyr, bool isStc, bool isTrggr)
+void Entity::Translate(float x, float y, float z) 
 {
-	pivotPosition = pPos;
+	pos[0] += x;
+	pos[1] += y;
+	pos[2] += z;
+
+	bBox->SetBoxPos(pos);
+
+	TranslateMatrix = glm::translate(glm::mat4(1.0f), pos);
+	UpdateWorldMatrix();
+}
+void Entity::Rotate(float x, float y, float z) 
+{
+	rot[0] += x;
+	rot[1] += y;
+	rot[2] += z;
+
+	RotMatrix = glm::rotate(glm::mat4(1.0f), rot[0], glm::vec3(1.0f, 0.0f, 0.0f));
+	RotMatrix *= glm::rotate(glm::mat4(1.0f), rot[1], glm::vec3(0.0f, 1.0f, 0.0f));
+	RotMatrix *= glm::rotate(glm::mat4(1.0f), rot[2], glm::vec3(0.0f, 0.0f, 1.0f));
+
+	UpdateWorldMatrix();
+}
+
+void Entity::SetBoundingBox(glm::vec3 bPos, float h, float w, bool isStc, bool isTrggr)
+{
+	bBox = new BoundingBox(bPos, h, w, isStc, isTrggr);
+
+	cout << "pito o lo que sea" << endl;
+
+	/*bBox->SetBoxPos(bPos);
+	//bBox->SetPivot(pPos);
+	bBox->SetHeight(h);
+	bBox->SetWidth(w);
+	bBox->SetStatic(isStc);
+	bBox->SetTrigger(isTrggr);
+	*/
+	
+	/*pivotPosition = pPos;
 	height = h;
 	width = w;
 	layer = lyr;
 	isStatic = isStc;
-	isTrigger = isTrggr;
-	
-
+	isTrigger = isTrggr;*/
 }
 
 float Entity::GetX()

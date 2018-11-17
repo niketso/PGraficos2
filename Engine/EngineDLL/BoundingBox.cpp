@@ -1,52 +1,62 @@
 #include "BoundingBox.h"
 
-BoundingBox::BoundingBox(glm::vec2 pPos, float height, float width, Layers layer, bool isStc, bool isTrggr) :
-	isStatic (false),
-	isTrigger(false)
+BoundingBox::BoundingBox(glm::vec3 bPos, float height, float width, bool isStc, bool isTrggr) :
+	boxPosition(bPos),	
+	height(height),
+	width(width),
+	isStatic(isStc),
+	isTrigger(isTrggr)	
 {
-
+	
+	
 }
 BoundingBox::~BoundingBox()
 {
 }
 unsigned int BoundingBox::GetX() 
 {
-	return pivotPosition.x;
+	return boxPosition.x;
 }
 unsigned int BoundingBox::GetY()
 {
-	return pivotPosition.y;
+	return boxPosition.y;
 }
-glm::vec2 BoundingBox::GetPivot()
+
+
+void BoundingBox::SetHeight(float h) 
 {
-	return pivotPosition;
+	height = h;
 }
-unsigned int BoundingBox::GetHeight()
+float BoundingBox::GetHeight()
 {
 	return height;
 }
-unsigned int BoundingBox::GetWidth()
+void BoundingBox::SetWidth(float w) 
+{
+	width = w;
+}
+float BoundingBox::GetWidth()
 {
 	return width;
 }
-
 void BoundingBox::SetStatic(bool enable)
 {
 	isStatic = enable;
 }
-
 bool BoundingBox::GetStatic() 
 {
 	return isStatic;
 }
-
 void BoundingBox::SetTrigger(bool enableTrigger)
 {
 }
-
 bool BoundingBox::GetTrigger()
 {
 	return isTrigger;
+}
+void BoundingBox::SetBoxPos(glm::vec3 bpos) 
+{
+	boxPosition = bpos;
 }
 
 

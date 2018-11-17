@@ -1,4 +1,5 @@
 #include "Gamebase.h"
+#include <GLFW/glfw3.h>
 
 Gamebase::Gamebase() {
 
@@ -7,7 +8,7 @@ Gamebase::~Gamebase() {
 }
 bool Gamebase::Start() {
 	cout << "Gamebase::Start()" << endl;
-
+	lastFrame = 0;
 	window = new Window();
 	if (!window->Start(800, 600, " "))
 		return false;
@@ -19,8 +20,13 @@ bool Gamebase::Start() {
 	return OnStart();
 }
 void Gamebase::Loop() {
+	
 	bool loop = true;
 	while (loop && !window->ShouldClose()) {
+
+		currentFrame = glfwGetTime();
+		deltaTime = currentFrame - lastFrame;
+		lastFrame = currentFrame;
 		loop = OnUpdate();
 		render->ClearScreen();
 		OnDraw();

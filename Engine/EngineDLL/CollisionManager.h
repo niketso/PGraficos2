@@ -13,7 +13,7 @@ private:
 	static CollisionManager* instance;
 
 	vector<list<Entity*>*> CollisionGroups;
-	//vector<list<BoundingCircle>*>* CircleListVector;
+	
 public:
 	CollisionManager();
 	~CollisionManager();
@@ -31,7 +31,7 @@ public:
 		return instance;
 	}
 
-	CollisionManager(CollisionManager const&) = delete;
-	void operator = (CollisionManager const&) = delete;
+	/*CollisionManager(CollisionManager const&) = delete;
+	void operator = (CollisionManager const&) = delete;*/
 };
 

@@ -17,8 +17,7 @@ private:
 	bool isTrigger;
 	glm::vec3 pivotPosition;
 	Layers layer;
-	BoundingBox *bBox;
-	
+	BoundingBox *bBox;	
 	
 protected:
 	Renderer * render;
@@ -34,12 +33,15 @@ public:
 	void SetPos(float x, float y,float z);
 	void SetRot(float x, float y,float z);
 	void SetScale(float x,float y, float z);
+	void Translate(float x, float y, float z);
+	void Rotate(float x, float y, float z);
+
 	glm::vec3 GetPos();
 	glm::vec3 GetRot();
 	glm::vec3 GetScale();
 
 	//BoundingBox
-	void SetBoundingBox(glm::vec3 pPos, float height, float width, Layers layer,bool isStatic, bool isTrigger);
+	void SetBoundingBox(glm::vec3 bPos, float height, float width,bool isStatic, bool isTrigger);
 	float GetX();
 	float GetY();
 	glm::vec2 GetPivot();
