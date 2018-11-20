@@ -56,13 +56,13 @@ void CollisionManager::CollisionBoxResolver(Entity* A, Entity* B)
 	float moduleX = abs(xDiff);	
 	float yDiff = (A->GetY() + B->GetY());
 	float moduleY = abs(yDiff);
-
 	
-	if (moduleX <= (A->GetWidth() / 2.0f + B->GetWidth() / 2.0f ) && moduleY <= (A->GetHeight() / 2.0f + B->GetHeight()/2.0f ))
+	
+	if (moduleX <= (A->GetBoundingBox()->GetWidth() + B->GetBoundingBox()->GetWidth() )/2.0f && moduleY <= (A->GetBoundingBox()->GetHeight() + B->GetBoundingBox()->GetHeight())/2.0f)
 	{
 		//Penetracion
-		float xP = (A->GetWidth()/2.0f + B->GetWidth()/ 2.0f) - moduleX;
-		float yP = (A->GetHeight()/2.0f + B->GetHeight()/ 2.0f) - moduleY;
+		float xP = (A->GetBoundingBox()->GetWidth() /2.0f + B->GetBoundingBox()->GetWidth() / 2.0f) - moduleX;
+		float yP = (A->GetBoundingBox()->GetHeight() /2.0f + B->GetBoundingBox()->GetHeight() / 2.0f) - moduleY;
 
 		if (xP > yP)
 		{

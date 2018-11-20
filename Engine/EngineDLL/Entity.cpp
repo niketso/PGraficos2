@@ -111,11 +111,11 @@ void Entity::SetBoundingBox(glm::vec3 bPos, float h, float w, bool isStc, bool i
 
 float Entity::GetX()
 {
-	return pivotPosition.x;
+	return pos.x;
 }
 float Entity::GetY()
 {
-	return pivotPosition.y;
+	return pos.y;
 }
 glm::vec2 Entity::GetPivot()
 {

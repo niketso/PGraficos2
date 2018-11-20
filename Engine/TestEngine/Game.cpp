@@ -36,7 +36,7 @@ bool Game::OnStart() {
 	colManager->AddCollisionEntity(spr2 , enemy);
 
 	spr1->Translate(-5, 0, 0);
-	spr2->Translate(5, 0, 0);
+	//spr2->SetPos(5, 0, 0);
 
 	
 	
