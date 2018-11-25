@@ -59,6 +59,11 @@ void BoundingBox::SetBoxPos(glm::vec3 bpos)
 	boxPosition = bpos;
 }
 
+glm::vec3 BoundingBox::GetBoxPos() 
+{
+	return boxPosition;
+}
+
 
 
 

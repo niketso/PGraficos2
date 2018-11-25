@@ -10,16 +10,7 @@ bool Game::OnStart() {
 	CollisionManager* colManager = CollisionManager::Instance();
 	
 	mat1 = new Material();
-	unsigned int programID = mat1->LoadShaders("texturevertexshader.txt", "texturefragmentshader.txt");
-	//unsigned int programID = mat1->LoadShaders("vert.glsl", "frag.glsl");
-	/*tr1 = new Triangle(render);
-	tr1->SetMaterial(mat1);*/
-	
-	/*rec1 = new Rectangle(render);
-	rec1->SetMaterial(mat1);*/
-
-	/*cir1 = new Circle(render,1,20);
-	cir1->SetMaterial(mat1);*/
+	unsigned int programID = mat1->LoadShaders("texturevertexshader.txt", "texturefragmentshader.txt");	
 
 	spr1 = new Sprite(render);	
 	spr2 = new Sprite(render);
@@ -28,21 +19,18 @@ bool Game::OnStart() {
 	spr1->LoadTexture("sample2.bmp");
 	spr2->LoadTexture("sample2.bmp");
 	
+	
+	
 	spr1->SetBoundingBox(spr1->GetPos(), 2.0f, 2.0f, false, false);
-	spr1->GetBoundingBox();
-	spr2->SetBoundingBox( spr2->GetPos(), 2.0f, 2.0f, false, false);
-	spr2->GetBoundingBox();
+	spr2->SetBoundingBox(spr2->GetPos(), 2.0f, 2.0f, false, false);
 	colManager->AddCollisionEntity(spr1 , player);
 	colManager->AddCollisionEntity(spr2 , enemy);
 
-	spr1->Translate(-5, 0, 0);
-	//spr2->SetPos(5, 0, 0);
+	spr1->SetPos(-5, 0, 0);
+	spr2->SetPos(5,0, 0);
 
 	
 	
-	//tr1->SetPos(6, 0, 0);
-	//rec1->SetPos(3, 0, 0);
-	//cir1->SetPos(0, 0, 0);
 	
 
 	cout << "Game::OnStart()" << endl;
@@ -50,10 +38,7 @@ bool Game::OnStart() {
 }
 bool Game::OnStop() {
 
-	//delete mat1;
-	//delete tr1;
-	//delete rec1;
-	//delete cir1;
+	
 	delete spr1;
 
 	cout << "Game::OnStop()" << endl;
@@ -61,10 +46,10 @@ bool Game::OnStop() {
 }
 bool Game::OnUpdate() {
 	i++;
-	//tr1->SetRot(0.0f, 0.0f, i/5 );
-	spr1->Translate(4.0f * deltaTime, 0.0f, 0.0f);
+	spr1->Translate(4.0f * deltaTime, 0.0f,0.0f);
+	spr2->Translate(-4.0f * deltaTime, 0.0f,0.0f);
 	CollisionManager::Instance()->CollisionBoxDetector();
-	//cout << "Game::OnUpdate(): " << i << endl;
+	cout << "Game::OnUpdate(): " << i << endl;
 	
 	return true;
 }

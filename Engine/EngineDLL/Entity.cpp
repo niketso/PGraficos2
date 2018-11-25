@@ -13,6 +13,7 @@ Entity::Entity(Renderer *renderPTR)
 	rot[0] = rot[1] = rot[2] = 0.0f;
 	scale[0] = scale[1] = scale[2] = 1.0f;
 	
+	
 
 }
 void Entity::SetPos(float x, float y,float z) 
@@ -20,6 +21,8 @@ void Entity::SetPos(float x, float y,float z)
 	pos[0] = x;
 	pos[1] = y;
 	pos[2] = z;
+
+	bBox->SetBoxPos(pos);
 
 	TranslateMatrix = glm::translate(glm::mat4(1.0f), pos);
 	UpdateWorldMatrix();
@@ -89,24 +92,7 @@ void Entity::Rotate(float x, float y, float z)
 
 void Entity::SetBoundingBox(glm::vec3 bPos, float h, float w, bool isStc, bool isTrggr)
 {
-	bBox = new BoundingBox(bPos, h, w, isStc, isTrggr);
-
-	cout << "pito o lo que sea" << endl;
-
-	/*bBox->SetBoxPos(bPos);
-	//bBox->SetPivot(pPos);
-	bBox->SetHeight(h);
-	bBox->SetWidth(w);
-	bBox->SetStatic(isStc);
-	bBox->SetTrigger(isTrggr);
-	*/
-	
-	/*pivotPosition = pPos;
-	height = h;
-	width = w;
-	layer = lyr;
-	isStatic = isStc;
-	isTrigger = isTrggr;*/
+	bBox = new BoundingBox(bPos, h, w, isStc, isTrggr);		
 }
 
 float Entity::GetX()

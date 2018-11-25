@@ -51,18 +51,19 @@ void CollisionManager::CheckCollisionsBetweenLayers( list<Entity*> *layerA, list
 void CollisionManager::CollisionBoxResolver(Entity* A, Entity* B)
 {
 	//calcular la matematica.
-	float xDiff = ( A->GetX() + B->GetX());
-	//valor absoluto.
-	float moduleX = abs(xDiff);	
-	float yDiff = (A->GetY() + B->GetY());
-	float moduleY = abs(yDiff);
-	
-	
-	if (moduleX <= (A->GetBoundingBox()->GetWidth() + B->GetBoundingBox()->GetWidth() )/2.0f && moduleY <= (A->GetBoundingBox()->GetHeight() + B->GetBoundingBox()->GetHeight())/2.0f)
+	glm::vec2 Diff = ( A->GetBoundingBox()->GetBoxPos() - B->GetBoundingBox()->GetBoxPos());
+	//valor absoluto.	
+	glm::vec2 module = abs(Diff);	
+			
+	if (module.x <= (A->GetBoundingBox()->GetWidth() + B->GetBoundingBox()->GetWidth() )/2.0f && module.y <= (A->GetBoundingBox()->GetHeight() + B->GetBoundingBox()->GetHeight())/2.0f)
 	{
+		//frenar al las entidades
+		A->Translate(0, 0, 0);
+		B->Translate(0, 0, 0);
+		
 		//Penetracion
-		float xP = (A->GetBoundingBox()->GetWidth() /2.0f + B->GetBoundingBox()->GetWidth() / 2.0f) - moduleX;
-		float yP = (A->GetBoundingBox()->GetHeight() /2.0f + B->GetBoundingBox()->GetHeight() / 2.0f) - moduleY;
+		float xP = ((A->GetBoundingBox()->GetWidth()/2.0f) + (B->GetBoundingBox()->GetWidth() / 2.0f)) - module.x;
+		float yP = ((A->GetBoundingBox()->GetHeight()/2.0f) + (B->GetBoundingBox()->GetHeight() / 2.0f)) - module.y;
 
 		if (xP > yP)
 		{
@@ -70,7 +71,7 @@ void CollisionManager::CollisionBoxResolver(Entity* A, Entity* B)
 			//vertical
 			if (A->GetBoundingBox()->GetStatic())
 			{
-				B->SetPos(B->GetX(), B->GetY() - (yP), 0.0f);
+				B->SetPos(B->GetX(), B->GetY() - (yP), 0.0f);				
 			}
 			else if (B->GetBoundingBox()->GetStatic())
 			{
@@ -79,9 +80,9 @@ void CollisionManager::CollisionBoxResolver(Entity* A, Entity* B)
 			else 
 			{
 				A->SetPos(A->GetX(),A->GetY() - (yP / 2.0f) , 0.0f);
-				B->SetPos(B->GetX(), B->GetY() - (yP / 2.0f), 0.0f);
+				B->SetPos(B->GetX(), B->GetY() + (yP / 2.0f), 0.0f);
 			}
-			//falta determinar de que lado viene
+			
 
 		}
 		else 
@@ -98,8 +99,9 @@ void CollisionManager::CollisionBoxResolver(Entity* A, Entity* B)
 			}
 			else
 			{
-				A->SetPos(A->GetX() - (xP / 2), A->GetY() , 0.0f);
-				B->SetPos(B->GetX() - (xP / 2), B->GetY() , 0.0f);
+				A->SetPos(A->GetX() - (xP /2.0f), A->GetY(),0.0f);
+				B->SetPos(B->GetX() + (xP /2.0f), B->GetY(),0.0f);
+				
 			}
 			//falta determinar de que lado viene
 		}

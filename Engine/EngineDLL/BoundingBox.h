@@ -21,6 +21,7 @@ public:
 	unsigned int GetX();
 	unsigned int GetY();
 	void SetBoxPos(glm::vec3 bpos);
+	glm::vec3 GetBoxPos();
 	void SetHeight(float h);
 	void SetWidth(float w);
 	float GetHeight();
@@ -29,6 +30,7 @@ public:
 	bool GetStatic();
 	void SetTrigger(bool enableTrigger);
 	bool GetTrigger();
+
 	
 	
 };
