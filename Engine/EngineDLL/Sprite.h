@@ -13,8 +13,9 @@ class ENGINEDLL_API Sprite:public Shape
 	float *txtreUVvertex;
 	int textreVtxCount;
 	
+	
 public:
-	Sprite(Renderer * render);
+	Sprite(Renderer * render,int columns , int rows);
 	~Sprite();
 	void SetTextureVertices(float* vertices, int count);
 	void LoadTexture(const char* name);

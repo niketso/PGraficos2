@@ -1,12 +1,20 @@
 #pragma once
 #include "Exports.h"
-#include "Sprite.h"
+#include "SpriteSheet.h"
 class ENGINEDLL_API Animation
 {
 private:
-	Sprite spr;
+	SpriteSheet * sprsht;
+	int inicialFrame;
+	int currentFrame;
+	int lastFrame;
+
+	float timePerFrame;
+	float currentTime;
 public:
-	Animation(Renderer* rend);
+	Animation(int column, int rows);
 	~Animation();
+	void SetAnimation(int IF, int FF, float TPF);
+	float * UpdateAnimation(float dt);
 };
 

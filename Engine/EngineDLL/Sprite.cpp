@@ -1,6 +1,6 @@
 #include "Sprite.h"
 
-Sprite::Sprite(Renderer* render): Shape (render)
+Sprite::Sprite(Renderer* render,int column, int rows): Shape (render)
 {
 	
 	txtreUVvertex = NULL;
