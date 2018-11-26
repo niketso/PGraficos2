@@ -12,13 +12,14 @@ bool Game::OnStart() {
 	mat1 = new Material();
 	unsigned int programID = mat1->LoadShaders("texturevertexshader.txt", "texturefragmentshader.txt");	
 
-	spr1 = new Sprite(render);	
-	spr2 = new Sprite(render);
+	spr1 = new Sprite(render,6,8);	
+	spr2 = new Sprite(render,1,1);
 	spr1->SetMaterial(mat1);
 	spr2->SetMaterial(mat1);
-	spr1->LoadTexture("sample2.bmp");
+	spr1->LoadTexture("character.bmp");
 	spr2->LoadTexture("sample2.bmp");
 	
+	spr1->SetAnimation(0, 47, 0.1f);
 	
 	
 	spr1->SetBoundingBox(spr1->GetPos(), 2.0f, 2.0f, false, false);
@@ -48,6 +49,7 @@ bool Game::OnUpdate() {
 	i++;
 	spr1->Translate(4.0f * deltaTime, 0.0f,0.0f);
 	spr2->Translate(-4.0f * deltaTime, 0.0f,0.0f);
+	spr1->UpdateAnimation(deltaTime);
 	CollisionManager::Instance()->CollisionBoxDetector();
 	cout << "Game::OnUpdate(): " << i << endl;
 	

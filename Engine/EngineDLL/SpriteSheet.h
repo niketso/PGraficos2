@@ -13,7 +13,7 @@ private:
 public:
 	SpriteSheet(int columns, int rows);
 	~SpriteSheet();
-	float* GetUvArray(int index);
+	float* GetFrame(int index);
 	int GetSize();
 	
 };

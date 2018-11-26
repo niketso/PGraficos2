@@ -1,6 +1,6 @@
 #include "Sprite.h"
 
-Sprite::Sprite(Renderer* render): Shape (render)
+Sprite::Sprite(Renderer * render, int columns, int rows): Shape (render)
 {
 	
 	txtreUVvertex = NULL;
@@ -19,16 +19,12 @@ Sprite::Sprite(Renderer* render): Shape (render)
 
 	SetVertices(vertex, 4);
 
-	txtreUVvertex = new float[8]
-	{
-		0.0f,0.0f,
-		0.0f,1.0f,
-		1.0f,0.0f,
-		1.0f,1.0f	
-	};
+	anim = new Animation(columns, rows);
 
-	SetTextureVertices(txtreUVvertex, 4);
-	
+
+	txtreUVvertex = anim->UpdateAnimation(0);	
+
+	SetTextureVertices(txtreUVvertex, 4);	
 }
 
 
@@ -87,4 +83,15 @@ void Sprite::DrawMesh(int drawType)
 void Sprite::Draw() 
 {
 	DrawMesh(GL_TRIANGLE_STRIP);
+}
+
+void Sprite::SetAnimation(int initF, int finalF, float timePerF) 
+{
+	anim->SetAnimation(initF, finalF, timePerF);
+}
+
+void Sprite::UpdateAnimation(float deltaTime) 
+{	
+	txtreUVvertex = anim->UpdateAnimation(deltaTime);
+	SetTextureVertices(txtreUVvertex, 4);
 }

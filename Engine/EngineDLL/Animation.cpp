@@ -8,20 +8,44 @@ Animation::Animation(int columns, int rows):
 	currentTime(0.0f)
 	
 {
-	sprsht = new SpriteSheet(1, 1);
+	sprsht = new SpriteSheet(columns, rows);
 }
 
 Animation::~Animation()
 {
+	delete sprsht;
 }
 
 void Animation::SetAnimation(int initF, int finalF, float timePerF)
 {
-		
+	//me fijo que los valores que resiva sean posibles.
+	if (initF >= 0 && finalF < sprsht->GetSize() && timePerF > 0)
+	{
+		inicialFrame = initF;
+		lastFrame = finalF;
+		timePerFrame = timePerF;
+	}
+	
 }
 
-/*float * Animation::UpdateAnimation(float deltaTime) 
+float * Animation::UpdateAnimation(float deltaTime) 
 {
-		return;
-}*/
+	currentTime += deltaTime;
+	if (currentTime >= timePerFrame)
+	{
+		if (currentFrame < lastFrame) 
+		{
+			currentFrame++;
+		}
+		else 
+		{
+			currentFrame = inicialFrame;
+		}
+		
+		currentTime = 0.0f;
+	}
+
+	return sprsht->GetFrame(currentFrame);
+	
+}
 
