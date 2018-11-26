@@ -14,7 +14,7 @@ private:
 public:
 	Animation(int column, int rows);
 	~Animation();
-	void SetAnimation(int IF, int FF, float TPF);
-	float * UpdateAnimation(float dt);
+	void SetAnimation(int initF, int finalF, float timePerF);
+	float * UpdateAnimation(float deltaTime);
 };
 
