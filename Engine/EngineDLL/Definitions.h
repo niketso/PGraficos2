@@ -7,7 +7,7 @@ enum  Layers
 	player = 0,
 	enemy,
 	map,
-	collisionTile,
+	Tiles,
 	count
 
 };

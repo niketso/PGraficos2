@@ -117,9 +117,9 @@ void TileMap::ChargeTile()
 			//set de datos.
 			tileMatrix->at(w)->at(h) = new Tile(render, 1, 1);
 			tileMatrix->at(w)->at(h)->SetMaterial(material);
-			tileMatrix->at(w)->at(h)->SetBoundingBox(glm::vec3(0, 0, 0), 2.0f, 2.0f, false, false);
-			tileMatrix->at(w)->at(h)->AddTexture("Doom.bmp");
-			tileMatrix->at(w)->at(h)->AddTexture("sample2.bmp");
+			tileMatrix->at(w)->at(h)->SetBoundingBox(glm::vec3(0, 0, 0), 2.0f, 2.0f, true, false);
+			tileMatrix->at(w)->at(h)->AddTexture("Empty.bmp");
+			tileMatrix->at(w)->at(h)->AddTexture("Land.bmp");
 			
 		}
 	}
@@ -150,7 +150,7 @@ void TileMap::UpdateTileMap()
 		}
 		if (viewMatrix->at(j)->at(viewH - 1) == 1) {
 			tileMatrix->at(j)->at(lastPosX)->ChangeTexture(1);
-			Instance->AddCollisionEntity(tileMatrix->at(j)->at(lastPosX), collisionTile);
+			Instance->AddCollisionEntity(tileMatrix->at(j)->at(lastPosX), Tiles);
 			
 		}
 		tileMatrix->at(j)->at(lastPosX)->SetPos(posx + render->GetCameraPos().x, posy, 0);
@@ -180,7 +180,7 @@ void TileMap::LoadTiles() {
 				}
 				if (viewMatrix->at(w)->at(h) == 1) {
 					tileMatrix->at(w)->at(h)->ChangeTexture(1);
-					Instance->AddCollisionEntity(tileMatrix->at(w)->at(h),collisionTile);
+					Instance->AddCollisionEntity(tileMatrix->at(w)->at(h), Tiles);
 				}			
 				posx += 2;
 				tileMatrix->at(w)->at(h)->SetPos(posx, posy ,0);
@@ -194,7 +194,7 @@ void TileMap::Update()
 	CurrentCameraPos = render->GetCameraPos();
 	DeltaCameraPos = CurrentCameraPos - LastCameraPos;
 	LastCameraPos = CurrentCameraPos;
-	//UpdateX
+	
 	scrollX += DeltaCameraPos.x;
 	if (scrollX >= 2) {
 		if (levelX < levelW - 1)levelX++;
@@ -207,19 +207,7 @@ void TileMap::Update()
 			UpdateTileMap();
 			scrollX = 0;
 		}
-	//UpdateY
-	/*scrollY += DeltaCameraPos.y;
-	if (scrollY <= -2) {
-		if (Ylvl < 0)Ylvl--;
-		UpdateViewY();
-		scrollY = 0;
-	}
-	else
-		if (scrollY >= 2) {
-			if (Ylvl > lvlH - 1)Ylvl++;
-			UpdateViewY();
-			scrollY = 0;
-		}*/
+	
 }
 
 

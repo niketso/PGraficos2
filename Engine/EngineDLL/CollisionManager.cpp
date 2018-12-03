@@ -62,8 +62,8 @@ void CollisionManager::CollisionBoxResolver(Entity* A, Entity* B)
 	if (module.x <= (A->GetBoundingBox()->GetWidth() + B->GetBoundingBox()->GetWidth() )/2.0f && module.y <= (A->GetBoundingBox()->GetHeight() + B->GetBoundingBox()->GetHeight())/2.0f)
 	{
 		//frenar al las entidades
-		A->Translate(0, 0, 0);
-		B->Translate(0, 0, 0);
+		//A->Translate(0, 0, 0);
+		//B->Translate(0, 0, 0);
 		
 		//Penetracion
 		float xP = ((A->GetBoundingBox()->GetWidth()/2.0f) + (B->GetBoundingBox()->GetWidth() / 2.0f)) - module.x;

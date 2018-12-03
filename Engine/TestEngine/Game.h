@@ -11,13 +11,10 @@
 class Game : public Gamebase {
 private:
 	int i;
-	Triangle * tr1 ;
-	Rectangle *rec1;
-	Circle   *cir1;
+	
 	Material * mat1;
-	Material * mat2;
 	Sprite  * spr1;
-	Sprite * spr2;
+	
 	TileMap *tmp1;
 	
 public:
