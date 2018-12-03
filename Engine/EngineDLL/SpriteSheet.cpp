@@ -12,15 +12,15 @@ SpriteSheet::SpriteSheet(int columns, int rows):
 	int totalSprites = columns* rows;
 
 	for (int i = 0; i < totalSprites; i++) {
-		float x = (i % columns) * frameW;
-		float y = (i / columns) * frameH;
+		float x = (i % columns) * frameW;											//
+		float y = (i / columns) * frameH;											//
 
 		uvArrays = new float[8]
-		{
-			x / textureW, 1 - ((y + frameH) / textureH),
-			x / textureW, 1 - y / textureH,
-			(x + frameW) / textureW , 1 - ((y + frameH) / textureH),
-			(x + frameW) / textureW, 1 - (y / textureH)
+		{																			
+			x / textureW, 1 - ((y + frameH) / textureH),							//
+			x / textureW, 1 - y / textureH,											//
+			(x + frameW) / textureW , 1 - ((y + frameH) / textureH),				//
+			(x + frameW) / textureW, 1 - (y / textureH)								//
 		};
 
 		uvVector->push_back(uvArrays);

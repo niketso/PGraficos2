@@ -75,16 +75,32 @@ void CollisionManager::CollisionBoxResolver(Entity* A, Entity* B)
 			//vertical
 			if (A->GetBoundingBox()->GetStatic())
 			{
-				B->SetPos(B->GetX(), B->GetY() - (yP), 0.0f);				
+				if (A->GetY() >= B->GetY())
+				{
+					B->SetPos(B->GetX(), B->GetY() + (yP), 0.0f);
+				}
+				else 
+				{
+					B->SetPos(B->GetX(), B->GetY() - (yP), 0.0f);
+				}
+							
 			}
 			else if (B->GetBoundingBox()->GetStatic())
 			{
-				A->SetPos(A->GetX(), A->GetY() - (yP), 0.0f);
+				if (A->GetY() >= B->GetY()) 
+				{
+					A->SetPos(A->GetX(), A->GetY() + (yP), 0.0f);
+				}
+				else 
+				{
+					A->SetPos(A->GetX(), A->GetY() - (yP), 0.0f);
+				}
+				
 			}
 			else 
 			{
-				A->SetPos(A->GetX(),A->GetY() - (yP / 2.0f) , 0.0f);
-				B->SetPos(B->GetX(), B->GetY() + (yP / 2.0f), 0.0f);
+				A->SetPos(A->GetX(),A->GetY() + (yP / 2.0f) , 0.0f);
+				B->SetPos(B->GetX(), B->GetY() - (yP / 2.0f), 0.0f);
 			}
 			
 
@@ -93,18 +109,35 @@ void CollisionManager::CollisionBoxResolver(Entity* A, Entity* B)
 		{
 			//cout << xP << endl;
 			//horizontal
+			
 			if (A->GetBoundingBox()->GetStatic())
 			{
-				B->SetPos(B->GetX() - (xP), B->GetY(), 0.0f);
+				if (A->GetX() >= B->GetX()) 
+				{
+					B->SetPos(B->GetX() + (xP), B->GetY(), 0.0f);
+				}
+				else
+				{
+					B->SetPos(B->GetX() - (xP), B->GetY(), 0.0f);
+				}
+				
 			}
 			else if (B->GetBoundingBox()->GetStatic())
 			{
-				A->SetPos(A->GetX() - (xP), A->GetY(), 0.0f);
+				if (A->GetX() >= B->GetX()) 
+				{
+					A->SetPos(A->GetX() + (xP), A->GetY(), 0.0f);
+				}
+				else 
+				{
+					A->SetPos(A->GetX() - (xP), A->GetY(), 0.0f);
+				}
+				
 			}
 			else
 			{
-				A->SetPos(A->GetX() - (xP /2.0f), A->GetY(),0.0f);
-				B->SetPos(B->GetX() + (xP /2.0f), B->GetY(),0.0f);
+				A->SetPos(A->GetX() + (xP /2.0f), A->GetY(),0.0f);
+				B->SetPos(B->GetX() - (xP /2.0f), B->GetY(),0.0f);
 				
 			}
 			//falta determinar de que lado viene

@@ -14,22 +14,26 @@ private:
 	Sprite * layers;
 	Material * material;
 	Renderer * render;
+
 	vector<vector<int>*> * viewMatrix;
 	vector<vector<int>*> * levelMatrix;
 	vector<vector<Tile*>*> * tileMatrix;
+	//camera
 	glm::vec3 LastCameraPos;
 	glm::vec3 CurrentCameraPos;
 	glm::vec3 DeltaCameraPos;
+
 	int levelH;
 	int levelW;
+
 	int levelX;
-	int levelY;
+
 	int viewH;
 	int viewW;
+
 	int lastPosX;
-	int lastPosY;
 	int scrollX;
-	int scrollY;
+	
 	
 	CollisionManager * Instance;
 

@@ -7,7 +7,6 @@ TileMap::TileMap(const char * file, int wdwW, int wdwH , Renderer * render, Mate
 
 	
 	scrollX = 0;
-	scrollY = 0;
 
 	levelH = 0;
 	levelW = 0;
@@ -18,15 +17,16 @@ TileMap::TileMap(const char * file, int wdwW, int wdwH , Renderer * render, Mate
 
 	Instance = CollisionManager::Instance();
 	LastCameraPos = CurrentCameraPos = DeltaCameraPos = glm::vec3(0, 0, 0);
+
 	int tileW = 64;
 	int tileH = 64;
-
-	viewW = (wdwW / tileW) + 4;
+	//+4 es las columnas
+	viewW = (wdwW / tileW) + 4;                 
 	viewH = (wdwH / tileH) + 4;
 
 	levelX	= viewH;
-	levelY = viewW;
 
+	
 	viewMatrix = new vector<vector<int>*>(viewW);
 	for (int i = 0; i < viewW; i++)
 		viewMatrix->at(i) = new vector<int>(viewH);
@@ -41,13 +41,30 @@ TileMap::TileMap(const char * file, int wdwW, int wdwH , Renderer * render, Mate
 
 TileMap::~TileMap()
 {
+			
+	for (int i = 0; i < levelW; i++) {
+		delete levelMatrix->at(i);
+	}
+	delete levelMatrix;
+	
+	for (int i = 0; i < viewW; i++) {
+		delete viewMatrix->at(i);
+	}
+	delete viewMatrix;
 
+	for (int i = 0; i < viewW; i++) {
+		for (int j = 0; j < viewH; j++) {
+			delete tileMatrix->at(i)->at(j);
+		}
+		delete tileMatrix->at(i);
+	}
 }
 
 void TileMap::LoadTileMap(const char * file)
 {
 	string buffer;
 	ifstream tileFile(file);
+
 	levelW = 1;
 	levelH = 1;
 
@@ -65,6 +82,7 @@ void TileMap::LoadTileMap(const char * file)
 	//Esta linea hace que el archivo vuelva al principio
 	tileFile.seekg(0, std::ios::beg);
 
+	//vector de mundo.
 	levelMatrix = new vector<vector<int>*>(levelW);
 
 	for (int i = 0; i < levelW; i++) {
@@ -138,6 +156,7 @@ void TileMap::UpdateTileMap()
 	}
 	for (int i = 0; i < viewW; i++) {
 		int pos = levelMatrix->at(i)->at(levelX);
+		// update de posicion en y.
 		viewMatrix->at(i)->at(viewH - 1) = pos;
 	}
 	//volver a dibujar
@@ -153,6 +172,7 @@ void TileMap::UpdateTileMap()
 			Instance->AddCollisionEntity(tileMatrix->at(j)->at(lastPosX), Tiles);
 			
 		}
+		//cambiar la posicion.
 		tileMatrix->at(j)->at(lastPosX)->SetPos(posx + render->GetCameraPos().x, posy, 0);
 		posy -= 2;
 	}
@@ -167,7 +187,7 @@ void TileMap::LoadTiles() {
 	int posy = 9;
 
 	lastPosX = 0;
-	lastPosY = 0;
+	
 
 	for (int w = 0; w < viewW; w++) {
 		posx = -12;
