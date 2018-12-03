@@ -10,10 +10,11 @@ bool Game::OnStart() {
 	CollisionManager* colManager = CollisionManager::Instance();
 	
 	mat1 = new Material();
-	unsigned int programID = mat1->LoadShaders("texturevertexshader.txt", "texturefragmentshader.txt");	
+	unsigned int programID = mat1->LoadShaders("texturevertexshader.txt", "texturefragmentshader.txt");		
 
 	spr1 = new Sprite(render,8,4);	
 	spr2 = new Sprite(render,1,1);
+	tmp1 = new TileMap("MatrixLevel.csv",800, 600, render, mat1);
 	spr1->SetMaterial(mat1);
 	spr2->SetMaterial(mat1);
 	spr1->LoadTexture("Doom.bmp");
@@ -29,7 +30,6 @@ bool Game::OnStart() {
 
 	spr1->SetPos(-5, 0, 0);
 	spr2->SetPos(5,0, 0);
-
 	
 	
 	
@@ -49,7 +49,9 @@ bool Game::OnUpdate() {
 	i++;
 	spr1->Translate(4.0f * deltaTime, 0.0f,0.0f);
 	//spr2->Translate(-4.0f * deltaTime, 0.0f,0.0f);
+	render->TranslateCamera(glm::vec3 (deltaTime*0.1f, 0.f, 0.f));
 	spr1->UpdateAnimation(deltaTime);
+	tmp1->Update();
 	CollisionManager::Instance()->CollisionBoxDetector();
 	//cout << "Game::OnUpdate(): " << i << endl;
 	
@@ -61,8 +63,11 @@ void Game::OnDraw()
 	//tr1->Draw();
 	//rec1->Draw();
 	//cir1->Draw();
+	tmp1->DrawTileMap();
 	spr1->Draw();
 	spr2->Draw();
+	
+
 		
 	//cout << "Game::OnDraw(): " << i << endl;
 }

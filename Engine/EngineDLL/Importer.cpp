@@ -5,29 +5,30 @@
 BMPheader Importer::LoadBMP(const char * BMPname) 
 {
 	unsigned char header[54]; 
-	BMPheader bmph;
+	
 	FILE * file;
 	 fopen_s(&file,BMPname, "rb");
+	 BMPheader hed;
 
 	if (RightBMPFormat(header, file))
 	{
-		bmph.dataPos = *(int*)&(header[0x0A]);
-		bmph.imageSize = *(int*)&(header[0x22]);
-		bmph.width = *(int*)&(header[0x12]);
-		bmph.height = *(int*)&(header[0x16]);
+		hed.dataPos = *(int*)&(header[0x0A]);
+		hed.imageSize = *(int*)&(header[0x22]);
+		hed.width = *(int*)&(header[0x12]);
+		hed.height = *(int*)&(header[0x16]);
 		
 	}
 
-	if (bmph.imageSize == 0)    bmph.imageSize = bmph.width * bmph.height * 3; 
-	if (bmph.dataPos == 0)      bmph.dataPos = 54;
+	if (hed.imageSize == 0)    hed.imageSize = hed.width * hed.height * 3;
+	if (hed.dataPos == 0)      hed.dataPos = 54;
 
-	bmph.data = new unsigned char[bmph.imageSize];
+	hed.data = new unsigned char[hed.imageSize];
 
-	fseek(file, bmph.dataPos, 0);
-	fread(bmph.data, 1, bmph.imageSize, file);
+	fseek(file, hed.dataPos, 0);
+	fread(hed.data, 1, hed.imageSize, file);
 	fclose(file);
 
-	return bmph;
+	return hed;
 	
 }
 

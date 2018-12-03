@@ -6,6 +6,7 @@
 
 Renderer::Renderer()
 {
+	
 }
 Renderer::~Renderer()
 {
@@ -14,6 +15,7 @@ bool Renderer::Start(Window * windowPTR) {
 	
 	if (windowPTR != NULL) 
 	{
+		
 		window = windowPTR;
 		glfwMakeContextCurrent((GLFWwindow*)window->GetWindow());
 
@@ -21,16 +23,18 @@ bool Renderer::Start(Window * windowPTR) {
 			cout<< "Falló al inicializar GLEW\n"<<endl;
 			return -1;
 		}
-		
+		//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 		glGenVertexArrays(1, &VertexArrayID);
 		glBindVertexArray(VertexArrayID);
 
 		//Inicializo la matriz de projeccion.
 		projectionMatrix = glm::ortho(-10.0f, 10.0f, -10.0f,10.0f, 0.0f, 100.f);
 		//Inicializo la matriz de vista.
+		camPos =glm::vec3(0, 0, 0);
+		eyePos = glm::vec3(0, 0, 3);
 		viewMatrix = glm::lookAt(
-			glm::vec3(0, 0, 3),
-			glm::vec3(0, 0, 0),
+			eyePos,
+			camPos,
 			glm::vec3(0, 1, 0)
 		);
 		//Inicializo la matriz de mundo.
@@ -188,6 +192,20 @@ glm::mat4& Renderer::GetWvp()
 {
 	return wvp;
 }
+void Renderer::TranslateCamera(glm::vec3 pos)
+{
+	
+	camPos += pos;
+	eyePos += glm::vec3(pos.x, pos.y, 0);
+
+	viewMatrix = glm::lookAt(
+		eyePos,
+		camPos,
+		glm::vec3(0, 1, 0)
+	);
+
+	UpdateWVP();
+}
 void Renderer::MultiplyWorldMatrix(glm::mat4 mat)
 {
 	worldMatrix *= mat;
@@ -198,4 +216,16 @@ void Renderer::SetWorldMatrix(glm::mat4 mat)
 	worldMatrix = mat;
 	UpdateWVP();
 }
+
+void Renderer::UpdateTexture(unsigned int txt) 
+{
+	glGenTextures(1, &txt);
+	glBindTexture(GL_TEXTURE_2D, txt);
+}
+
+glm::vec3 Renderer::GetCameraPos() 
+{
+	return camPos;
+}
+
 

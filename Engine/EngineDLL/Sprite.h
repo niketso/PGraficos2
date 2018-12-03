@@ -6,6 +6,7 @@
 
 class ENGINEDLL_API Sprite:public Shape
 {
+protected:
 	BMPheader header;
 	const char* file;
 	bool shouldDisposeTexture;

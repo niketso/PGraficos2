@@ -31,6 +31,10 @@ void CollisionManager::CollisionBoxDetector()
 	{
 		for (int j = i+1; j < (int)Layers::count; j++)
 		{
+			if (i == Layers::map || j == Layers::map)
+			{
+				continue;
+			}
 			CheckCollisionsBetweenLayers(CollisionGroups[i] ,CollisionGroups[j]);                                           
 		}
 	}
@@ -67,7 +71,7 @@ void CollisionManager::CollisionBoxResolver(Entity* A, Entity* B)
 
 		if (xP > yP)
 		{
-			cout << yP  <<endl;
+			//cout << yP  <<endl;
 			//vertical
 			if (A->GetBoundingBox()->GetStatic())
 			{
@@ -87,7 +91,7 @@ void CollisionManager::CollisionBoxResolver(Entity* A, Entity* B)
 		}
 		else 
 		{
-			cout << xP << endl;
+			//cout << xP << endl;
 			//horizontal
 			if (A->GetBoundingBox()->GetStatic())
 			{

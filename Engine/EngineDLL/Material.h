@@ -4,8 +4,10 @@
 #include<glm\gtc\matrix_transform.hpp>
 class ENGINEDLL_API Material
 {
+protected:	
 	unsigned int ProgramID;
 	unsigned int textureId;
+private:
 public:
 	Material();
 	~Material();

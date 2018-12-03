@@ -6,6 +6,7 @@
 #include "../EngineDLL/Importer.h"
 #include "../EngineDLL/Sprite.h"
 #include "../EngineDLL/CollisionManager.h"
+#include "../EngineDLL/TileMap.h"
 #include <iostream>
 class Game : public Gamebase {
 private:
@@ -14,8 +15,11 @@ private:
 	Rectangle *rec1;
 	Circle   *cir1;
 	Material * mat1;
+	Material * mat2;
 	Sprite  * spr1;
 	Sprite * spr2;
+	TileMap *tmp1;
+	
 public:
 	Game();
 	~Game();

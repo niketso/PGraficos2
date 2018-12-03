@@ -1,4 +1,7 @@
 #include "Sprite.h"
+#include <iostream>
+#include <fstream>
+#include <string>
 
 Sprite::Sprite(Renderer * render, int columns, int rows): Shape (render)
 {
@@ -44,9 +47,8 @@ void Sprite::SetTextureVertices(float* vertices, int count)
 
 void Sprite::LoadTexture(const char* name)
 {
-	header = Importer::LoadBMP(name);
-	textureBufferId = render->GenTextureBuffer(header.width,header.height,header.data);
-	//material->BindTexture("myTextureSampler", textureUVBufferId);
+	header= Importer::LoadBMP(name);
+	textureBufferId = render->GenTextureBuffer(header.width,header.height,header.data);	
 }
 
 void Sprite::DisposeTexture()
