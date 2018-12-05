@@ -48,9 +48,9 @@ bool Game::OnUpdate() {
 	//movX
 	//spr1->Translate(2.0f * deltaTime ,0.0f,0.0f);
 	//movY
-	spr1->Translate(0.0f,1.0f * deltaTime, 0.0f);
+	//spr1->Translate(0.0f,1.0f * deltaTime, 0.0f);
 	//spr2->Translate(-4.0f * deltaTime, 0.0f,0.0f);
-	render->TranslateCamera(glm::vec3 (deltaTime*0.1f, 0.f, 0.f));
+	render->TranslateCamera(glm::vec3 (deltaTime*2.0f, 0.f, 0.f));
 	spr1->UpdateAnimation(deltaTime);
 	tmp1->Update();
 	CollisionManager::Instance()->CollisionBoxDetector();

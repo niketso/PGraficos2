@@ -22,6 +22,7 @@ void Entity::SetPos(float x, float y,float z)
 	pos[1] = y;
 	pos[2] = z;
 
+	if(bBox)
 	bBox->SetBoxPos(pos);
 
 	TranslateMatrix = glm::translate(glm::mat4(1.0f), pos);

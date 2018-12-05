@@ -15,7 +15,7 @@ TileMap::TileMap(const char * file, int wdwW, int wdwH , Renderer * render, Mate
 	this->render = render;
 	this->material = material;
 
-	Instance = CollisionManager::Instance();
+	
 	LastCameraPos = CurrentCameraPos = DeltaCameraPos = glm::vec3(0, 0, 0);
 
 	int tileW = 64;
@@ -135,7 +135,6 @@ void TileMap::ChargeTile()
 			//set de datos.
 			tileMatrix->at(w)->at(h) = new Tile(render, 1, 1);
 			tileMatrix->at(w)->at(h)->SetMaterial(material);
-			tileMatrix->at(w)->at(h)->SetBoundingBox(glm::vec3(0, 0, 0), 2.0f, 2.0f, true, false);
 			tileMatrix->at(w)->at(h)->AddTexture("Empty.bmp");
 			tileMatrix->at(w)->at(h)->AddTexture("Land.bmp");
 			
@@ -164,12 +163,10 @@ void TileMap::UpdateTileMap()
 	for (int j = 0; j < viewW; j++) {
 		if (viewMatrix->at(j)->at(viewH - 1) == 0) {
 			tileMatrix->at(j)->at(lastPosX)->ChangeTexture(0);
-			Instance->AddCollisionEntity(tileMatrix->at(j)->at(lastPosX), map);
-			
+					
 		}
 		if (viewMatrix->at(j)->at(viewH - 1) == 1) {
-			tileMatrix->at(j)->at(lastPosX)->ChangeTexture(1);
-			Instance->AddCollisionEntity(tileMatrix->at(j)->at(lastPosX), Tiles);
+			tileMatrix->at(j)->at(lastPosX)->ChangeTexture(1);			
 			
 		}
 		//cambiar la posicion.
@@ -196,11 +193,11 @@ void TileMap::LoadTiles() {
 				//Dependiendo del dato que nos llega se determina si es fondo o mapa.
 				if (viewMatrix->at(w)->at(h) == 0) {
 					tileMatrix->at(w)->at(h)->ChangeTexture(0);
-					Instance->AddCollisionEntity(tileMatrix->at(w)->at(h), map);
+					
 				}
 				if (viewMatrix->at(w)->at(h) == 1) {
 					tileMatrix->at(w)->at(h)->ChangeTexture(1);
-					Instance->AddCollisionEntity(tileMatrix->at(w)->at(h), Tiles);
+					
 				}			
 				posx += 2;
 				tileMatrix->at(w)->at(h)->SetPos(posx, posy ,0);

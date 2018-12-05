@@ -35,7 +35,7 @@ private:
 	int scrollX;
 	
 	
-	CollisionManager * Instance;
+	
 
 	
 public:
