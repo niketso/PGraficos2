@@ -14,8 +14,9 @@ private:
 	
 	Material * mat1;
 	Sprite  * spr1;
+	Sprite * spr2;
 	
-	TileMap *tmp1;
+	//TileMap *tmp1;
 	
 public:
 	Game();
