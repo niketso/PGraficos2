@@ -228,4 +228,21 @@ glm::vec3 Renderer::GetCameraPos()
 	return camPos;
 }
 
+void Renderer::SetOrthoProjectionMatrix(const float left, const float right, const float bottom, const float top, const float ZNear, const float ZFar)
+{
+	othoProjectionMatrix = glm::ortho(left, right, bottom, top, ZNear, ZFar);
+}
+void Renderer::SetPerspectiveProjectionMatrix(const float angle, const float aspect, const float ZNear, const float ZFar) 
+{
+	perspectiveProjectionMatrix = glm::perspective(angle, aspect, ZNear, ZFar);
+}
+void Renderer::SetViewMatrix(glm::vec3 eye, glm::vec3 cam, glm::vec3 up)
+{
+	eyePos = eye;
+	camPos = cam;
+	upPos = up;
+}
+/*void Renderer::SwitchProjectionMatrix(enum )
+{
 
+}*/

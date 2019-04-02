@@ -14,10 +14,27 @@ private:
 	glm::mat4 worldMatrix;
 	glm::mat4 viewMatrix;
 	glm::mat4 projectionMatrix;
+	glm::mat4 othoProjectionMatrix;
+	glm::mat4 perspectiveProjectionMatrix;
 	glm::mat4 wvp;
+
+	//ortho
+	/*const float left;
+	const float right;
+	const float bottom;
+	const float top;
+	const float zNear;
+	const float zFar;*/
+
+	//Perspective
+	/*const float angle;
+	const float aspect;
+	const float zNear;
+	const float zFar;*/
 
 	glm::vec3 camPos;
 	glm::vec3 eyePos;
+	glm::vec3 upPos;
 
 public:
 	Renderer();
@@ -44,6 +61,10 @@ public:
 	void SetWorldMatrix(glm::mat4 mat);
 	void MultiplyWorldMatrix(glm::mat4 mat);
 	void UpdateTexture(unsigned int txt);
+	void SetOrthoProjectionMatrix(const float left, const float right, const float bottom, const float top, const float ZNear, const float ZFar);
+	void SetPerspectiveProjectionMatrix(const float angle, const float aspect, const float ZNear, const float ZFar);
+	void SwitchProjectionMatrix(glm::mat4 ortho, glm::mat4 perspective);
+	void SetViewMatrix(glm::vec3 eye, glm::vec3 cam, glm::vec3 up);
 	glm::vec3 GetCameraPos();
 	
 };
