@@ -11,4 +11,10 @@ enum  Layers
 	count
 
 };
+enum ProjectionMatrixType 
+{
+	perspective =0,
+	orthographic
+
+};
 #endif 

@@ -1,6 +1,7 @@
 #pragma once
 #include "Exports.h"
 #include "Window.h"
+#include "Definitions.h"
 #include<glm/glm.hpp>
 #include<glm\gtc\matrix_transform.hpp>
 
@@ -14,7 +15,7 @@ private:
 	glm::mat4 worldMatrix;
 	glm::mat4 viewMatrix;
 	glm::mat4 projectionMatrix;
-	glm::mat4 othoProjectionMatrix;
+	glm::mat4 orthoProjectionMatrix;
 	glm::mat4 perspectiveProjectionMatrix;
 	glm::mat4 wvp;
 
@@ -63,7 +64,7 @@ public:
 	void UpdateTexture(unsigned int txt);
 	void SetOrthoProjectionMatrix(const float left, const float right, const float bottom, const float top, const float ZNear, const float ZFar);
 	void SetPerspectiveProjectionMatrix(const float angle, const float aspect, const float ZNear, const float ZFar);
-	void SwitchProjectionMatrix(glm::mat4 ortho, glm::mat4 perspective);
+	void SwitchProjectionMatrix(ProjectionMatrixType pmt);
 	void SetViewMatrix(glm::vec3 eye, glm::vec3 cam, glm::vec3 up);
 	glm::vec3 GetCameraPos();
 	

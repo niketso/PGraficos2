@@ -28,7 +28,10 @@ bool Renderer::Start(Window * windowPTR) {
 		glBindVertexArray(VertexArrayID);
 
 		//Inicializo la matriz de projeccion.
-		projectionMatrix = glm::ortho(-10.0f, 10.0f, -10.0f,10.0f, 0.0f, 100.f);
+		//projectionMatrix = glm::ortho(-10.0f, 10.0f, -10.0f,10.0f, 0.0f, 100.f);
+		perspectiveProjectionMatrix = glm::perspective(90.0f, 1.06f, 0.0f, 100.f);
+		orthoProjectionMatrix  = glm::ortho(-10.0f, 10.0f, -10.0f, 10.0f, 0.0f, 100.f);
+		projectionMatrix = perspectiveProjectionMatrix;
 		//Inicializo la matriz de vista.
 		camPos =glm::vec3(0, 0, 0);
 		eyePos = glm::vec3(0, 0, 3);
@@ -230,7 +233,7 @@ glm::vec3 Renderer::GetCameraPos()
 
 void Renderer::SetOrthoProjectionMatrix(const float left, const float right, const float bottom, const float top, const float ZNear, const float ZFar)
 {
-	othoProjectionMatrix = glm::ortho(left, right, bottom, top, ZNear, ZFar);
+	orthoProjectionMatrix = glm::ortho(left, right, bottom, top, ZNear, ZFar);
 }
 void Renderer::SetPerspectiveProjectionMatrix(const float angle, const float aspect, const float ZNear, const float ZFar) 
 {
@@ -242,7 +245,17 @@ void Renderer::SetViewMatrix(glm::vec3 eye, glm::vec3 cam, glm::vec3 up)
 	camPos = cam;
 	upPos = up;
 }
-/*void Renderer::SwitchProjectionMatrix(enum )
+void Renderer::SwitchProjectionMatrix(ProjectionMatrixType pmt  )
 {
-
-}*/
+	if (pmt == 0) 
+	{
+		projectionMatrix = perspectiveProjectionMatrix;
+	}
+	else
+	{
+		if (pmt == 1)
+		{
+			projectionMatrix = orthoProjectionMatrix;
+		}
+	}
+}
