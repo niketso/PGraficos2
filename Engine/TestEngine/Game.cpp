@@ -11,7 +11,7 @@ bool Game::OnStart() {
 	
 	mat1 = new Material();
 	unsigned int programID = mat1->LoadShaders("texturevertexshader.txt", "texturefragmentshader.txt");		
-
+	cam = new  Camera(render);
 	spr1 = new Sprite(render,8,4);	
 	spr2 = new Sprite(render, 1, 1);
 	//tmp1 = new TileMap("Tile.csv",800, 600, render, mat1);
@@ -46,6 +46,9 @@ bool Game::OnStop() {
 bool Game::OnUpdate() {
 	i++;
 	//movX
+	//cam->Pitch(0.3);
+	cam->Walk(0.3);
+	cam->Strafe(0.3);
 	spr1->Translate(-0.5f * deltaTime ,0.0f,0.0f);
 	spr2->Translate(0.5f * deltaTime, 0.0f, 0.0f);
 	//movY

@@ -13,7 +13,7 @@ bool Gamebase::Start() {
 	if (!window->Start(800, 600, " "))
 		return false;
 
-	render = new Renderer();
+	render = new Renderer();	
 	if (!render->Start(window))
 		return false;
 	render->ClearColor(0.0f, 0.0f, 4.0f, 0.0f);
@@ -23,11 +23,10 @@ void Gamebase::Loop() {
 	
 	bool loop = true;
 	while (loop && !window->ShouldClose()) {
-
 		currentFrame = glfwGetTime();
 		deltaTime = currentFrame - lastFrame;
 		lastFrame = currentFrame;
-		loop = OnUpdate();
+		loop = OnUpdate();	
 		render->ClearScreen();
 		OnDraw();
 		render->SwapBuffers();

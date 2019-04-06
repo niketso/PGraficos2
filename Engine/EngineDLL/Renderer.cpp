@@ -244,6 +244,12 @@ void Renderer::SetViewMatrix(glm::vec3 eye, glm::vec3 cam, glm::vec3 up)
 	eyePos = eye;
 	camPos = cam;
 	upPos = up;
+	viewMatrix = glm::lookAt(
+		eyePos,
+		camPos,
+		upPos
+	);
+	UpdateWVP();
 }
 void Renderer::SwitchProjectionMatrix(ProjectionMatrixType pmt  )
 {
@@ -258,4 +264,5 @@ void Renderer::SwitchProjectionMatrix(ProjectionMatrixType pmt  )
 			projectionMatrix = orthoProjectionMatrix;
 		}
 	}
+	
 }
