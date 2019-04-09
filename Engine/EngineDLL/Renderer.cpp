@@ -252,17 +252,15 @@ void Renderer::SetViewMatrix(glm::vec3 eye, glm::vec3 cam, glm::vec3 up)
 	UpdateWVP();
 }
 void Renderer::SwitchProjectionMatrix(ProjectionMatrixType pmt  )
-{
-	if (pmt == 0) 
+{	
+	switch (pmt)
 	{
+		case perspective:
 		projectionMatrix = perspectiveProjectionMatrix;
-	}
-	else
-	{
-		if (pmt == 1)
-		{
-			projectionMatrix = orthoProjectionMatrix;
-		}
+		break;
+		case orthographic:
+		projectionMatrix = orthoProjectionMatrix;
+		break;
 	}
 	
 }

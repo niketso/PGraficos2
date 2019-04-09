@@ -19,19 +19,6 @@ private:
 	glm::mat4 perspectiveProjectionMatrix;
 	glm::mat4 wvp;
 
-	//ortho
-	/*const float left;
-	const float right;
-	const float bottom;
-	const float top;
-	const float zNear;
-	const float zFar;*/
-
-	//Perspective
-	/*const float angle;
-	const float aspect;
-	const float zNear;
-	const float zFar;*/
 
 	glm::vec3 camPos;
 	glm::vec3 eyePos;
