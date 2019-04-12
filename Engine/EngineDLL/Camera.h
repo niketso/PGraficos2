@@ -9,9 +9,10 @@ private:
 	glm::vec3 eyePos;
 	glm::vec3 camPos;
 	glm::vec3 upVec;
-	glm::vec3 forward;
-	glm::vec3 right;
-	glm::vec3 upDir;
+
+	glm::vec4 forward;
+	glm::vec4 right;
+	glm::vec4 upDir;
 
 public:
 	Camera(Renderer * render);
