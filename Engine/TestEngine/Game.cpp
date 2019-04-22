@@ -49,7 +49,7 @@ bool Game::OnUpdate() {
 	//cam->Pitch(0.3);
 	//cam->Walk(0.3);
 	//cam->Strafe(0.3);
-	cam->Pitch(0.03);
+	//cam->Pitch(0.03);
 	//cam->yaw();
 	//cam->Roll();
 	spr1->Translate(-0.5f * deltaTime ,0.0f,0.0f);
