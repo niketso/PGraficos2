@@ -29,7 +29,7 @@ bool Renderer::Start(Window * windowPTR) {
 
 		//Inicializo la matriz de projeccion.
 		//projectionMatrix = glm::ortho(-10.0f, 10.0f, -10.0f,10.0f, 0.0f, 100.f);
-		perspectiveProjectionMatrix = glm::perspective(90.0f, 1.06f, 0.0f, 100.f);
+		perspectiveProjectionMatrix = glm::perspective(45.0f, 1.06f, 0.0f, 100.f);
 		orthoProjectionMatrix  = glm::ortho(-10.0f, 10.0f, -10.0f, 10.0f, 0.0f, 100.f);
 		projectionMatrix = perspectiveProjectionMatrix;
 		//Inicializo la matriz de vista.

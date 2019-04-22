@@ -17,6 +17,7 @@ private:
 public:
 	Camera(Renderer * render);
 	~Camera();
+	void Update();
 	void Walk(float dir);
 	void Strafe(float dir);
 	void Pitch(float dir);
