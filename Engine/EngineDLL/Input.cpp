@@ -1,13 +1,21 @@
 #include "Input.h"
+#include <GLFW\glfw3.h>
 
-/*void Input::Movement(Window * window)
+Input::Input(Window *window) 
 {
-	if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
-		//walk + 
-	if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
-		//walk -
-	if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
-		//strafe +
-	if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
-		///stafe -
-}*/
+		win = window;
+}
+
+
+bool Input::IsKeyPressed(int i)
+{
+	if (glfwGetKey((GLFWwindow*)win->GetWindow(), i) == GLFW_PRESS) //87 w
+		return true;
+	if (glfwGetKey((GLFWwindow*)win->GetWindow(), i) == GLFW_PRESS)//83 s 
+		return true;
+	if (glfwGetKey((GLFWwindow*)win->GetWindow(), i) == GLFW_PRESS)//65 a
+		return true;
+	if (glfwGetKey((GLFWwindow*)win->GetWindow(), i) == GLFW_PRESS)//68 d
+		return true;
+	return false;
+}

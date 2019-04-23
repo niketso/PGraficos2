@@ -12,6 +12,7 @@ bool Game::OnStart() {
 	mat1 = new Material();
 	unsigned int programID = mat1->LoadShaders("texturevertexshader.txt", "texturefragmentshader.txt");		
 	cam = new  Camera(render);
+	inp = new Input(this->window);
 	spr1 = new Sprite(render,8,4);	
 	spr2 = new Sprite(render, 1, 1);
 	//tmp1 = new TileMap("Tile.csv",800, 600, render, mat1);
@@ -47,11 +48,16 @@ bool Game::OnUpdate() {
 	i++;
 	//movX
 	cam->Update();
-	//cam->Walk(0.3);
-	//cam->Strafe(0.3);
-	//cam->Pitch(0.03);
-	//cam->yaw(0.1);
-	//cam->Roll(0.1);
+	
+	if (inp->IsKeyPressed(87))
+		cam->Walk(0.3);
+	if (inp->IsKeyPressed(83))
+		cam->Walk(-0.3);
+	if (inp->IsKeyPressed(65))
+		cam->Strafe(0.3);
+	if (inp->IsKeyPressed(68))
+		cam->Strafe(-0.3);
+
 	spr1->Translate(-0.5f * deltaTime ,0.0f,0.0f);
 	spr2->Translate(0.5f * deltaTime, 0.0f, 0.0f);
 	//movY

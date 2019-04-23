@@ -8,6 +8,7 @@
 #include "../EngineDLL/CollisionManager.h"
 #include "../EngineDLL/TileMap.h"
 #include "../EngineDLL/Camera.h"
+#include "../EngineDLL/Input.h"
 #include <iostream>
 class Game : public Gamebase {
 private:
@@ -17,6 +18,7 @@ private:
 	Sprite  * spr1;
 	Sprite * spr2;
 	Camera *cam;
+	Input *inp;
 	
 	//TileMap *tmp1;
 	
