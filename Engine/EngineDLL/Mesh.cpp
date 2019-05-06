@@ -2,11 +2,16 @@
 
 
 
-Mesh::Mesh()
+Mesh::Mesh(Renderer *render)
 {
 }
 
 
 Mesh::~Mesh()
 {
+}
+
+void Mesh::DrawBuffer()
+{
+
 }

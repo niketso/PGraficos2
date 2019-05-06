@@ -1,8 +1,14 @@
 #pragma once
-class Mesh
+#include "Exports.h"
+#include "Shape.h"
+class ENGINEDLL_API Mesh:public Shape
 {
+private:
+int * indexVec;
+
 public:
-	Mesh();
-	~Mesh();
+	Mesh(Renderer *render);
+	~Mesh();	
+	void DrawBuffer();
 };
 

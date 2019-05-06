@@ -117,6 +117,15 @@ unsigned int Renderer::GenTextureBuffer( int width, int height,unsigned char* da
 	return texturebuffer;
 }
 
+unsigned int Renderer::GenMeshBuffer(float * buffer, unsigned int idxbuffer,int* idxvec,int idxcount)
+{
+	unsigned int idxbuffer;
+	glGenBuffers(1, &idxbuffer);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, idxbuffer);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, idxcount * sizeof(unsigned int), &idxvec[0], GL_STATIC_DRAW);
+	return idxbuffer;
+}
+
 void Renderer::DrawBuffer(int size, int drawType) 
 {																																		
 	glDrawArrays(drawType, 0, size);								
