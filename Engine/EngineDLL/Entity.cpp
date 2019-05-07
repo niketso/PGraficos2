@@ -8,6 +8,7 @@ Entity::Entity(Renderer *renderPTR)
 	RotMatrix = glm::mat4(1.0f);
 	ScaleMatrix = glm::mat4(1.0f);
 	pivotPosition = glm::vec3(0.0f);
+	bBox = NULL;
 
 	pos[0] = pos[1] = pos[2] = 0.0f;
 	rot[0] = rot[1] = rot[2] = 0.0f;

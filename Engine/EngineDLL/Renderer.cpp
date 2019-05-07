@@ -117,18 +117,29 @@ unsigned int Renderer::GenTextureBuffer( int width, int height,unsigned char* da
 	return texturebuffer;
 }
 
-unsigned int Renderer::GenMeshBuffer(float * buffer, unsigned int idxbuffer,int* idxvec,int idxcount)
+unsigned int Renderer::GenIndexBuffer (unsigned int* buffer, int size)
 {
 	unsigned int idxbuffer;
 	glGenBuffers(1, &idxbuffer);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, idxbuffer);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, idxcount * sizeof(unsigned int), &idxvec[0], GL_STATIC_DRAW);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, size * sizeof(unsigned int), &buffer[0], GL_STATIC_DRAW);
+
 	return idxbuffer;
 }
 
 void Renderer::DrawBuffer(int size, int drawType) 
 {																																		
 	glDrawArrays(drawType, 0, size);								
+}
+
+void Renderer::DrawIndex(int idxcount)
+{
+	glDrawElements(
+		GL_TRIANGLES,      
+		idxcount,    
+		GL_UNSIGNED_INT,   
+		(void*)0           
+	);
 }
 
 void Renderer::DestroyBuffer(unsigned int buffer) 
@@ -174,6 +185,12 @@ void Renderer::BindTextureBuffer(unsigned int txtrebuffer, unsigned int atribId)
 		0,																// Paso
 		(void*)0														// desfase del buffer
 	);
+}
+
+void Renderer::BindMeshBuffer(unsigned int idxbuffer)
+{
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, idxbuffer);
+	
 }
 
 /*void Renderer::BindTexture(unsigned int Id, unsigned int txtreBuffer) 

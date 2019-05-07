@@ -31,6 +31,13 @@ void Shape::SetColorVertices(float* vertices, int count)
 	colorBufferId = render->GenColorBuffer(vertices, sizeof(float)* count * 3);
 }
 
+void Shape::SetIndexVertices(unsigned int * vertices, int count)
+{
+	idxVtxCount = count;
+	shouldDisposeColor = true;
+	indexBufferId = render->GenIndexBuffer(vertices, sizeof(unsigned int)* count );
+}
+
 
 void Shape::SetMaterial(Material* material)
 {
@@ -50,7 +57,7 @@ void Shape::DrawMesh(int drawType)
 	render->BeginDraw(1);
 	render->BindBuffer(bufferId, 0);	
 	render->BindColorBuffer(colorBufferId, 1);
-	render->DrawBuffer(vtxCount,drawType);
+	render->DrawBuffer(idxVtxCount,drawType);
 	render->EndDraw(0);
 	render->EndDraw(1);
 }

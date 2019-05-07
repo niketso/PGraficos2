@@ -4,11 +4,12 @@
 class ENGINEDLL_API Mesh:public Shape
 {
 private:
-int * indexVec;
+
 
 public:
 	Mesh(Renderer *render);
-	~Mesh();	
-	void DrawBuffer();
+	~Mesh();
+	void Draw();
+	void DrawMesh(int drawType) override;
 };
 

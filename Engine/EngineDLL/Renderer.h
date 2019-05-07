@@ -35,14 +35,15 @@ public:
 	unsigned int  GenBuffer(float* buffer, int size);
 	unsigned int  GenColorBuffer(float* buffer, int size);
 	unsigned int GenTextureBuffer(int width, int height, unsigned char* data);
-	unsigned int GenMeshBuffer(float* buffer, unsigned int idxbuffer, int* idxvec, int idxcount);
+	unsigned int GenIndexBuffer( unsigned int* buffer, int size);
 	void BindBuffer(unsigned int vtxbuffer, unsigned int name);
 	void BindColorBuffer(unsigned int clrbuffer, unsigned int name);
 	void BindTextureBuffer(unsigned int txtrebuffer, unsigned int name);
+	void BindMeshBuffer(unsigned int idxbuffer);
 	void BeginDraw(unsigned int name);
 	void EndDraw(unsigned int name);
 	void DrawBuffer( int size,int drawType);
-	//void DrawIndex(int size);
+	void DrawIndex(int idxcount);
 	void DestroyBuffer(unsigned int buffer);
 	void UpdateWVP();
 	glm::mat4&  GetWvp();

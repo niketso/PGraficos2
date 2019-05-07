@@ -9,6 +9,7 @@
 #include "../EngineDLL/TileMap.h"
 #include "../EngineDLL/Camera.h"
 #include "../EngineDLL/Input.h"
+#include "../EngineDLL/Mesh.h"
 #include <iostream>
 class Game : public Gamebase {
 private:
@@ -19,6 +20,7 @@ private:
 	Sprite * spr2;
 	Camera *cam;
 	Input *inp;
+	Mesh *msh1;
 	
 	//TileMap *tmp1;
 	

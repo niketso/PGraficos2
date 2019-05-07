@@ -15,9 +15,12 @@ bool Game::OnStart() {
 	inp = new Input(this->window);
 	spr1 = new Sprite(render,8,4);	
 	spr2 = new Sprite(render, 1, 1);
+	msh1 = new Mesh(render);
+	
 	//tmp1 = new TileMap("Tile.csv",800, 600, render, mat1);
 	spr1->SetMaterial(mat1);
 	spr2->SetMaterial(mat1);
+	msh1->SetMaterial(mat1);
 		spr1->LoadTexture("Doom.bmp");
 		spr2->LoadTexture("sample2.bmp");
 	
@@ -33,6 +36,7 @@ bool Game::OnStart() {
 
 	spr1->SetPos(-5,0,0);
 	spr1->SetPos(5,0,0);
+	//msh1->SetPos(-5, 0, 0);
 	
 	cout << "Game::OnStart()" << endl;
 	return true;
@@ -75,9 +79,9 @@ bool Game::OnUpdate() {
 void Game::OnDraw()
 {
 	//tmp1->DrawTileMap();
-	spr1->Draw();
-	spr2->Draw();
-		
+	//spr1->Draw();
+	//spr2->Draw();
+	msh1->DrawMesh(0);
 	//cout << "Game::OnDraw(): " << i << endl;
 }
 
