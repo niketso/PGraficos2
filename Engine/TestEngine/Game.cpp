@@ -10,7 +10,8 @@ bool Game::OnStart() {
 	CollisionManager* colManager = CollisionManager::Instance();
 	
 	mat1 = new Material();
-	unsigned int programID = mat1->LoadShaders("texturevertexshader.txt", "texturefragmentshader.txt");		
+	//unsigned int programID = mat1->LoadShaders("texturevertexshader.txt", "texturefragmentshader.txt");
+	unsigned int programID = mat1->LoadShaders("colorvertexshader.txt", "colorfragmentshader.txt");
 	cam = new  Camera(render);
 	inp = new Input(this->window);
 	spr1 = new Sprite(render,8,4);	
@@ -61,6 +62,14 @@ bool Game::OnUpdate() {
 		cam->Strafe(0.3);
 	if (inp->IsKeyPressed(68))
 		cam->Strafe(-0.3);
+	if (inp->IsKeyPressed(265))
+		cam->Pitch(0.3);
+	if (inp->IsKeyPressed(264))
+		cam->Pitch(-0.3);
+	if (inp->IsKeyPressed(263))
+		cam->yaw(0.3);
+	if (inp->IsKeyPressed(262))
+		cam->yaw(-0.3);
 
 	spr1->Translate(-0.5f * deltaTime ,0.0f,0.0f);
 	spr2->Translate(0.5f * deltaTime, 0.0f, 0.0f);
