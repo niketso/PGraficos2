@@ -78,6 +78,13 @@
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(SolutionDir)external\glm-0.9.9.0;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
+    <CustomBuildStep>
+      <Command>
+      </Command>
+    </CustomBuildStep>
+    <PostBuildEvent>
+      <Command>copy $(SolutionDir)external\assimp-vc140-mt.dll $(SolutionDir)$(Configuration)\assimp-vc140-mt.dll</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>

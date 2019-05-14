@@ -36,7 +36,7 @@ Mesh::Mesh(Renderer *render):Shape(render)
 
 	indxvertex = new unsigned int[36] 
 	{
-			0, 1, 2,
+		0, 1, 2,
 		2, 3, 0,
 		// right
 		1, 5, 6,
@@ -54,7 +54,7 @@ Mesh::Mesh(Renderer *render):Shape(render)
 		3, 2, 6,
 		6, 7, 3
 	};
-	SetIndexVertices(indxvertex, 8);
+	SetIndexVertices(indxvertex, 36);
 
 }
 

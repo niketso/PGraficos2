@@ -73,6 +73,8 @@ bool Game::OnUpdate() {
 
 	spr1->Translate(-0.5f * deltaTime ,0.0f,0.0f);
 	spr2->Translate(0.5f * deltaTime, 0.0f, 0.0f);
+	//
+	//msh1->Rotate(0.0f, 0.003f, 0.0f);
 	//movY
 	//spr1->Translate(0.0f,1.0f * deltaTime, 0.0f);
 	//spr2->Translate(-4.0f * deltaTime, 0.0f,0.0f);
