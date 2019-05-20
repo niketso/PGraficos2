@@ -1,10 +1,21 @@
 #include "Mesh.h"
+#include"ModelImporter.h"
 
 
 
-Mesh::Mesh(Renderer *render):Shape(render)
+Mesh::Mesh(Renderer *render,const char* filename,const char* texturename):Shape(render)
 {
-	vertex = new float[24]
+	//textures = new vector<BMPheader*>;
+	vector<BMPheader*> *textures = new vector<BMPheader*>();
+	vector<MeshEntry> *entry = new vector<MeshEntry>();
+	
+
+	ModelImporter::LoadMesh(filename,texturename,*textures,*entry,render);
+	
+
+	
+
+	/*vertex = new float[24]
 	{
 		//front
 		-1.0, -1.0, 1.0,
@@ -17,6 +28,7 @@ Mesh::Mesh(Renderer *render):Shape(render)
 		1.0, 1.0, -1.0,
 		-1.0, 1.0, -1.0
 	};
+	
 	SetVertices(vertex, 8);
 
 	clrvertex = new float[24]
@@ -55,6 +67,7 @@ Mesh::Mesh(Renderer *render):Shape(render)
 		6, 7, 3
 	};
 	SetIndexVertices(indxvertex, 36);
+	*/
 
 }
 

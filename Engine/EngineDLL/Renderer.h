@@ -4,7 +4,7 @@
 #include "Definitions.h"
 #include<glm/glm.hpp>
 #include<glm\gtc\matrix_transform.hpp>
-
+#include <vector>
 #include <iostream>
 using namespace std;
 class ENGINEDLL_API Renderer
@@ -36,6 +36,7 @@ public:
 	unsigned int  GenColorBuffer(float* buffer, int size);
 	unsigned int GenTextureBuffer(int width, int height, unsigned char* data);
 	unsigned int GenIndexBuffer( unsigned int* buffer, int size);
+	unsigned int GenIndexBuffer(vector<unsigned int> index);
 	void BindBuffer(unsigned int vtxbuffer, unsigned int name);
 	void BindColorBuffer(unsigned int clrbuffer, unsigned int name);
 	void BindTextureBuffer(unsigned int txtrebuffer, unsigned int name);

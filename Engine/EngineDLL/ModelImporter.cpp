@@ -2,6 +2,7 @@
 
 
 
+
 ModelImporter::ModelImporter()
 {
 }
@@ -11,26 +12,23 @@ ModelImporter::~ModelImporter()
 {
 }
 
-bool ModelImporter::LoadMesh(const char* MeshName)
+ void ModelImporter::LoadMesh(const char * meshname, const char * texturename, vector<BMPheader*> texture, vector<MeshEntry> entries, Renderer * render)
 {
-	Clear(m_Textures);
+	Clear(texture);
 
-	bool Ret = false;
 	Assimp::Importer Importer;
 
-	const aiScene* pScene = Importer.ReadFile(MeshName, ASSIMP_LOAD_FLAGS);
-
-	if (pScene) {
-		Ret = InitFromScene(pScene, MeshName);
+	const aiScene* pScene = Importer.ReadFile(meshname, aiProcess_Triangulate | aiProcess_GenSmoothNormals | aiProcess_JoinIdenticalVertices);
+	
+	InitFromScene(pScene, meshname,render);
+	
+	if (!pScene) {
+		printf("Error parsing '%s': '%s'\n", meshname, Importer.GetErrorString());
 	}
-	else {
-		printf("Error parsing '%s': '%s'\n", MeshName, Importer.GetErrorString());
-	}
-
-	return Ret;
+	
 }
 
-bool ModelImporter::InitFromScene(const aiScene * pScene, const std::string & Filename)
+  void ModelImporter::InitFromScene(const aiScene * pScene, const char* filename, Renderer * render)
 {
 	m_Entries.resize(pScene->mNumMeshes);
 	m_Textures.resize(pScene->mNumMaterials);
@@ -38,17 +36,15 @@ bool ModelImporter::InitFromScene(const aiScene * pScene, const std::string & Fi
 	// Initialize the meshes in the scene one by one
 	for (unsigned int i = 0; i < m_Entries.size(); i++) {
 		const aiMesh* paiMesh = pScene->mMeshes[i];
-		InitMesh(i, paiMesh);
+		InitMesh(i, paiMesh,render);
 	}
-	return false;
+
 }
 
-void ModelImporter::InitMesh(unsigned int Index, const aiMesh * paiMesh)
-{
-	m_Entries[Index].MaterialIndex = paiMesh->mMaterialIndex;
-
-	std::vector<Vertex> Vertices;
-	std::vector<unsigned int> Indices;
+void ModelImporter::InitMesh(unsigned int Index, const aiMesh * paiMesh, Renderer * render)
+{	
+	vector<Vertex> Vertices;
+	vector<unsigned int> Indices;
 
 	const aiVector3D Zero3D(0.0f, 0.0f, 0.0f);
 
@@ -72,12 +68,14 @@ void ModelImporter::InitMesh(unsigned int Index, const aiMesh * paiMesh)
 		Indices.push_back(Face.mIndices[2]);
 	}
 
-	m_Entries[Index].Init(Vertices, Indices);
+	 m_Entries[Index].Init(Vertices, Indices,render);
+
 }
 
-void ModelImporter::Clear(vector<BMPheader*>& texture)
+void ModelImporter::Clear(vector<BMPheader*> texture)
 {
-	for (unsigned int i = 0; i < m_Textures.size(); i++) {
+	for (unsigned int i = 0; i < texture.size(); i++) 
+	{
 		if (texture[i] != NULL)
 		{
 			delete texture[i];
@@ -85,6 +83,12 @@ void ModelImporter::Clear(vector<BMPheader*>& texture)
 		}
 	}
 }
+
+
+
+
+
+
 
 
 

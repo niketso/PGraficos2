@@ -1,23 +1,20 @@
 #pragma once
-#define ASSIMP_LOAD_FLAGS (aiProcess_Triangulate | aiProcess_GenSmoothNormals | aiProcess_FlipUVs | aiProcess_JoinIdenticalVertices)
+
 #include "Exports.h"
-#include <vector>
 #include"Importer.h"
+#include "Mesh.h"
+
 #include<assimp/Importer.hpp>
 #include<assimp/postprocess.h>
 #include<assimp/scene.h>
-#include<gl/glew.h>
-#include<glm/vec2.hpp>
-#include<glm/vec3.hpp>
+
+#include"../external/glew-2.1.0/include/GL/glew.h"
+#include "../external/glm-0.9.9.0/glm/vec2.hpp"
+#include "../external/glm-0.9.9.0/glm/vec3.hpp"
+
+#include <vector>
 using namespace std;
 using namespace glm;
-
-struct MeshData
-{	
-	vector<float> vertexVec;
-	vector<unsigned int> indexVec;
-	vector<float> uvVec;
-};
 
 struct Vertex
 {
@@ -27,20 +24,59 @@ struct Vertex
 
 	Vertex() {}
 
-	Vertex(const vec3& pos, const vec2& tex, const vec3& normal)
+	Vertex(const vec3& pos, const vec2& tex, const vec3& normal) 
 	{
 		m_pos = pos;
 		m_tex = tex;
 		m_normal = normal;
 	}
+
 };
+
 struct MeshEntry {
 	MeshEntry() {};
 
 	~MeshEntry() {};
+	unsigned int vertexBuffer;
+	unsigned int indexBuffer;
+	unsigned int uvBuffer;
 
-	void Init(const std::vector<Vertex>& Vertices,
-		const std::vector<unsigned int>& Indices);
+	MeshData *meshinfo = new MeshData();
+	
+	void Init(const vector<Vertex>& Vertices, const vector<unsigned int>& Indices,Renderer *render)
+	{
+		
+		float* meshPos = new float[Vertices.size() * 3];
+		float* textPos = new float[Vertices.size() * 2];
+		float* normalPos = new float[Vertices.size() * 3];
+
+		for (unsigned int  i = 0; i < Vertices.size(); i++)
+		{
+			meshPos[i * 3] = Vertices[i].m_pos.x;
+			meshPos[i * 3 + 1] = Vertices[i].m_pos.y;
+			meshPos[i * 3 + 2] = Vertices[i].m_pos.z;
+
+			textPos[i * 2] = Vertices[i].m_tex.x;
+			textPos[i * 2 + 1] = Vertices[i].m_tex.y;
+
+			normalPos[i * 3] = Vertices[i].m_normal.x;
+			normalPos[i * 3 + 1] = Vertices[i].m_normal.y;
+			normalPos[i * 3 + 2] = Vertices[i].m_normal.z;
+
+			//MeshData::SetMeshInfo(meshinfo);
+
+		}
+
+		vertexBuffer = render->GenBuffer(meshPos, sizeof(float)* Vertices.size() * 3);
+		indexBuffer = render->GenIndexBuffer(Indices);
+		uvBuffer = render->GenBuffer(textPos, sizeof(float)* Vertices.size() * 2);
+	}
+
+	MeshData GetVertex() 
+	{
+		return *meshinfo;
+	}
+
 
 	GLuint VB;
 	GLuint IB;
@@ -48,24 +84,19 @@ struct MeshEntry {
 	unsigned int MaterialIndex;
 };
 
-std::vector<MeshEntry> m_Entries;
-std::vector<BMPheader*> m_Textures;
-
-
-
-class ENGINEDLL_API ModelImporter
+ static class ENGINEDLL_API ModelImporter
 {
-private:
-vector<MeshData> aux;
-
 
 public:
+		 
 	ModelImporter();
 	~ModelImporter();
-	bool LoadMesh(const char * MeshName);
-	bool InitFromScene(const aiScene* pScene, const std::string& Filename);
-    void InitMesh(unsigned int Index, const aiMesh* paiMesh);
-    void Clear(vector<BMPheader*> &texture);
-
+	static void LoadMesh(const char * meshname,const char * texturename, vector<BMPheader*> texture, vector<MeshEntry> entries,Renderer * render);
+	static void InitFromScene(const aiScene* pScene, const char* filename, Renderer * render);
+	static void InitMesh(unsigned int Index, const aiMesh* paiMesh, Renderer * render);
+	static void Clear(vector<BMPheader*> texture);
+	
+	 static vector<MeshEntry> m_Entries;
+	 static vector<BMPheader> m_Textures;
 };
 

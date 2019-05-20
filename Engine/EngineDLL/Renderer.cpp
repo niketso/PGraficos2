@@ -127,6 +127,16 @@ unsigned int Renderer::GenIndexBuffer (unsigned int* buffer, int size)
 	return idxbuffer;
 }
 
+unsigned int Renderer::GenIndexBuffer(vector<unsigned int> index)
+{
+	unsigned int idxbuffer;
+	glGenBuffers(1, &idxbuffer);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, idxbuffer);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, index.size() * sizeof(unsigned int), &index[0], GL_STATIC_DRAW);
+
+	return idxbuffer;
+}
+
 void Renderer::DrawBuffer(int size, int drawType) 
 {																																		
 	glDrawArrays(drawType, 0, size);								

@@ -10,13 +10,13 @@ bool Game::OnStart() {
 	CollisionManager* colManager = CollisionManager::Instance();
 	
 	mat1 = new Material();
-	//unsigned int programID = mat1->LoadShaders("texturevertexshader.txt", "texturefragmentshader.txt");
-	unsigned int programID = mat1->LoadShaders("colorvertexshader.txt", "colorfragmentshader.txt");
+	unsigned int programID = mat1->LoadShaders("texturevertexshader.txt", "texturefragmentshader.txt");
+	//unsigned int programID = mat1->LoadShaders("colorvertexshader.txt", "colorfragmentshader.txt");
 	cam = new  Camera(render);
 	inp = new Input(this->window);
 	spr1 = new Sprite(render,8,4);	
 	spr2 = new Sprite(render, 1, 1);
-	msh1 = new Mesh(render);
+	msh1 = new Mesh(render,"thor hammer","thor color");
 	
 	//tmp1 = new TileMap("Tile.csv",800, 600, render, mat1);
 	spr1->SetMaterial(mat1);
