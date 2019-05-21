@@ -41,7 +41,7 @@ struct MeshEntry {
 	unsigned int indexBuffer;
 	unsigned int uvBuffer;
 
-	MeshData *meshinfo = new MeshData();
+	
 	
 	void Init(const vector<Vertex>& Vertices, const vector<unsigned int>& Indices,Renderer *render)
 	{
@@ -72,11 +72,6 @@ struct MeshEntry {
 		uvBuffer = render->GenBuffer(textPos, sizeof(float)* Vertices.size() * 2);
 	}
 
-	MeshData GetVertex() 
-	{
-		return *meshinfo;
-	}
-
 
 	GLuint VB;
 	GLuint IB;
@@ -87,8 +82,9 @@ struct MeshEntry {
  static class ENGINEDLL_API ModelImporter
 {
 
+
 public:
-		 
+	
 	ModelImporter();
 	~ModelImporter();
 	static void LoadMesh(const char * meshname,const char * texturename, vector<BMPheader*> texture, vector<MeshEntry> entries,Renderer * render);

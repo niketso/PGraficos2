@@ -1,7 +1,8 @@
 #include "ModelImporter.h"
 
 
-
+vector<MeshEntry> ModelImporter::m_Entries;
+vector<BMPheader> ModelImporter::m_Textures;
 
 ModelImporter::ModelImporter()
 {
@@ -16,9 +17,11 @@ ModelImporter::~ModelImporter()
 {
 	Clear(texture);
 
+	//meshinfo = new MeshEntry();
+
 	Assimp::Importer Importer;
 
-	const aiScene* pScene = Importer.ReadFile(meshname, aiProcess_Triangulate | aiProcess_GenSmoothNormals | aiProcess_JoinIdenticalVertices);
+	  const aiScene* pScene = Importer.ReadFile(meshname, aiProcess_Triangulate | aiProcess_GenSmoothNormals | aiProcess_JoinIdenticalVertices);
 	
 	InitFromScene(pScene, meshname,render);
 	

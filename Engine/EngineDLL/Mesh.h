@@ -4,23 +4,7 @@
 #include<vector>
 using namespace std;
 
-struct MeshData
-{
-	MeshData *meshinfo;
-	vector<float> vertexVec;	
-	vector<float> uvVec;
-	vector<float> normalVec;
-	vector<unsigned int> indexVec;
 
-	 void SetMeshInfo(MeshData *_meshinfo) 
-	{
-		meshinfo = _meshinfo;
-	}
-	MeshData GetMeshInfo() 
-	{
-		return *meshinfo;
-	}
-};
 
 class ENGINEDLL_API Mesh:public Shape
 {
