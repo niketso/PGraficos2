@@ -26,10 +26,11 @@ bool Renderer::Start(Window * windowPTR) {
 		//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 		glGenVertexArrays(1, &VertexArrayID);
 		glBindVertexArray(VertexArrayID);
+		
 
 		//Inicializo la matriz de projeccion.
 		//projectionMatrix = glm::ortho(-10.0f, 10.0f, -10.0f,10.0f, 0.0f, 100.f);
-		perspectiveProjectionMatrix = glm::perspective(45.0f, 1.06f, 0.0f, 100.f);
+		perspectiveProjectionMatrix = glm::perspective(45.0f, 1.06f, 0.1f, 1000.f);
 		orthoProjectionMatrix  = glm::ortho(-10.0f, 10.0f, -10.0f, 10.0f, 0.0f, 100.f);
 		projectionMatrix = perspectiveProjectionMatrix;
 		//Inicializo la matriz de vista.
@@ -42,7 +43,8 @@ bool Renderer::Start(Window * windowPTR) {
 		);
 		//Inicializo la matriz de mundo.
 		worldMatrix = glm::mat4(1.0f);
-		
+		glEnable(GL_DEPTH_TEST);
+		glDepthFunc(GL_LESS);
 		UpdateWVP();
 
 		cout << "Renderer::Start()" << endl;

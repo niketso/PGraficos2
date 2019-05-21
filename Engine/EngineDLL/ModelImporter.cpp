@@ -3,9 +3,10 @@
 
 vector<MeshEntry> ModelImporter::m_Entries;
 vector<BMPheader> ModelImporter::m_Textures;
-
+unsigned int textureBufferId = NULL;
 ModelImporter::ModelImporter()
 {
+	
 }
 
 
@@ -13,17 +14,17 @@ ModelImporter::~ModelImporter()
 {
 }
 
- void ModelImporter::LoadMesh(const char * meshname, const char * texturename, vector<BMPheader*> texture, vector<MeshEntry> entries, Renderer * render)
+ void ModelImporter::LoadMesh(const char * meshname, const char * texturename, vector<BMPheader> *texture, vector<MeshEntry> *entries, Renderer * render)
 {
-	Clear(texture);
+	 m_Entries = *entries;
+		m_Textures = *texture;
 
-	//meshinfo = new MeshEntry();
 
 	Assimp::Importer Importer;
 
 	  const aiScene* pScene = Importer.ReadFile(meshname, aiProcess_Triangulate | aiProcess_GenSmoothNormals | aiProcess_JoinIdenticalVertices);
 	
-	InitFromScene(pScene, meshname,render);
+	InitFromScene(pScene, texturename,texture,entries,render);
 	
 	if (!pScene) {
 		printf("Error parsing '%s': '%s'\n", meshname, Importer.GetErrorString());
@@ -31,7 +32,7 @@ ModelImporter::~ModelImporter()
 	
 }
 
-  void ModelImporter::InitFromScene(const aiScene * pScene, const char* filename, Renderer * render)
+  void ModelImporter::InitFromScene(const aiScene * pScene, const char* filename, vector<BMPheader> *texture, vector<MeshEntry> *entries, Renderer * render)
 {
 	m_Entries.resize(pScene->mNumMeshes);
 	m_Textures.resize(pScene->mNumMaterials);
@@ -41,9 +42,19 @@ ModelImporter::~ModelImporter()
 		const aiMesh* paiMesh = pScene->mMeshes[i];
 		InitMesh(i, paiMesh,render);
 	}
+	
+	for (int i = 0; i < pScene->mNumMaterials; i++)
+	{
+		m_Textures[i] = Importer::LoadBMP(filename);
+		textureBufferId = render->GenTextureBuffer(m_Textures[0].width, m_Textures[0].height, m_Textures[0].data);
+	}
 
 }
 
+  unsigned int ModelImporter::GetTextureBuffer() 
+  {
+	  return textureBufferId;
+  }
 void ModelImporter::InitMesh(unsigned int Index, const aiMesh * paiMesh, Renderer * render)
 {	
 	vector<Vertex> Vertices;
@@ -75,17 +86,7 @@ void ModelImporter::InitMesh(unsigned int Index, const aiMesh * paiMesh, Rendere
 
 }
 
-void ModelImporter::Clear(vector<BMPheader*> texture)
-{
-	for (unsigned int i = 0; i < texture.size(); i++) 
-	{
-		if (texture[i] != NULL)
-		{
-			delete texture[i];
-			texture[i] = NULL;
-		}
-	}
-}
+
 
 
 

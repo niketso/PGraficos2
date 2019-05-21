@@ -40,7 +40,8 @@ struct MeshEntry {
 	unsigned int vertexBuffer;
 	unsigned int indexBuffer;
 	unsigned int uvBuffer;
-
+	unsigned int textureBufferId;
+	int count;
 	
 	
 	void Init(const vector<Vertex>& Vertices, const vector<unsigned int>& Indices,Renderer *render)
@@ -50,6 +51,7 @@ struct MeshEntry {
 		float* textPos = new float[Vertices.size() * 2];
 		float* normalPos = new float[Vertices.size() * 3];
 
+		count = Indices.size();
 		for (unsigned int  i = 0; i < Vertices.size(); i++)
 		{
 			meshPos[i * 3] = Vertices[i].m_pos.x;
@@ -87,10 +89,10 @@ public:
 	
 	ModelImporter();
 	~ModelImporter();
-	static void LoadMesh(const char * meshname,const char * texturename, vector<BMPheader*> texture, vector<MeshEntry> entries,Renderer * render);
-	static void InitFromScene(const aiScene* pScene, const char* filename, Renderer * render);
+	static void LoadMesh(const char * meshname,const char * texturename, vector<BMPheader> *texture, vector<MeshEntry> *entries,Renderer * render);
+	static void InitFromScene(const aiScene* pScene, const char* filename, vector<BMPheader> *texture, vector<MeshEntry> *entries, Renderer * render);
 	static void InitMesh(unsigned int Index, const aiMesh* paiMesh, Renderer * render);
-	static void Clear(vector<BMPheader*> texture);
+	static unsigned int GetTextureBuffer();
 	
 	 static vector<MeshEntry> m_Entries;
 	 static vector<BMPheader> m_Textures;

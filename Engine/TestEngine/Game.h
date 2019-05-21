@@ -16,11 +16,13 @@ private:
 	int i;
 	
 	Material * mat1;
+	Material * mat2;
 	Sprite  * spr1;
 	Sprite * spr2;
 	Camera *cam;
 	Input *inp;
 	Mesh *msh1;
+	Mesh *msh2;
 	
 	//TileMap *tmp1;
 	
