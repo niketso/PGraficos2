@@ -87,6 +87,12 @@
     <ClInclude Include="ModelImporter.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
+    <ClInclude Include="Node.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="Component.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameBase.cpp">
@@ -150,6 +156,12 @@
       <Filter>Archivos de origen</Filter>
     </ClCompile>
     <ClCompile Include="ModelImporter.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="Node.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="Component.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
   </ItemGroup>
