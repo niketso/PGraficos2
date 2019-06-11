@@ -140,6 +140,7 @@
     <ClInclude Include="Input.h" />
     <ClInclude Include="Material.h" />
     <ClInclude Include="Mesh.h" />
+    <ClInclude Include="MeshComponent.h" />
     <ClInclude Include="ModelImporter.h" />
     <ClInclude Include="Node.h" />
     <ClInclude Include="Rectangle.h" />
@@ -149,6 +150,7 @@
     <ClInclude Include="SpriteSheet.h" />
     <ClInclude Include="Tile.h" />
     <ClInclude Include="TileMap.h" />
+    <ClInclude Include="TransformComponent.h" />
     <ClInclude Include="Triangle.h" />
     <ClInclude Include="TypeDef.h" />
     <ClInclude Include="Window.h" />
@@ -166,6 +168,7 @@
     <ClCompile Include="Input.cpp" />
     <ClCompile Include="Material.cpp" />
     <ClCompile Include="Mesh.cpp" />
+    <ClCompile Include="MeshComponent.cpp" />
     <ClCompile Include="ModelImporter.cpp" />
     <ClCompile Include="Node.cpp" />
     <ClCompile Include="Rectangle.cpp" />
@@ -175,6 +178,7 @@
     <ClCompile Include="SpriteSheet.cpp" />
     <ClCompile Include="Tile.cpp" />
     <ClCompile Include="TileMap.cpp" />
+    <ClCompile Include="TransformComponent.cpp" />
     <ClCompile Include="Triangle.cpp" />
     <ClCompile Include="Window.cpp" />
   </ItemGroup>
