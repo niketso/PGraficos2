@@ -13,10 +13,10 @@ public:
 	Node();
 	~Node();
 	bool start();
-	void AddComponent();
-	void RemoveComponent();
-	void AddChild();
-	void RemoveChild();
+	void AddComponent(Component *_component);
+	void RemoveComponent(Component *_component);
+	void AddChild(Node _node);
+	void RemoveChild(Node _node);
 	bool Update();
 	void Draw();
 };
