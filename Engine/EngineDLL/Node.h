@@ -17,7 +17,7 @@ public:
 	void RemoveComponent(Component *_component);
 	void AddChild(Node _node);
 	void RemoveChild(Node _node);
-	bool Update();
+	bool Update();//2  for 
 	void Draw();
 };
 

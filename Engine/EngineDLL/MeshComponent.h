@@ -8,5 +8,6 @@ public:
 	void start();
 	bool Update();
 	void Draw();
+	//referencia a mesh y a material
 };
 

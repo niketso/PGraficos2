@@ -49,4 +49,5 @@ bool Node::Update()
 
 void Node::Draw()
 {
+	// guardar world matrix antes de usar y al final del draw volver a poner la vieja.
 }
