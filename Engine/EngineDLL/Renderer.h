@@ -51,6 +51,7 @@ public:
 	void TranslateCamera(glm::vec3 pos);
 	void LoadIdentityMatrix();
 	void SetWorldMatrix(glm::mat4 mat);
+	glm::mat4& GetWorldMatrix();
 	void MultiplyWorldMatrix(glm::mat4 mat);
 	void UpdateTexture(unsigned int txt);
 	void SetOrthoProjectionMatrix(const float left, const float right, const float bottom, const float top, const float ZNear, const float ZFar);

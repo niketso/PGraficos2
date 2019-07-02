@@ -1,3 +1,9 @@
+enum ComponentType 
+{
+	camera = 0,
+	transform,
+	mesh
+};
 #pragma once
 #include "Exports.h"
 #include"Node.h"

@@ -258,6 +258,11 @@ void Renderer::SetWorldMatrix(glm::mat4 mat)
 	UpdateWVP();
 }
 
+glm::mat4& Renderer::GetWorldMatrix()
+{
+	return worldMatrix;
+}
+
 void Renderer::UpdateTexture(unsigned int txt) 
 {
 	glGenTextures(1, &txt);

@@ -96,9 +96,6 @@
     <ClInclude Include="MeshComponent.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
-    <ClInclude Include="TransformComponent.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
     <ClInclude Include="CameraComponent.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
@@ -174,9 +171,6 @@
       <Filter>Archivos de origen</Filter>
     </ClCompile>
     <ClCompile Include="MeshComponent.cpp">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
-    <ClCompile Include="TransformComponent.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
     <ClCompile Include="CameraComponent.cpp">

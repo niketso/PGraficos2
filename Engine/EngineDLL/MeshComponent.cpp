@@ -2,7 +2,7 @@
 
 
 
-MeshComponent::MeshComponent()
+MeshComponent::MeshComponent(Material *mat, Mesh *msh)
 {
 }
 

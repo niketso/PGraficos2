@@ -1,23 +1,26 @@
 #pragma once
 #include "Exports.h"
 #include "Component.h"
-#include <list>
+#include "Renderer.h"
+#include "glm/glm.hpp"
+#include <vector>
 
 using namespace std;
 class  ENGINEDLL_API Node
 {
 private:
+	Renderer *render;
+	glm::mat4 transform;
+	glm::mat4 aux;
 public:
-	list<Node> * childList;
-	list<Component> * componentList;
+	vector<Node*> childVec;
+	vector<Component*> componentVec;
 	Node();
 	~Node();
 	bool start();
 	void AddComponent(Component *_component);
-	void RemoveComponent(Component *_component);
-	void AddChild(Node _node);
-	void RemoveChild(Node _node);
-	bool Update();//2  for 
-	void Draw();
+	void AddChild(Node *_node);
+	bool Update();
+	void Draw();//2 for
 };
 
