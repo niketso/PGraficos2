@@ -1,29 +1,28 @@
 #include "../EngineDLL/Gamebase.h"
-#include "../EngineDLL/Triangle.h"
-#include "../EngineDLL/Rectangle.h"
-#include "../EngineDLL/Circle.h"
 #include "../EngineDLL/Material.h"
 #include "../EngineDLL/Importer.h"
-#include "../EngineDLL/Sprite.h"
 #include "../EngineDLL/CollisionManager.h"
-#include "../EngineDLL/TileMap.h"
-#include "../EngineDLL/Camera.h"
 #include "../EngineDLL/Input.h"
-#include "../EngineDLL/Mesh.h"
+#include "../EngineDLL/Node.h"
+#include"../EngineDLL/Camera.h"
+#include"../EngineDLL/CameraComponent.h"
+#include"../EngineDLL/MeshComponent.h"
 #include <iostream>
 class Game : public Gamebase {
 private:
 	int i;
-	
+
+	Input *inp;	
 	Material * mat1;
-	Material * mat2;
-	Sprite  * spr1;
-	Sprite * spr2;
-	Camera *cam;
-	Input *inp;
 	Mesh *msh1;
-	Mesh *msh2;
+	Node *sceneNode;
+	Node *cameraNode;
+	Node *meshNode;
+	Camera *cam;
+	CameraComponent *camComp;
+	MeshComponent *mshComp;
 	
+
 	//TileMap *tmp1;
 	
 public:

@@ -30,7 +30,7 @@ void Mesh::Draw()
 
 void Mesh::DrawMesh(int drawType)
 {
-	render->LoadIdentityMatrix();
+	//render->LoadIdentityMatrix();
 	render->SetWorldMatrix(WorldMatrix);
 
 	if (material != NULL) {

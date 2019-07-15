@@ -1,12 +1,6 @@
 #include "Component.h"
 
-
-
-Component::Component()
+void Component::SetType(ComponentType type)
 {
-}
-
-
-Component::~Component()
-{
+	_type = type;
 }

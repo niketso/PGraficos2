@@ -1,18 +1,20 @@
-enum ComponentType 
-{
-	camera = 0,
-	transform,
-	mesh
-};
+
 #pragma once
 #include "Exports.h"
-#include"Node.h"
+
+enum ComponentType
+{
+	_defaultComponent = 0,
+	_CameraComponent,
+	_MeshComponent,
+};
  class ENGINEDLL_API Component
 {
+	 	
 public:
-	virtual void Start() = 0;
-	virtual bool Update() = 0;
+	ComponentType _type;
+	virtual void Update() = 0;
 	virtual void Draw() = 0;
-
+	void SetType(ComponentType type);
 };
 

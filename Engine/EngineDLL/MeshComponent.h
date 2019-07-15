@@ -1,18 +1,24 @@
 #pragma once
+#include "Exports.h"
 #include "Component.h"
 #include "Material.h"
 #include "Mesh.h"
-class MeshComponent : public Component
+class ENGINEDLL_API MeshComponent : public Component
 {
 private:
-	Material *mat1;
-	Mesh *msh1;
+	ComponentType _type;
+	Material *material;
+	Mesh *mesh;
+	unsigned int programID;
 public:
-	MeshComponent(Material *mat,Mesh *msh);
+	
+	MeshComponent( ComponentType type,Renderer *render, const char* filename, const char* texturename);
+	MeshComponent(ComponentType type, Material *mat, Mesh *msh);
 	~MeshComponent();
-	void start();
-	bool Update();
+	void Update();
 	void Draw();
+	
+	
 	
 };
 
