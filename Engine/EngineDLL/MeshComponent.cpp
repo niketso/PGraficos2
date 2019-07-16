@@ -2,10 +2,11 @@
 #include "ModelImporter.h"
 
 
+
 MeshComponent::MeshComponent(ComponentType type,Renderer *render)
 {
-	//start(render,filename,texturename);
-	
+	_type = type;
+	_render = render;
 }
 
 
@@ -20,23 +21,48 @@ void MeshComponent::Update()
 
 void MeshComponent::Draw()
 {
-	if (material != NULL) {
-		material->Bind();
-		material->SetMatrixProperty("WVP", render->GetWvp());
-		material->BindTexture("myTextureSampler", ModelImporter::GetTextureBuffer());
+	if (_material != NULL) {
+		_material->Bind();
+		_material->SetMatrixProperty("WVP", _render->GetWvp());
+		_material->BindTexture("myTextureSampler",textureBufferID);
 	}
 
-	render->BeginDraw(0);
-	render->BeginDraw(1);
-	for (int i = 0; i < ModelImporter::m_Entries.size(); i++) {
-
-		render->BindBuffer(ModelImporter::m_Entries[i].vertexBuffer, 0);
-		render->BindTextureBuffer(ModelImporter::m_Entries[i].uvBuffer, 1);
-		render->BindMeshBuffer(ModelImporter::m_Entries[i].indexBuffer);
-		render->DrawIndex(ModelImporter::m_Entries[i].count);
-	}
-	render->EndDraw(0);
-	render->EndDraw(1);
+		_render->BeginDraw(0);
+		_render->BeginDraw(1);
+		_render->BindBuffer(vertexBufferID, 0);
+		_render->BindTextureBuffer(uvBufferID, 1);
+		_render->BindMeshBuffer(indexBufferID);
+		_render->DrawIndex(_indexVec.size());	
+		_render->EndDraw(0);
+		_render->EndDraw(1);
 }
 
+void MeshComponent::SetVertices(vector<float> verticesVec)
+{
+	_verticesVec = verticesVec;
+	vertexBufferID = _render->GenBuffer(&verticesVec[0], verticesVec.size() * sizeof(float));
+}
 
+void MeshComponent::SetUv(vector<float> uvVec)
+{
+	_uvVec = uvVec;
+	uvBufferID = _render->GenBuffer(&uvVec[0], uvVec.size() * sizeof(float));
+}
+
+void MeshComponent::SetIndex(vector<unsigned int> indexVec)
+{
+	_indexVec = indexVec;
+	indexBufferID = _render->GenIndexBuffer(indexVec);
+}
+
+void MeshComponent::LoadMaterial()
+{
+	_material = new Material();
+	ProgramID = _material->LoadShaders("TextureVertexShader.txt","TextureFragmentShader.txt");
+}
+
+void MeshComponent::SetTexture(const char * texturename)
+{
+	_texture = Importer::LoadBMP(texturename);
+	textureBufferID = _render->GenTextureBuffer(_texture.width, _texture.height, _texture.data);
+}

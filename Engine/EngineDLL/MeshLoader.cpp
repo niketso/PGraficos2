@@ -43,11 +43,13 @@ void MeshLoader::InitFromScene(const aiScene* scene, Node *node, aiNode* root, c
 		Node * childNode = new Node();
 		if(root->mChildren[i]->mMeshes > 0)
 		{
-			//creo el componente mesh
-			//MeshComponent *meshComp = new MeshComponent(_MeshComponent,material,);
-			
+			MeshComponent *meshComp = new MeshComponent(_MeshComponent,render);
+			childNode->AddComponent(meshComp);
 		}
 	}
+}
+void MeshLoader::InitMesh(unsigned int Index, const aiMesh * Mesh, Renderer * render)
+{
 }
 void InitMesh(unsigned int Index, const aiMesh* Mesh, Renderer * render)
 {
