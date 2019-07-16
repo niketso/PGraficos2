@@ -7,18 +7,18 @@ class ENGINEDLL_API MeshComponent : public Component
 {
 private:
 	ComponentType _type;
-	Material *material;
-	Mesh *mesh;
 	unsigned int programID;
 public:
 	
-	MeshComponent( ComponentType type,Renderer *render, const char* filename, const char* texturename);
-	MeshComponent(ComponentType type, Material *mat, Mesh *msh);
+	MeshComponent( ComponentType type,Renderer *render);
 	~MeshComponent();
 	void Update();
 	void Draw();
 	
-	
+	unsigned int vertexBufferID;
+	unsigned int uvBufferID;
+	unsigned int IndexBufferID;
+	unsigned int textureBufferID;
 	
 };
 

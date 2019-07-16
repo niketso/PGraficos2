@@ -142,6 +142,7 @@
     <ClInclude Include="Material.h" />
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="MeshComponent.h" />
+    <ClInclude Include="MeshLoader.h" />
     <ClInclude Include="ModelImporter.h" />
     <ClInclude Include="Node.h" />
     <ClInclude Include="Rectangle.h" />
@@ -170,6 +171,7 @@
     <ClCompile Include="Material.cpp" />
     <ClCompile Include="Mesh.cpp" />
     <ClCompile Include="MeshComponent.cpp" />
+    <ClCompile Include="MeshLoader.cpp" />
     <ClCompile Include="ModelImporter.cpp" />
     <ClCompile Include="Node.cpp" />
     <ClCompile Include="Rectangle.cpp" />

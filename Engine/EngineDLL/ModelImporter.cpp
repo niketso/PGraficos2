@@ -29,6 +29,7 @@ ModelImporter::~ModelImporter()
 	if (!pScene) {
 		printf("Error parsing '%s': '%s'\n", meshname, Importer.GetErrorString());
 	}
+
 	
 }
 
