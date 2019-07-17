@@ -18,7 +18,7 @@ private:
 public:
 	TransformComponent(ComponentType type,Renderer* render);
 	~TransformComponent();
-	void Update();
+	void Update()override;
 	void Start();
 	void Draw()override;
 	void Draw(Renderer* rend);

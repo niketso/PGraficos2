@@ -9,7 +9,7 @@ Node::Node()
 
 Node::Node(Node* parent) 
 {
-	SetParent(parent);
+	
 }
 Node::~Node()
 {
@@ -22,7 +22,6 @@ void Node::Start()
 	this->AddComponent(transformComponent);
 	transform = glm::mat4(1.0);
 	aux = glm::mat4(1.0);
-	parent = nullptr;
 }
 
 void Node::AddComponent(Component *_component)
@@ -57,15 +56,18 @@ void Node::AddChild(Node* _node)
 	childVec.push_back(_node);
 }
 
-void Node::SetParent(Node * _node)
-{
-	parent = _node;
-}
 
-bool Node::Update()
+void Node::Update()
 {
-	//por ahora no  
-	return false;
+	 
+	for (int i = 0; i < componentVec.size(); i++)
+	{
+		componentVec[i]->Update();
+	}
+	for (int i = 0; i < childVec.size(); i++)
+	{
+		childVec[i]->Update();
+	}
 }
 
 void Node::Draw()
@@ -83,4 +85,13 @@ void Node::Draw()
 		childVec[i]->Draw();
 	}
 	render->SetWorldMatrix(aux);
+}
+
+void Node::Move(float x, float y, float z)
+{
+	x = transformComponent->GetPos()[0] + x;
+	y = transformComponent->GetPos()[1] + y;
+	z = transformComponent->GetPos()[2] + z;
+
+	transformComponent->SetPos(x, y, z);
 }

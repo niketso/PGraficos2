@@ -1,9 +1,10 @@
 #include "Camera.h"
 
 
-Camera::Camera(Renderer *render) 
+Camera::Camera(/*ComponentType type,*/Renderer *render)
 {
 	r1 = render;
+	//_type = type;
 	eyePos = glm::vec3(0.0f, 0.0f, 10.0f);
 	upVec = glm::vec3(0.0f, 1.0f, 0.0f);
 
@@ -22,6 +23,9 @@ Camera::~Camera()
 void Camera::Update() 
 {
 	r1->SetViewMatrix(eyePos, camPos, upVec);
+}
+void Camera::Draw()
+{
 }
 void Camera::Walk(float dir)
 {

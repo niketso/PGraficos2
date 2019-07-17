@@ -11,7 +11,6 @@ class  ENGINEDLL_API Node
 {
 private:
 	
-	Node *parent;
 	Renderer *render;
 	
 	glm::mat4 transform;
@@ -28,9 +27,9 @@ public:
 	Node * GetChild(unsigned int i);
 	Component * GetComponent(ComponentType type);
 	void AddChild(Node *_node);
-	void SetParent(Node *_node);
-	bool Update();
+	void Update();
 	void Draw();
+	void Move(float x, float y, float z);
 	
 };
 

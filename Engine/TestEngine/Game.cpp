@@ -12,11 +12,11 @@ bool Game::OnStart() {
 	
 	cam = new Camera(render);
 	sceneNode = new Node();
-	
+	cameraNode = new Node();
 	sceneNode->AddChild(MeshLoader::GetInstance()->LoadMesh("Rifle.fbx", "rifle_texture.bmp", render));
 	
-	sceneNode->GetChild(1)->transformComponent->SetPos(0.0f, 0.0f, 0.0f);
-	sceneNode->GetChild(1)->GetChild(2)->transformComponent->SetPos(0.0f,-20.0f,0.0f);
+	sceneNode->GetChild(1)->Move(0.0f, 0.0f, 0.0f);
+	sceneNode->GetChild(1)->GetChild(2)->Move(0.0f,-20.0f,0.0f);
 	
 	
 	

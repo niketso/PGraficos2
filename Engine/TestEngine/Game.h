@@ -5,7 +5,6 @@
 #include "../EngineDLL/Input.h"
 #include "../EngineDLL/Node.h"
 #include"../EngineDLL/Camera.h"
-#include"../EngineDLL/CameraComponent.h"
 #include"../EngineDLL/MeshComponent.h"
 #include"../EngineDLL/MeshLoader.h"
 #include <iostream>
@@ -14,11 +13,8 @@ private:
 	int i;
 
 	Input *inp;	
-	Material * mat1;
-	Mesh *msh1;
 	Node *sceneNode;
 	Node *cameraNode;
-	Node *meshNode;
 	Camera *cam;
 	
 	
