@@ -9,28 +9,24 @@ Game::~Game()
 bool Game::OnStart() {
 	CollisionManager* colManager = CollisionManager::Instance();
 	inp = new Input(window);
-	sceneNode = new Node();
-	cameraNode = new Node(); 
-	meshNode = new Node();
-	sceneNode->AddChild(cameraNode);
-	sceneNode->AddChild(meshNode);
-	mat1 = new Material();
-	unsigned int programID = mat1->LoadShaders("texturevertexshader.txt", "texturefragmentshader.txt");
+	
 	cam = new Camera(render);
-	msh1 = new Mesh(render, "M4A1\\M4A1.fbx", "M4A1\\M4A1Tex.bmp");
-	msh1->SetMaterial(mat1);
-	mshComp = new MeshComponent(_MeshComponent,mat1, msh1);
-	//cameraNode->AddComponent(camComp);
-	meshNode->AddComponent(mshComp);
+	sceneNode = new Node();
+	
+	sceneNode->AddChild(MeshLoader::GetInstance()->LoadMesh("Rifle.fbx", "rifle_texture.bmp", render));
+	
+	sceneNode->GetChild(1)->transformComponent->SetPos(0.0f, 0.0f, 0.0f);
+	sceneNode->GetChild(1)->GetChild(2)->transformComponent->SetPos(0.0f,-20.0f,0.0f);
+	
+	
+	
 	cout << "Game::OnStart()" << endl;
 	return true;
 }
 bool Game::OnStop() {
 
 	
-	delete sceneNode;
-	delete cameraNode;
-	delete meshNode;
+	;
 	
 	cout << "Game::OnStop()" << endl;
 	return false;
@@ -72,7 +68,8 @@ bool Game::OnUpdate() {
 void Game::OnDraw()
 {
 		
-	msh1->DrawMesh(0);	
+	//msh1->DrawMesh(0);	
+	sceneNode->Draw();
 	//cout << "Game::OnDraw(): " << i << endl;
 }
 

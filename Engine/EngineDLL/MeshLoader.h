@@ -16,16 +16,22 @@
 class ENGINEDLL_API MeshLoader
 {
 private:
-	vector<float> *VertexVec;
-	vector<float> *UvVec;
-	vector<float> *facesVec;
+	static MeshLoader *instance;
 	Node* node;
 public:
 	MeshLoader();
 	~MeshLoader();
-	void LoadMesh(const char * meshname, const char * texturename, Renderer * render);
-	void InitFromScene(const aiScene* scene, Node *node, aiNode* root, const char * texturename, Renderer * render);
-	void InitMesh(unsigned int Index, const aiMesh* Mesh, Renderer * render); 
+	Node* LoadMesh(const char * meshname, const char * texturename, Renderer * render);
+	void InitFromScene(const aiScene* scene, Node *node,aiNode* root, const char * texturename, Renderer * render);
+	void InitMesh( const aiMesh* mesh,MeshComponent *meshcomponent, Renderer * render); 
 		
+	static MeshLoader* GetInstance()
+	{
+		if (instance == NULL)
+		{
+			instance = new MeshLoader();
+		}
+		return instance;
+	}
 };
 

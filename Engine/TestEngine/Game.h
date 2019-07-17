@@ -7,6 +7,7 @@
 #include"../EngineDLL/Camera.h"
 #include"../EngineDLL/CameraComponent.h"
 #include"../EngineDLL/MeshComponent.h"
+#include"../EngineDLL/MeshLoader.h"
 #include <iostream>
 class Game : public Gamebase {
 private:
@@ -19,8 +20,8 @@ private:
 	Node *cameraNode;
 	Node *meshNode;
 	Camera *cam;
-	CameraComponent *camComp;
-	MeshComponent *mshComp;
+	
+	
 	
 
 	//TileMap *tmp1;
