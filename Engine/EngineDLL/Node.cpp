@@ -2,14 +2,15 @@
 
 
 
-Node::Node()	
+Node::Node(Renderer* render)	
 {	
+	this->render = render;
 	Start();
 }
 
-Node::Node(Node* parent) 
+Node::Node(Node* parent, Renderer* render) 
 {
-	
+	this->render = render;
 }
 Node::~Node()
 {
@@ -17,7 +18,6 @@ Node::~Node()
 
 void Node::Start()
 {
-	render = new Renderer();
 	transformComponent = new TransformComponent(_TransformComponent,render);
 	this->AddComponent(transformComponent);
 	transform = glm::mat4(1.0);
@@ -89,9 +89,9 @@ void Node::Draw()
 
 void Node::Move(float x, float y, float z)
 {
-	x = transformComponent->GetPos()[0] + x;
-	y = transformComponent->GetPos()[1] + y;
-	z = transformComponent->GetPos()[2] + z;
+	x = transformComponent->GetPos().x + x;
+	y = transformComponent->GetPos().y + y;
+	z = transformComponent->GetPos().z + z;
 
 	transformComponent->SetPos(x, y, z);
 }

@@ -11,11 +11,11 @@ bool Game::OnStart() {
 	inp = new Input(window);
 	
 	cam = new Camera(render);
-	sceneNode = new Node();
-	cameraNode = new Node();
+	sceneNode = new Node(render);
+	cameraNode = new Node(render);
 	sceneNode->AddChild(MeshLoader::GetInstance()->LoadMesh("Rifle.fbx", "rifle_texture.bmp", render));
 	
-	sceneNode->GetChild(1)->Move(0.0f, 0.0f, 0.0f);
+	sceneNode->GetChild(1)->Move(0.0f, 10.0f, 0.0f);
 	sceneNode->GetChild(1)->GetChild(2)->Move(0.0f,-20.0f,0.0f);
 	
 	
@@ -69,6 +69,8 @@ void Game::OnDraw()
 {
 		
 	//msh1->DrawMesh(0);	
+	render->LoadIdentityMatrix();
+
 	sceneNode->Draw();
 	//cout << "Game::OnDraw(): " << i << endl;
 }

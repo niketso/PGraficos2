@@ -19,8 +19,8 @@ public:
 	TransformComponent *transformComponent;
 	vector<Node*> childVec;
 	vector<Component*> componentVec;
-	Node();
-	Node(Node*parent);
+	Node(Renderer* render);
+	Node(Node*parent, Renderer* render);
 	~Node();
 	void Start();
 	void AddComponent(Component *_component);

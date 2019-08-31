@@ -24,7 +24,7 @@ Node* MeshLoader::LoadMesh(const char * meshname, const char * texturename, Rend
 		printf("Error parsing '%s': '%s'\n", meshname, Importer.GetErrorString());		
 	}
 	
-	Node * mainNode = new Node();
+	Node * mainNode = new Node(render);
 	InitFromScene(Scene, mainNode, Scene->mRootNode, texturename, render);
 	
 	return mainNode;
@@ -36,7 +36,7 @@ void MeshLoader::InitFromScene(const aiScene* scene, Node *node,aiNode* root, co
 	
 	for  (int i = 0; i < root->mNumChildren;i++)
 	{
-		Node * childNode = new Node();
+		Node * childNode = new Node(render);
 		node->AddChild(childNode);
 		if(root->mChildren[i]->mMeshes > 0)
 		{
