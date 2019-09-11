@@ -10,55 +10,47 @@ bool Game::OnStart() {
 	CollisionManager* colManager = CollisionManager::Instance();
 	inp = new Input(window);
 	
-	cam = new Camera(render);
+	cameraComponent = new Camera(_CameraComponent,render);
 	sceneNode = new Node(render);
 	cameraNode = new Node(render);
+	cameraNode->AddComponent(cameraComponent);
+	sceneNode->AddChild(cameraNode);
 	sceneNode->AddChild(MeshLoader::GetInstance()->LoadMesh("Rifle.fbx", "rifle_texture.bmp", render));
 	
-	sceneNode->GetChild(1)->Move(0.0f, 10.0f, 0.0f);
-	sceneNode->GetChild(1)->GetChild(2)->Move(0.0f,-20.0f,0.0f);
-	
-	
+	sceneNode->GetChild(2)->Move(0.0f, 10.0f, 0.0f);
+	sceneNode->GetChild(2)->GetChild(2)->Move(0.0f,-20.0f,0.0f);
 	
 	cout << "Game::OnStart()" << endl;
 	return true;
 }
 bool Game::OnStop() {
-
-	
-	;
-	
 	cout << "Game::OnStop()" << endl;
 	return false;
 }
 bool Game::OnUpdate() {
 	i++;
 	//movX
-	
-	cam->Update();
+
+	cameraComponent->Update();
 	if (inp->IsKeyPressed(87))
-		cam->Walk(0.3);
+		cameraComponent->Walk(0.3);
 	if (inp->IsKeyPressed(83))
-		cam->Walk(-0.3);
+		cameraComponent->Walk(-0.3);
 	if (inp->IsKeyPressed(65))
-		cam->Strafe(0.3);
+		cameraComponent->Strafe(0.3);
 	if (inp->IsKeyPressed(68))
-		cam->Strafe(-0.3);
+		cameraComponent->Strafe(-0.3);
 	if (inp->IsKeyPressed(265))
-		cam->Pitch(0.3);
+		cameraComponent->Pitch(0.3);
 	if (inp->IsKeyPressed(264))
-		cam->Pitch(-0.3);
+		cameraComponent->Pitch(-0.3);
 	if (inp->IsKeyPressed(263))
-		cam->yaw(0.3);
+		cameraComponent->yaw(0.3);
 	if (inp->IsKeyPressed(262))
-		cam->yaw(-0.3);
-	
-	
-	
+		cameraComponent->yaw(-0.3);
+		
 	//msh1->Rotate(0.0f, 0.003f, 0.0f);
 	//movY
-	
-	
 	CollisionManager::Instance()->CollisionBoxDetector();
 	//cout << "Game::OnUpdate(): " << i << endl;
 	
@@ -66,11 +58,9 @@ bool Game::OnUpdate() {
 }
 
 void Game::OnDraw()
-{
-		
+{		
 	//msh1->DrawMesh(0);	
 	render->LoadIdentityMatrix();
-
 	sceneNode->Draw();
 	//cout << "Game::OnDraw(): " << i << endl;
 }

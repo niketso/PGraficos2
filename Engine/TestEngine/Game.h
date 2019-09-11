@@ -15,7 +15,7 @@ private:
 	Input *inp;	
 	Node *sceneNode;
 	Node *cameraNode;
-	Camera *cam;
+	Camera *cameraComponent;
 	
 	
 	

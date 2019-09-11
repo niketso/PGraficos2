@@ -3,11 +3,11 @@
 #include "Component.h"
 #include<glm\glm.hpp>
 #include<glm\gtc\matrix_transform.hpp>
-class ENGINEDLL_API Camera/*:Component*/
+class ENGINEDLL_API Camera:public Component
 {
 private:
-	Renderer * r1;
-	//ComponentType _type;
+	Renderer * render;
+	ComponentType type;
 	glm::vec3 eyePos;
 	glm::vec3 camPos;
 	glm::vec3 upVec;
@@ -17,7 +17,7 @@ private:
 	glm::vec4 upDir;
 
 public:
-	Camera(/*ComponentType type,*/Renderer * render);
+	Camera(ComponentType type,Renderer * render);
 	~Camera();
 	void Update();
 	void Draw();
