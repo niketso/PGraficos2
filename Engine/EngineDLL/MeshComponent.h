@@ -23,6 +23,7 @@ private:
 	unsigned int indexBufferID;
 	unsigned int textureBufferID;
 public:
+	BoundingCube * bCube;
 	
 	MeshComponent( ComponentType type,Renderer *render);
 	~MeshComponent();

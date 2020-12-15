@@ -72,4 +72,53 @@ void Camera::Roll(float dir)
 	Update();
 }
 
+void Camera::SetCamInternals()
+{
+}
+
+void Camera::SetCamDef() {
+
+
+	glm::vec3 right = (glm::vec3)this->right;
+	glm::vec3 up = (glm::vec3)upDir;
+
+	glm::vec3 nearCenter = (glm::vec3)camPos + (glm::vec3)forward * nearD;
+	glm::vec3 farCenter = (glm::vec3)camPos + (glm::vec3)forward * farD;
+
+	glm::vec3 leftPlaneVec = (nearCenter - right * nw) - (glm::vec3)camPos;
+	glm::vec3 rightPlaneVec = (nearCenter + right * nw) - (glm::vec3)camPos;
+	glm::vec3 topPlaneVec = (nearCenter + up * nh) - (glm::vec3)camPos;
+	glm::vec3 bottomPlaneVec = (nearCenter - up * nh) - (glm::vec3)camPos;
+
+	glm::vec3 normalLeft = glm::normalize(glm::cross(leftPlaneVec, up));
+	glm::vec3 normalRight = -glm::normalize(glm::cross(rightPlaneVec, up));
+	glm::vec3 normalTop = glm::normalize(glm::cross(topPlaneVec, right));
+	glm::vec3 normalBottom = -glm::normalize(glm::cross(bottomPlaneVec, right));
+
+	pl[NEARP] = generatePlane(-(glm::vec3)forward, nearCenter);
+	pl[FARP] = generatePlane((glm::vec3)forward, farCenter);
+	pl[LEFT] = generatePlane(normalLeft, (glm::vec3)camPos);
+	pl[RIGHT] = generatePlane(normalRight, (glm::vec3)camPos);
+	pl[TOP] = generatePlane(normalTop, (glm::vec3)camPos);
+	pl[BOTTOM] = generatePlane(normalBottom, (glm::vec3)camPos);
+
+	
+}
+
+glm::vec4 Camera::generatePlane(glm::vec3 normal, glm::vec3 point)
+{
+	glm::vec4 plane;
+
+	plane.x = normal.x;
+	plane.y = normal.y;
+	plane.z = normal.z;
+	plane.w = -glm::dot(normal, point);
+
+	return glm::vec4();
+}
+
+int Camera::boxInFrustrum(BoundingCube * boundingCube)
+{
+	return 0;
+}
 

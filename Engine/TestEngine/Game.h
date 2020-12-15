@@ -8,7 +8,7 @@
 #include"../EngineDLL/MeshComponent.h"
 #include"../EngineDLL/MeshLoader.h"
 #include <iostream>
-class Game : public Gamebase {
+class Game : public GameBase {
 private:
 	int i;
 

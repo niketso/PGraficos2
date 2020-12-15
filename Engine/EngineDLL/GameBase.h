@@ -2,17 +2,21 @@
 #include "Renderer.h"
 #include "Window.h"
 #include "TypeDef.h"
+#include "Node.h"
 
 #include <iostream>
 using namespace std;
-class ENGINEDLL_API Gamebase {
+class ENGINEDLL_API GameBase {
 private:
 	double currentFrame;
 	double lastFrame;
+	bool looping = false;
+	bool hasScene = false;
+	Node * SceneNode;
 	
 public:
-	Gamebase();
-	~Gamebase();
+	GameBase();
+	~GameBase();
 	bool Start();
 	bool Stop();
 	void Loop();
@@ -24,5 +28,6 @@ protected:
 	virtual bool OnStop() = 0;
 	virtual bool OnUpdate() = 0;
 	virtual void OnDraw() = 0;
+	void SetScene(Node * _Scene);
 };
 

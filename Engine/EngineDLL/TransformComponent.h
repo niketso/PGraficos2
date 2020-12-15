@@ -24,7 +24,10 @@ public:
 	void Draw(Renderer* rend);
 	void SetPos(float x, float y, float z);
 	void SetRot(float x, float y, float z);
-	void SetScale(float x, float y, float z);	
+	void SetScale(float x, float y, float z);
+	void SetRotationMatrix(float x, float y, float z, float w);
+	void convertToEulerAngles(const glm::vec4 & quaternion, float & pitch, float & yaw, float & roll);
+	void clampEulerRotation();
 	glm::vec3 GetPos();
 	glm::vec3 GetRot();
 	glm::vec3 GetScale();

@@ -13,12 +13,21 @@ bool Game::OnStart() {
 	cameraComponent = new Camera(_CameraComponent,render);
 	sceneNode = new Node(render);
 	cameraNode = new Node(render);
+	
+	//sceneNode->AddChild(MeshLoader::GetInstance()->LoadMesh("sceneDefault.fbx", "rifle_texture.bmp", render,sceneNode));
 	cameraNode->AddComponent(cameraComponent);
 	sceneNode->AddChild(cameraNode);
-	sceneNode->AddChild(MeshLoader::GetInstance()->LoadMesh("Rifle.fbx", "rifle_texture.bmp", render));
+	MeshLoader::GetInstance()->LoadMesh("sceneDefault.fbx", "rifle_texture.bmp", render, sceneNode);
 	
-	sceneNode->GetChild(2)->Move(0.0f, 10.0f, 0.0f);
-	sceneNode->GetChild(2)->GetChild(2)->Move(0.0f,-20.0f,0.0f);
+	//sceneNode->GetChild(1)->Move(-10.0f, 0.0f, 0.0f);
+	//sceneNode->GetChild(2)->Move(-20.0f, 0.0f, 0.0f);
+	//sceneNode->GetChild(3)->Move(-30.0f, 0.0f, 0.0f);
+	//sceneNode->GetChild(4)->Move(10.0f, 0.0f, 0.0f);
+	//sceneNode->GetChild(5)->Move(20.0f, 0.0f, 0.0f);
+	//sceneNode->GetChild(6)->Move(30.0f, 0.0f, 0.0f);
+	
+
+	SetScene(sceneNode);
 	
 	cout << "Game::OnStart()" << endl;
 	return true;
@@ -41,18 +50,20 @@ bool Game::OnUpdate() {
 	if (inp->IsKeyPressed(68))
 		cameraComponent->Strafe(-0.3);
 	if (inp->IsKeyPressed(265))
-		cameraComponent->Pitch(0.3);
+		cameraComponent->Pitch(0.03);
 	if (inp->IsKeyPressed(264))
-		cameraComponent->Pitch(-0.3);
+		cameraComponent->Pitch(-0.03);
 	if (inp->IsKeyPressed(263))
-		cameraComponent->yaw(0.3);
+		cameraComponent->yaw(0.03);
 	if (inp->IsKeyPressed(262))
-		cameraComponent->yaw(-0.3);
+		cameraComponent->yaw(-0.03);
 		
+	
 	//msh1->Rotate(0.0f, 0.003f, 0.0f);
 	//movY
+	
 	CollisionManager::Instance()->CollisionBoxDetector();
-	//cout << "Game::OnUpdate(): " << i << endl;
+	cout << "Game::OnUpdate(): " << i << endl;
 	
 	return true;
 }
@@ -60,9 +71,9 @@ bool Game::OnUpdate() {
 void Game::OnDraw()
 {		
 	//msh1->DrawMesh(0);	
-	render->LoadIdentityMatrix();
-	sceneNode->Draw();
-	//cout << "Game::OnDraw(): " << i << endl;
+	//render->LoadIdentityMatrix();
+	//sceneNode->Draw();
+	cout << "Game::OnDraw(): " << i << endl;
 }
 
 /*

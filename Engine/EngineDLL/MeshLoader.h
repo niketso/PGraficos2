@@ -16,14 +16,17 @@
 class ENGINEDLL_API MeshLoader
 {
 private:
-	static MeshLoader *instance;
-	Node* node;
+	static MeshLoader *instance;	
+	glm::vec3 boundingBoxMin;
+	glm::vec3 boundingBoxMax;
 public:
 	MeshLoader();
 	~MeshLoader();
-	Node* LoadMesh(const char * meshname, const char * texturename, Renderer * render);
+	Node* LoadMesh(const char * meshname, const char * texturename, Renderer * render, Node * roothNode);
 	void InitFromScene(const aiScene* scene, Node *node,aiNode* root, const char * texturename, Renderer * render);
-	void InitMesh( const aiMesh* mesh,MeshComponent *meshcomponent, Renderer * render); 
+	void InitMesh( const aiMesh* mesh,MeshComponent *meshcomponent, Renderer * render);
+	void GenerateBoundingBox(Node * rootNode);
+	void SetNodeTransform(aiNode * aiNode, Node * node);
 		
 	static MeshLoader* GetInstance()
 	{

@@ -2,7 +2,7 @@
 
 int main() {
 
-	Gamebase* game = new Game();
+	GameBase* game = new Game();
 
 	//TODO: startup
 	if (game->Start()) {

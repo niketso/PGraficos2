@@ -41,6 +41,7 @@ void Entity::SetRot(float x, float y, float z)
 
 	UpdateWorldMatrix();
 }
+
 void Entity::SetScale(float x, float y, float z)
 {
 	scale[0] = x;
@@ -91,6 +92,8 @@ void Entity::Rotate(float x, float y, float z)
 
 	UpdateWorldMatrix();
 }
+
+
 
 void Entity::SetBoundingBox(glm::vec3 bPos, float h, float w, bool isStc, bool isTrggr)
 {

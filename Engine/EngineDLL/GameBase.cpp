@@ -1,12 +1,12 @@
-#include "Gamebase.h"
+#include "GameBase.h"
 #include <GLFW/glfw3.h>
 
-Gamebase::Gamebase() {
+GameBase::GameBase() {
 
 }
-Gamebase::~Gamebase() {
+GameBase::~GameBase() {
 }
-bool Gamebase::Start() {
+bool GameBase::Start() {
 	cout << "Gamebase::Start()" << endl;
 	lastFrame = 0;
 	window = new Window();
@@ -19,21 +19,26 @@ bool Gamebase::Start() {
 	render->ClearColor(0.0f, 0.0f, 4.0f, 0.0f);
 	return OnStart();
 }
-void Gamebase::Loop() {
+void GameBase::Loop() {
 	
-	bool loop = true;
-	while (loop && !window->ShouldClose()) {
+	 looping = true;
+	while (looping && !window->ShouldClose()) {
 		currentFrame = glfwGetTime();
+		render->ClearScreen();
 		deltaTime = currentFrame - lastFrame;
 		lastFrame = currentFrame;
-		loop = OnUpdate();	
-		render->ClearScreen();
+		looping = OnUpdate();	
+		
+		if (SceneNode)
+			SceneNode->Update();
+		if (SceneNode)
+			SceneNode->Draw();
 		OnDraw();
 		render->SwapBuffers();
 		window->PollEvents();
 	}
 }
-bool Gamebase::Stop() {
+bool GameBase::Stop() {
 	cout << "Gamebase::Stop()" << endl;
 	OnStop();
 	render->Stop();
@@ -42,6 +47,13 @@ bool Gamebase::Stop() {
 	delete render;
 	delete window;
 	return true;
+}
+
+void GameBase::SetScene(Node * _Scene)
+{
+	SceneNode = _Scene;
+	hasScene = true;
+	looping = false;
 }
 
 

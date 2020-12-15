@@ -7,6 +7,7 @@ MeshComponent::MeshComponent(ComponentType type,Renderer *render)
 {
 	_type = type;
 	_render = render;
+	bCube = new BoundingCube(render);
 }
 
 
@@ -66,3 +67,5 @@ void MeshComponent::SetTexture(const char * texturename)
 	_texture = Importer::LoadBMP(texturename);
 	textureBufferID = _render->GenTextureBuffer(_texture.width, _texture.height, _texture.data);
 }
+
+
