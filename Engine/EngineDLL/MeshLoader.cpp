@@ -11,7 +11,8 @@ MeshLoader::~MeshLoader()
 {
 }
 
-Node* MeshLoader::LoadMesh(const char * meshname, const char * texturename, Renderer * render, Node * rootNode)
+//Node* MeshLoader::LoadMesh(const char * meshname, const char * texturename, Renderer * render, Node * rootNode)
+Node* MeshLoader::LoadMesh(const char * meshname, const char * texturename, Renderer * render, Node * rootNode, Camera * camera)
 {
 	
 	boundingBoxMin = glm::vec3(INT_MAX, INT_MAX, INT_MAX);
@@ -27,14 +28,16 @@ Node* MeshLoader::LoadMesh(const char * meshname, const char * texturename, Rend
 		return false;
 	}
 		
-	InitFromScene(Scene, rootNode, Scene->mRootNode, texturename, render);
+	//InitFromScene(Scene, rootNode, Scene->mRootNode, texturename, render);
+	InitFromScene(Scene, rootNode, Scene->mRootNode, texturename, render, camera);
 	
-	//GenerateBoundingBox(rootNode);
+	//GenerateBoundingBox(rootNode , render);
 	return rootNode;
 
 }
 
-void MeshLoader::InitFromScene(const aiScene* scene, Node *root,aiNode* aiNode, const char * texturename, Renderer * render)
+//void MeshLoader::InitFromScene(const aiScene* scene, Node *root,aiNode* aiNode, const char * texturename, Renderer * render)
+void MeshLoader::InitFromScene(const aiScene* scene, Node *root,aiNode* aiNode, const char * texturename, Renderer * render,Camera * camera)
 {	
 	/*for  (int i = 0; i < root->mNumChildren;i++)
 	{
@@ -53,10 +56,12 @@ void MeshLoader::InitFromScene(const aiScene* scene, Node *root,aiNode* aiNode, 
 	}*/
 	for (int i = 0; i < (int)aiNode->mNumMeshes; i++)
 	{
-		MeshComponent * mesh = new MeshComponent(ComponentType::_MeshComponent, render);
+		MeshComponent * mesh = new MeshComponent(ComponentType::_MeshComponent, render,camera);
+		//MeshComponent * mesh = new MeshComponent(ComponentType::_MeshComponent, render);
 		mesh->SetTexture(texturename);
 		mesh->LoadMaterial();
-		InitMesh(scene->mMeshes[aiNode->mMeshes[i]], mesh, render);
+		InitMesh(scene->mMeshes[aiNode->mMeshes[i]], mesh, render);	
+		GenerateBoundingBox(mesh ,render);
 		Node * child = new Node(render);
 		child->AddComponent((Component*)mesh);
 		root->AddChild(child);
@@ -64,7 +69,8 @@ void MeshLoader::InitFromScene(const aiScene* scene, Node *root,aiNode* aiNode, 
 	}
 	for (int i = 0; i < (int)aiNode->mNumChildren; i++) 
 	{ 
-		InitFromScene(scene, root, aiNode->mChildren[i], texturename, render);
+		InitFromScene(scene, root, aiNode->mChildren[i], texturename, render,camera);
+		//InitFromScene(scene, root, aiNode->mChildren[i], texturename, render);
 	}
 
 }
@@ -95,6 +101,8 @@ void MeshLoader::InitMesh(const aiMesh* mesh, MeshComponent *meshcomponent, Rend
 		if (pos->z > boundingBoxMax.z)
 			boundingBoxMax.z = pos->z;
 
+		meshcomponent->UpdateData(boundingBoxMin, boundingBoxMax);
+
 		aiVector3D uv = mesh->mTextureCoords[0][i];
 		uvVec.push_back(uv.x);
 		uvVec.push_back(uv.y);
@@ -112,7 +120,7 @@ void MeshLoader::InitMesh(const aiMesh* mesh, MeshComponent *meshcomponent, Rend
 	meshcomponent->SetIndex(indexVec);
 }
 
-void MeshLoader::GenerateBoundingBox(Node * rootNode)
+void MeshLoader::GenerateBoundingBox(MeshComponent * mesh, Renderer *render)
 {
 	glm::vec3 boundingBoxVertices[CUBE_VERTEX] =
 	{
@@ -126,14 +134,16 @@ void MeshLoader::GenerateBoundingBox(Node * rootNode)
 		glm::vec3(boundingBoxMax.x, boundingBoxMax.y, boundingBoxMax.z)
 	};
 
+		mesh->bCube->SetVertex(boundingBoxVertices);
 
-	for (int i = 0; i < rootNode->GetCantChild(); i++)
+	/*for (int i = 0; i < rootNode->GetCantChild(); i++)
 	{
 		if (rootNode->GetChild(i)->GetComponent(ComponentType::_MeshComponent) != nullptr)
 		{
 			((MeshComponent*)rootNode->GetChild(i)->GetComponent(ComponentType::_MeshComponent))->bCube->setVertex(boundingBoxVertices);
+			
 		}
-	}
+	}*/
 
 }
 

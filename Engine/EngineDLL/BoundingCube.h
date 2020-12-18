@@ -12,10 +12,10 @@ private:
 	glm::vec3 Cube[CUBE_VERTEX];
 	Renderer *render;
 public:
-	glm::vec3 getVertex(int index);
+	glm::vec3 GetVertex(int index);
 	float * getVertex();
 	void setVertex(int index, glm::vec3 pos);
-	void setVertex(glm::vec3 _cube[CUBE_VERTEX]);
+	void SetVertex(glm::vec3 _cube[CUBE_VERTEX]);
 	BoundingCube(Renderer * render);
 	~BoundingCube();
 };

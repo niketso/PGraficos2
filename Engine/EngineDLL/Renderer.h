@@ -59,5 +59,5 @@ public:
 	void SwitchProjectionMatrix(ProjectionMatrixType pmt);
 	void SetViewMatrix(glm::vec3 eye, glm::vec3 cam, glm::vec3 up);
 	glm::vec3 GetCameraPos();
-	
+	int Draws = 0;
 };

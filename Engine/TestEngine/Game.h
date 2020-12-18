@@ -4,7 +4,7 @@
 #include "../EngineDLL/CollisionManager.h"
 #include "../EngineDLL/Input.h"
 #include "../EngineDLL/Node.h"
-#include"../EngineDLL/Camera.h"
+//#include"../EngineDLL/Camera.h"
 #include"../EngineDLL/MeshComponent.h"
 #include"../EngineDLL/MeshLoader.h"
 #include <iostream>
@@ -15,7 +15,7 @@ private:
 	Input *inp;	
 	Node *sceneNode;
 	Node *cameraNode;
-	Camera *cameraComponent;
+	Camera *camera;
 	
 	
 	

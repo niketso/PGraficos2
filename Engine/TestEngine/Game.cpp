@@ -10,14 +10,19 @@ bool Game::OnStart() {
 	CollisionManager* colManager = CollisionManager::Instance();
 	inp = new Input(window);
 	
-	cameraComponent = new Camera(_CameraComponent,render);
+	camera = new Camera(_CameraComponent,render);
 	sceneNode = new Node(render);
 	cameraNode = new Node(render);
 	
 	//sceneNode->AddChild(MeshLoader::GetInstance()->LoadMesh("sceneDefault.fbx", "rifle_texture.bmp", render,sceneNode));
-	cameraNode->AddComponent(cameraComponent);
+	MeshLoader::GetInstance()->LoadMesh("cube.fbx", "rifle_texture.bmp", render, sceneNode, camera);
+	cameraNode->AddComponent(camera);
 	sceneNode->AddChild(cameraNode);
-	MeshLoader::GetInstance()->LoadMesh("sceneDefault.fbx", "rifle_texture.bmp", render, sceneNode);
+
+	Node * node = sceneNode->GetChild(0);
+	node->GetTransfrom()->SetScale(1.0f, 1.0f, 1.0f);
+	//MeshLoader::GetInstance()->LoadMesh("sceneDefault.fbx", "rifle_texture.bmp", render, sceneNode);
+	camera->Walk(-50.0f);
 	
 	//sceneNode->GetChild(1)->Move(-10.0f, 0.0f, 0.0f);
 	//sceneNode->GetChild(2)->Move(-20.0f, 0.0f, 0.0f);
@@ -40,30 +45,30 @@ bool Game::OnUpdate() {
 	i++;
 	//movX
 
-	cameraComponent->Update();
+	//camera->Update();
 	if (inp->IsKeyPressed(87))
-		cameraComponent->Walk(0.3);
+		camera->Walk(10.0);
 	if (inp->IsKeyPressed(83))
-		cameraComponent->Walk(-0.3);
+		camera->Walk(-10.0);
 	if (inp->IsKeyPressed(65))
-		cameraComponent->Strafe(0.3);
+		camera->Strafe(10.0);
 	if (inp->IsKeyPressed(68))
-		cameraComponent->Strafe(-0.3);
+		camera->Strafe(-10.0);
 	if (inp->IsKeyPressed(265))
-		cameraComponent->Pitch(0.03);
+		camera->Pitch(0.03);
 	if (inp->IsKeyPressed(264))
-		cameraComponent->Pitch(-0.03);
+		camera->Pitch(-0.03);
 	if (inp->IsKeyPressed(263))
-		cameraComponent->yaw(0.03);
+		camera->yaw(0.03);
 	if (inp->IsKeyPressed(262))
-		cameraComponent->yaw(-0.03);
+		camera->yaw(-0.03);
 		
 	
 	//msh1->Rotate(0.0f, 0.003f, 0.0f);
 	//movY
 	
-	CollisionManager::Instance()->CollisionBoxDetector();
-	cout << "Game::OnUpdate(): " << i << endl;
+	//CollisionManager::Instance()->CollisionBoxDetector();
+	//cout << "Game::OnUpdate(): " << i << endl;
 	
 	return true;
 }
@@ -73,7 +78,8 @@ void Game::OnDraw()
 	//msh1->DrawMesh(0);	
 	//render->LoadIdentityMatrix();
 	//sceneNode->Draw();
-	cout << "Game::OnDraw(): " << i << endl;
+	cout << "Game::OnDraw(): + Objects draw " << render->Draws << endl;
+	render->Draws = 0;
 }
 
 /*

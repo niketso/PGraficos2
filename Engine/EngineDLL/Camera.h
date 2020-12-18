@@ -2,20 +2,11 @@
 #include "Renderer.h"
 #include "Component.h"
 #include "BoundingCube.h"
+#include "Definitions.h"
 #include<glm\glm.hpp>
 #include<glm\gtc\matrix_transform.hpp>
 
-enum Planes {
-	TOP = 0,
-	BOTTOM,
-	LEFT,
-	RIGHT,
-	NEARP,
-	FARP,
-	COUNT
-};
-
-class ENGINEDLL_API Camera:public Component
+class ENGINEDLL_API Camera : public Component
 {
 private:
 	Renderer * render;
@@ -29,7 +20,6 @@ private:
 	glm::vec4 upDir;	//y
 
 	glm::vec4 pl[COUNT];
-	glm::vec3 ntl, ntr, nbl, nbr, ftl, ftr, fbl, fbr;
 
 	// camera dist
 	float nearD, farD, ratio, angle, tang;
@@ -37,6 +27,7 @@ private:
 	float nw, nh, fw, fh;
 
 public:
+	//Camera * camera;
 	Camera(ComponentType type,Renderer * render);
 	~Camera();
 	void Update();

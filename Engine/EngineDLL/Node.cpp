@@ -24,6 +24,7 @@ void Node::Start()
 	this->AddComponent(transformComponent);
 	transform = glm::mat4(1.0);
 	aux = glm::mat4(1.0);
+	childs = 0;
 }
 
 void Node::AddComponent(Component *_component)

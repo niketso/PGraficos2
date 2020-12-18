@@ -1,6 +1,5 @@
 #include "Camera.h"
 
-
 Camera::Camera(ComponentType type,Renderer *render)
 {
 	this->render = render;
@@ -15,6 +14,14 @@ Camera::Camera(ComponentType type,Renderer *render)
 	upDir = glm::vec4(0.0f, 1.0f, 0.0f,0.0f);
 
 	camPos = eyePos + (glm::vec3)forward;
+
+	nearD = 0.1f;
+	farD = 100.0f;
+	ratio = 4.0f / 3.0f;
+	angle = glm::radians(45.0f);
+	SetCamInternals();
+	SetCamDef();
+	
 }
 
 Camera::~Camera()
@@ -24,6 +31,9 @@ Camera::~Camera()
 void Camera::Update() 
 {
 	render->SetViewMatrix(eyePos, camPos, upVec);
+	
+	//std::cout << camPos.x << " , "<< camPos.y << " , "<<camPos.z << std::endl;
+
 }
 void Camera::Draw()
 {
@@ -32,12 +42,15 @@ void Camera::Walk(float dir)
 {
 	camPos += (glm::vec3)forward * dir;
 	eyePos += (glm::vec3)forward * dir;
+
+	SetCamDef();
 	Update();
 }
 void Camera::Strafe(float dir)
 {
 	camPos += (glm::vec3)right * dir;
 	eyePos += (glm::vec3)right * dir;
+	SetCamDef();
 	Update();
 }
 void Camera::Pitch(float dir) 
@@ -48,6 +61,7 @@ void Camera::Pitch(float dir)
 	
 	 upVec = (glm::vec3)upDir;
 	 camPos = eyePos + (glm::vec3)forward;
+	 SetCamDef();
 	 Update();
 }
 void Camera::yaw(float dir) 
@@ -58,6 +72,7 @@ void Camera::yaw(float dir)
 
 	upVec = (glm::vec3)upDir;
 	camPos = eyePos + (glm::vec3)forward;
+	SetCamDef();
 	Update();
 }
 void Camera::Roll(float dir)
@@ -69,20 +84,24 @@ void Camera::Roll(float dir)
 
 	upVec = (glm::vec3)upDir;
 	camPos = eyePos + (glm::vec3)forward;
+	SetCamDef();
 	Update();
 }
 
 void Camera::SetCamInternals()
 {
+	tang = glm::tan(angle * 0.5f);
+	nh = nearD * tang;
+	nw = nh * ratio;
 }
 
 void Camera::SetCamDef() {
 
-
 	glm::vec3 right = (glm::vec3)this->right;
 	glm::vec3 up = (glm::vec3)upDir;
-
+	
 	glm::vec3 nearCenter = (glm::vec3)camPos + (glm::vec3)forward * nearD;
+	//cout << nearCenter.x << "," << nearCenter.y << "," << nearCenter.z << endl;
 	glm::vec3 farCenter = (glm::vec3)camPos + (glm::vec3)forward * farD;
 
 	glm::vec3 leftPlaneVec = (nearCenter - right * nw) - (glm::vec3)camPos;
@@ -95,12 +114,14 @@ void Camera::SetCamDef() {
 	glm::vec3 normalTop = glm::normalize(glm::cross(topPlaneVec, right));
 	glm::vec3 normalBottom = -glm::normalize(glm::cross(bottomPlaneVec, right));
 
+	
 	pl[NEARP] = generatePlane(-(glm::vec3)forward, nearCenter);
-	pl[FARP] = generatePlane((glm::vec3)forward, farCenter);
+	pl[FARP] = generatePlane((glm::vec3)forward, farCenter);	
 	pl[LEFT] = generatePlane(normalLeft, (glm::vec3)camPos);
 	pl[RIGHT] = generatePlane(normalRight, (glm::vec3)camPos);
 	pl[TOP] = generatePlane(normalTop, (glm::vec3)camPos);
 	pl[BOTTOM] = generatePlane(normalBottom, (glm::vec3)camPos);
+	
 
 	
 }
@@ -114,11 +135,75 @@ glm::vec4 Camera::generatePlane(glm::vec3 normal, glm::vec3 point)
 	plane.z = normal.z;
 	plane.w = -glm::dot(normal, point);
 
-	return glm::vec4();
+	return plane;
 }
 
 int Camera::boxInFrustrum(BoundingCube * boundingCube)
 {
-	return 0;
+	bool isInsideFrustum = true;
+	//bool allOutsideCurrentPlane = false;	
+	for (int i = 0; i < CUBE_VERTEX; i++) 
+	{
+		float dist;
+		glm::vec3 vertexPosition = boundingCube->GetVertex(i);
+
+		for (int j = 0; j < (int)Planes::COUNT; j++) 
+		{
+			glm::vec3 planeNormal = glm::vec3(pl[j]);
+			dist = (glm::dot(planeNormal, vertexPosition)  + pl[j].w);
+			if (dist <= 0.0f)
+			{
+				isInsideFrustum = false;
+				break;
+			}
+										
+		}		
+		
+		if (isInsideFrustum)
+		{
+			break;
+		}
+
+		/*if (i == CUBE_VERTEX - 1 )
+			isInsideFrustum = false;*/
+
+		cout << dist << endl;
+	}
+	if (isInsideFrustum)
+		return States::INSIDE;
+		//return States::OUTSIDE;
+	else
+		//return States::INSIDE;
+		return States::OUTSIDE;
+		
+
+	/*for (int i = 0; i < (int)Planes::COUNT; i++)
+	{
+		allOutsideCurrentPlane = false;
+
+		for (int j = 0; j < CUBE_VERTEX; j++)
+		{
+			glm::vec3 vertexPosition = boundingCube->GetVertex(j);
+			//cout << vertexPosition.x<< ","<<vertexPosition.y << "," << vertexPosition.z << endl;
+			glm::vec3 planeNormal = glm::vec3(pl[i]);
+			//cout << planeNormal.x << "," << planeNormal.y << "," << planeNormal.z << endl;
+			float dist = glm::dot(planeNormal, vertexPosition) + pl[i].w;
+
+			if (dist <= 0.0f)
+				break;
+			if (j == CUBE_VERTEX - 1)
+				allOutsideCurrentPlane = true;
+		}
+		if (allOutsideCurrentPlane)
+		{
+			isInsideFrustum = false;
+			break;
+		}
+	}
+	if (isInsideFrustum)
+		return States::INSIDE;
+	else
+		return States::OUTSIDE;
+	*/
 }
 

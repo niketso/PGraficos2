@@ -20,4 +20,21 @@ enum ProjectionMatrixType
 	orthographic
 
 };
+
+enum States
+{
+	INSIDE = 0,
+	OUTSIDE
+
+};
+
+enum Planes {
+	TOP = 0,
+	BOTTOM,
+	LEFT,
+	RIGHT,
+	NEARP,
+	FARP,
+	COUNT
+};
 #endif 
