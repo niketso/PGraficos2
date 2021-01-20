@@ -14,15 +14,15 @@ bool Game::OnStart() {
 	sceneNode = new Node(render);
 	cameraNode = new Node(render);
 	
-	//sceneNode->AddChild(MeshLoader::GetInstance()->LoadMesh("sceneDefault.fbx", "rifle_texture.bmp", render,sceneNode));
-	MeshLoader::GetInstance()->LoadMesh("cube.fbx", "rifle_texture.bmp", render, sceneNode, camera);
-	cameraNode->AddComponent(camera);
 	sceneNode->AddChild(cameraNode);
+	//sceneNode->AddChild(MeshLoader::GetInstance()->LoadMesh("sceneDefault.fbx", "rifle_texture.bmp", render,sceneNode));
+	cameraNode->AddComponent(camera);
+	MeshLoader::GetInstance()->LoadMesh("scenedefault.fbx", "rifle_texture.bmp", render, sceneNode, camera);
 
-	Node * node = sceneNode->GetChild(0);
-	node->GetTransfrom()->SetScale(1.0f, 1.0f, 1.0f);
+	//Node * node = sceneNode->GetChild(0);
+	//node->GetTransfrom()->SetScale(1.0f, 1.0f, 1.0f);
 	//MeshLoader::GetInstance()->LoadMesh("sceneDefault.fbx", "rifle_texture.bmp", render, sceneNode);
-	camera->Walk(-50.0f);
+	camera->Walk(-300.0f);
 	
 	//sceneNode->GetChild(1)->Move(-10.0f, 0.0f, 0.0f);
 	//sceneNode->GetChild(2)->Move(-20.0f, 0.0f, 0.0f);
@@ -82,17 +82,3 @@ void Game::OnDraw()
 	render->Draws = 0;
 }
 
-/*
-	//spr1->LoadTexture("Doom.bmp");
-	//spr2->LoadTexture("sample2.bmp");
-	//spr1->SetAnimation(0, 23, 0.5f);
-	//spr1->SetBoundingBox(spr1->GetPos(), 2.0f, 2.0f, false, false);
-	//spr2->SetBoundingBox(spr1->GetPos(), 2.0f, 2.0f, false, false);
-	//colManager->AddCollisionEntity(spr1 , player);
-	//colManager->AddCollisionEntity(spr2, enemy);
-	//spr1->SetPos(-5,0,0);
-	//spr1->SetPos(5,0,0);
-	//msh1->SetPos(0, 0, 0);
-	//msh2->SetPos(0, 0, 0);
-	//msh1->Rotate(180.0f,0.0f, 180.0f);
-	*/

@@ -22,10 +22,8 @@ private:
 public:
 	MeshLoader();
 	~MeshLoader();
-	Node* LoadMesh(const char * meshname, const char * texturename, Renderer * render, Node * roothNode,Camera * camera);
-	//Node* LoadMesh(const char * meshname, const char * texturename, Renderer * render, Node * roothNode);
+	Node* LoadMesh(const char * meshname, const char * texturename, Renderer * render, Node * roothNode,Camera * camera);	
 	void InitFromScene(const aiScene* scene, Node *node,aiNode* root, const char * texturename, Renderer * render,Camera *camera);
-	//void InitFromScene(const aiScene* scene, Node *node,aiNode* root, const char * texturename, Renderer * render);
 	void InitMesh(const aiMesh* mesh,MeshComponent *meshcomponent, Renderer * render);
 	void GenerateBoundingBox(MeshComponent * mesh,Renderer * render);
 	void SetNodeTransform(aiNode * aiNode, Node * node);

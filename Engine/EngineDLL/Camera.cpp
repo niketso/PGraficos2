@@ -56,7 +56,7 @@ void Camera::Strafe(float dir)
 void Camera::Pitch(float dir) 
 {
 	//multiplicar por una matriz de rotacion a el eje x (right).
-	 forward =  glm::rotate(glm::mat4(1.0f), dir, glm::vec3(right.x, right.y, right.z)) * forward ;
+	 forward =  glm::rotate(glm::mat4(1.0f), dir, glm::vec3(right.x, right.y, right.z)) * forward;
 	 upDir = glm::rotate(glm::mat4(1.0f), dir, glm::vec3(right.x, right.y, right.z)) * upDir;
 	
 	 upVec = (glm::vec3)upDir;
@@ -141,7 +141,7 @@ glm::vec4 Camera::generatePlane(glm::vec3 normal, glm::vec3 point)
 int Camera::boxInFrustrum(BoundingCube * boundingCube)
 {
 	bool isInsideFrustum = true;
-	//bool allOutsideCurrentPlane = false;	
+	
 	for (int i = 0; i < CUBE_VERTEX; i++) 
 	{
 		float dist;
@@ -151,6 +151,7 @@ int Camera::boxInFrustrum(BoundingCube * boundingCube)
 		{
 			glm::vec3 planeNormal = glm::vec3(pl[j]);
 			dist = (glm::dot(planeNormal, vertexPosition)  + pl[j].w);
+
 			if (dist <= 0.0f)
 			{
 				isInsideFrustum = false;
@@ -163,47 +164,14 @@ int Camera::boxInFrustrum(BoundingCube * boundingCube)
 		{
 			break;
 		}
-
-		/*if (i == CUBE_VERTEX - 1 )
-			isInsideFrustum = false;*/
-
-		cout << dist << endl;
+		
+		//cout << dist << endl;
 	}
 	if (isInsideFrustum)
 		return States::INSIDE;
-		//return States::OUTSIDE;
-	else
-		//return States::INSIDE;
+		
+	else	
 		return States::OUTSIDE;
 		
-
-	/*for (int i = 0; i < (int)Planes::COUNT; i++)
-	{
-		allOutsideCurrentPlane = false;
-
-		for (int j = 0; j < CUBE_VERTEX; j++)
-		{
-			glm::vec3 vertexPosition = boundingCube->GetVertex(j);
-			//cout << vertexPosition.x<< ","<<vertexPosition.y << "," << vertexPosition.z << endl;
-			glm::vec3 planeNormal = glm::vec3(pl[i]);
-			//cout << planeNormal.x << "," << planeNormal.y << "," << planeNormal.z << endl;
-			float dist = glm::dot(planeNormal, vertexPosition) + pl[i].w;
-
-			if (dist <= 0.0f)
-				break;
-			if (j == CUBE_VERTEX - 1)
-				allOutsideCurrentPlane = true;
-		}
-		if (allOutsideCurrentPlane)
-		{
-			isInsideFrustum = false;
-			break;
-		}
-	}
-	if (isInsideFrustum)
-		return States::INSIDE;
-	else
-		return States::OUTSIDE;
-	*/
 }
 

@@ -11,13 +11,6 @@ MeshComponent::MeshComponent(ComponentType type,Renderer *render,Camera *camera)
 	bCube = new BoundingCube(render);
 }
 
-/*MeshComponent::MeshComponent(ComponentType type, Renderer *render)
-{
-	_type = type;
-	_render = render;
-	bCube = new BoundingCube(render);
-}*/
-
 
 
 MeshComponent::~MeshComponent()

@@ -57,6 +57,7 @@ void Node::AddChild(Node* _node)
 {
 	if(_node != NULL)
 	childVec->push_back(_node);
+	childs++;
 }
 
 

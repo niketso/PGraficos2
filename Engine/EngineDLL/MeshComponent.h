@@ -31,7 +31,6 @@ public:
 	BoundingCube * bCube;
 	
 	MeshComponent( ComponentType type,Renderer *render,Camera * camera);
-	//MeshComponent( ComponentType type,Renderer *render);
 	~MeshComponent();
 	void Update();
 	void Draw();
