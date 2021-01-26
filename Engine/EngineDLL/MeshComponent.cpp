@@ -8,6 +8,7 @@ MeshComponent::MeshComponent(ComponentType type,Renderer *render,Camera *camera)
 	_type = type;
 	_render = render;
 	_camera = camera;
+	this->SetType(type);
 	bCube = new BoundingCube(render);
 }
 
@@ -23,8 +24,8 @@ void MeshComponent::Update()
 
 void MeshComponent::Draw()
 {
-	//bool shouldDraw = true;
-	bool shouldDraw = false;
+	bool shouldDraw = true;
+	//bool shouldDraw = false;
 	
 	
 	if ( _camera->boxInFrustrum(bCube) != States::OUTSIDE)

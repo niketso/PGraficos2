@@ -4,6 +4,7 @@ Camera::Camera(ComponentType type,Renderer *render)
 {
 	this->render = render;
 	this->type = type;
+	this->SetType(type);
 
 	eyePos = glm::vec3(0.0f, 0.0f, 10.0f);
 	upVec = glm::vec3(0.0f, 1.0f, 0.0f);

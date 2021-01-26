@@ -7,6 +7,9 @@ TransformComponent::TransformComponent(ComponentType type,Renderer * render)
 	{
 		_type = type;
 	}
+
+	this->SetType(type);
+	
 	pos = glm::vec3(0,0,0);
 	rot = glm::vec3(0,0,0);
 	scale = glm::vec3(1,1,1);

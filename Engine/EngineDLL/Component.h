@@ -17,7 +17,8 @@ enum ComponentType
  class ENGINEDLL_API Component
 {
 	 	
-public:
+public:	
+	Component();
 	ComponentType _type;
 	virtual void Update() = 0;
 	virtual void Draw() = 0;
