@@ -137,4 +137,6 @@ void MeshLoader::SetNodeTransform(aiNode * aiNode, Node * node) {
 	transform->SetPos(aiPosition.x, aiPosition.y, aiPosition.z);
 	transform->SetScale(aiScaling.x, aiScaling.y, aiScaling.z);
 
+	
+
 }

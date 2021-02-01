@@ -24,8 +24,8 @@ void MeshComponent::Update()
 
 void MeshComponent::Draw()
 {
-	bool shouldDraw = true;
-	//bool shouldDraw = false;
+	//bool shouldDraw = true;
+	bool shouldDraw = false;
 	
 	
 	if ( _camera->boxInFrustrum(bCube) != States::OUTSIDE)

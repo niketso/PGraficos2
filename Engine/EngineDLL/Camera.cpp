@@ -101,9 +101,8 @@ void Camera::SetCamDef() {
 	glm::vec3 right = (glm::vec3)this->right;
 	glm::vec3 up = (glm::vec3)upDir;
 	
-	glm::vec3 nearCenter = (glm::vec3)camPos + (glm::vec3)forward * nearD;
-	//cout << nearCenter.x << "," << nearCenter.y << "," << nearCenter.z << endl;
-	glm::vec3 farCenter = (glm::vec3)camPos + (glm::vec3)forward * farD;
+	glm::vec3 nearCenter = (glm::vec3)camPos + (glm::vec3)upDir * nearD;
+	glm::vec3 farCenter = (glm::vec3)camPos + (glm::vec3)upDir * farD;
 
 	glm::vec3 leftPlaneVec = (nearCenter - right * nw) - (glm::vec3)camPos;
 	glm::vec3 rightPlaneVec = (nearCenter + right * nw) - (glm::vec3)camPos;
@@ -116,8 +115,8 @@ void Camera::SetCamDef() {
 	glm::vec3 normalBottom = -glm::normalize(glm::cross(bottomPlaneVec, right));
 
 	
-	pl[NEARP] = generatePlane(-(glm::vec3)forward, nearCenter);
-	pl[FARP] = generatePlane((glm::vec3)forward, farCenter);	
+	pl[NEARP] = generatePlane(-(glm::vec3)upDir, nearCenter);
+	pl[FARP] = generatePlane((glm::vec3)upDir, farCenter);	
 	pl[LEFT] = generatePlane(normalLeft, (glm::vec3)camPos);
 	pl[RIGHT] = generatePlane(normalRight, (glm::vec3)camPos);
 	pl[TOP] = generatePlane(normalTop, (glm::vec3)camPos);

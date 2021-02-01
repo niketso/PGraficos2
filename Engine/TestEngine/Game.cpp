@@ -23,7 +23,7 @@ bool Game::OnStart() {
 	//Node * node = sceneNode->GetChild(0);
 	//node->GetTransfrom()->SetScale(1.0f, 1.0f, 1.0f);
 	//MeshLoader::GetInstance()->LoadMesh("sceneDefault.fbx", "rifle_texture.bmp", render, sceneNode);
-	//camera->Walk(9.0f);
+	camera->Walk(-400.0f);
 	
 	//sceneNode->GetChild(1)->Move(-10.0f, 0.0f, 0.0f);
 	//sceneNode->GetChild(2)->Move(-20.0f, 0.0f, 0.0f);
