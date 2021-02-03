@@ -15,15 +15,14 @@ bool Game::OnStart() {
 	cameraNode = new Node(render);
 	
 	sceneNode->AddChild(cameraNode);
-	//sceneNode->AddChild(MeshLoader::GetInstance()->LoadMesh("sceneDefault.fbx", "rifle_texture.bmp", render,sceneNode));
 	cameraNode->AddComponent(camera);
 	//MeshLoader::GetInstance()->LoadMesh("scenedefault.fbx", "rifle_texture.bmp", render, sceneNode, camera);
 	MeshLoader::GetInstance()->LoadMesh("cube.fbx", "rifle_texture.bmp", render, sceneNode, camera);
 
-	//Node * node = sceneNode->GetChild(0);
-	//node->GetTransfrom()->SetScale(1.0f, 1.0f, 1.0f);
+	Node * node = sceneNode->GetChild(1);
+	node->GetTransfrom()->SetScale(1.0f, 1.0f, 1.0f);
 	//MeshLoader::GetInstance()->LoadMesh("sceneDefault.fbx", "rifle_texture.bmp", render, sceneNode);
-	camera->Walk(-400.0f);
+	//camera->Walk(-400.0f);
 	
 	//sceneNode->GetChild(1)->Move(-10.0f, 0.0f, 0.0f);
 	//sceneNode->GetChild(2)->Move(-20.0f, 0.0f, 0.0f);
@@ -47,13 +46,13 @@ bool Game::OnUpdate() {
 	//movX
 
 	//camera->Update();
-	if (inp->IsKeyPressed(87))
+	if (inp->IsKeyPressed(87)) //w
 		camera->Walk(10.0);
-	if (inp->IsKeyPressed(83))
+	if (inp->IsKeyPressed(83)) //s
 		camera->Walk(-10.0);
-	if (inp->IsKeyPressed(65))
-		camera->Strafe(10.0);
-	if (inp->IsKeyPressed(68))
+	if (inp->IsKeyPressed(65)) //a
+		camera->Strafe(10.0); 
+	if (inp->IsKeyPressed(68)) //d
 		camera->Strafe(-10.0);
 	if (inp->IsKeyPressed(265))
 		camera->Pitch(0.03);

@@ -17,12 +17,12 @@ Camera::Camera(ComponentType type,Renderer *render)
 	camPos = eyePos + (glm::vec3)forward;
 
 	nearD = 0.1f;
-	farD = 100.0f;
+	farD = 10.0f;
 	ratio = 4.0f / 3.0f;
 	angle = glm::radians(45.0f);
 	SetCamInternals();
 	SetCamDef();
-	
+		
 }
 
 Camera::~Camera()
@@ -51,6 +51,7 @@ void Camera::Strafe(float dir)
 {
 	camPos += (glm::vec3)right * dir;
 	eyePos += (glm::vec3)right * dir;
+
 	SetCamDef();
 	Update();
 }
@@ -121,9 +122,7 @@ void Camera::SetCamDef() {
 	pl[RIGHT] = generatePlane(normalRight, (glm::vec3)camPos);
 	pl[TOP] = generatePlane(normalTop, (glm::vec3)camPos);
 	pl[BOTTOM] = generatePlane(normalBottom, (glm::vec3)camPos);
-	
-
-	
+		
 }
 
 glm::vec4 Camera::generatePlane(glm::vec3 normal, glm::vec3 point)
@@ -141,6 +140,7 @@ glm::vec4 Camera::generatePlane(glm::vec3 normal, glm::vec3 point)
 int Camera::boxInFrustrum(BoundingCube * boundingCube)
 {
 	bool isInsideFrustum = true;
+	bool vertexInsideFrustrum = false;
 	
 	for (int i = 0; i < CUBE_VERTEX; i++) 
 	{
@@ -157,15 +157,18 @@ int Camera::boxInFrustrum(BoundingCube * boundingCube)
 				isInsideFrustum = false;
 				break;
 			}
+			else
+			{
+				vertexInsideFrustrum = true;
+			}
 										
 		}		
 		
-		if (isInsideFrustum)
-		{
+		if (vertexInsideFrustrum)
+		{			
+			isInsideFrustum = true;
 			break;
 		}
-		
-		//cout << dist << endl;
 	}
 	if (isInsideFrustum)
 		return States::INSIDE;
