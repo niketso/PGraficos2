@@ -10,16 +10,19 @@ Camera::Camera(ComponentType type,Renderer *render)
 	upVec = glm::vec3(0.0f, 1.0f, 0.0f);
 
 
-	forward = glm::vec4(0.0f, 0.0f, -1.0f,0.0f);
-	right = glm::vec4(1.0f, 0.0f, 0.0f,0.0f);
-	upDir = glm::vec4(0.0f, 1.0f, 0.0f,0.0f);
+	right =	  glm::vec4(1.0f, 0.0f, 0.0f, 0.0f);
+	upDir =	  glm::vec4(0.0f, 1.0f, 0.0f, 0.0f);
+	forward = glm::vec4(0.0f, 0.0f, -1.0f, 0.0f);
 
 	camPos = eyePos + (glm::vec3)forward;
 
-	nearD = 0.1f;
-	farD = 10.0f;
+	render->SwitchProjectionMatrix(perspective);
+	nearD = 0.1f; 
+	farD = 10.00f;
 	ratio = 4.0f / 3.0f;
 	angle = glm::radians(45.0f);
+
+	render->SetPerspectiveProjectionMatrix(angle, ratio, nearD, farD);
 	SetCamInternals();
 	SetCamDef();
 		
@@ -103,7 +106,7 @@ void Camera::SetCamDef() {
 	glm::vec3 up = (glm::vec3)upDir;
 	
 	glm::vec3 nearCenter = (glm::vec3)camPos + (glm::vec3)upDir * nearD;
-	glm::vec3 farCenter = (glm::vec3)camPos + (glm::vec3)upDir * farD;
+	glm::vec3 farCenter = (glm::vec3)camPos + (glm::vec3)forward * farD;
 
 	glm::vec3 leftPlaneVec = (nearCenter - right * nw) - (glm::vec3)camPos;
 	glm::vec3 rightPlaneVec = (nearCenter + right * nw) - (glm::vec3)camPos;
@@ -111,13 +114,13 @@ void Camera::SetCamDef() {
 	glm::vec3 bottomPlaneVec = (nearCenter - up * nh) - (glm::vec3)camPos;
 
 	glm::vec3 normalLeft = glm::normalize(glm::cross(leftPlaneVec, up));
-	glm::vec3 normalRight = -glm::normalize(glm::cross(rightPlaneVec, up));
+	glm::vec3 normalRight =	-glm::normalize(glm::cross(rightPlaneVec, up));
 	glm::vec3 normalTop = glm::normalize(glm::cross(topPlaneVec, right));
 	glm::vec3 normalBottom = -glm::normalize(glm::cross(bottomPlaneVec, right));
 
 	
-	pl[NEARP] = generatePlane(-(glm::vec3)upDir, nearCenter);
-	pl[FARP] = generatePlane((glm::vec3)upDir, farCenter);	
+	pl[NEARP] = generatePlane(-(glm::vec3)forward, nearCenter);
+	pl[FARP] = generatePlane((glm::vec3)forward, farCenter);	
 	pl[LEFT] = generatePlane(normalLeft, (glm::vec3)camPos);
 	pl[RIGHT] = generatePlane(normalRight, (glm::vec3)camPos);
 	pl[TOP] = generatePlane(normalTop, (glm::vec3)camPos);
@@ -139,7 +142,7 @@ glm::vec4 Camera::generatePlane(glm::vec3 normal, glm::vec3 point)
 
 int Camera::boxInFrustrum(BoundingCube * boundingCube)
 {
-	bool isInsideFrustum = true;
+	bool isInsideFrustum = false;
 	bool vertexInsideFrustrum = false;
 	
 	for (int i = 0; i < CUBE_VERTEX; i++) 
@@ -154,21 +157,22 @@ int Camera::boxInFrustrum(BoundingCube * boundingCube)
 
 			if (dist <= 0.0f)
 			{
-				isInsideFrustum = false;
+				vertexInsideFrustrum = false;
 				break;
 			}
 			else
 			{
 				vertexInsideFrustrum = true;
+				break;
 			}
-										
-		}		
-		
+		}	
+
 		if (vertexInsideFrustrum)
-		{			
+		{
 			isInsideFrustum = true;
 			break;
 		}
+		
 	}
 	if (isInsideFrustum)
 		return States::INSIDE;

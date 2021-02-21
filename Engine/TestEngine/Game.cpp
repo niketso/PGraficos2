@@ -21,8 +21,7 @@ bool Game::OnStart() {
 
 	Node * node = sceneNode->GetChild(1);
 	node->GetTransfrom()->SetScale(1.0f, 1.0f, 1.0f);
-	//MeshLoader::GetInstance()->LoadMesh("sceneDefault.fbx", "rifle_texture.bmp", render, sceneNode);
-	//camera->Walk(-400.0f);
+	//camera->Walk(-40.0f);
 	
 	//sceneNode->GetChild(1)->Move(-10.0f, 0.0f, 0.0f);
 	//sceneNode->GetChild(2)->Move(-20.0f, 0.0f, 0.0f);
@@ -47,13 +46,13 @@ bool Game::OnUpdate() {
 
 	//camera->Update();
 	if (inp->IsKeyPressed(87)) //w
-		camera->Walk(10.0);
+		camera->Walk(1.0);
 	if (inp->IsKeyPressed(83)) //s
-		camera->Walk(-10.0);
+		camera->Walk(-1.0);
 	if (inp->IsKeyPressed(65)) //a
-		camera->Strafe(10.0); 
+		camera->Strafe(-0.5); 
 	if (inp->IsKeyPressed(68)) //d
-		camera->Strafe(-10.0);
+		camera->Strafe(0.5);
 	if (inp->IsKeyPressed(265))
 		camera->Pitch(0.03);
 	if (inp->IsKeyPressed(264))
@@ -63,9 +62,6 @@ bool Game::OnUpdate() {
 	if (inp->IsKeyPressed(262))
 		camera->yaw(-0.03);
 		
-	
-	//msh1->Rotate(0.0f, 0.003f, 0.0f);
-	//movY
 	
 	//CollisionManager::Instance()->CollisionBoxDetector();
 	//cout << "Game::OnUpdate(): " << i << endl;
