@@ -12,13 +12,13 @@ Camera::Camera(ComponentType type,Renderer *render)
 
 	right =	  glm::vec4(1.0f, 0.0f, 0.0f, 0.0f);
 	upDir =	  glm::vec4(0.0f, 1.0f, 0.0f, 0.0f);
-	forward = glm::vec4(0.0f, 0.0f, -1.0f, 0.0f);
+	forward = glm::vec4(0.0f, 0.0f, 1.0f, 0.0f);
 
 	camPos = eyePos + (glm::vec3)forward;
 
 	render->SwitchProjectionMatrix(perspective);
-	nearD = 0.1f; 
-	farD = 10.00f;
+	nearD = 10.0f; 
+	farD = 100.00f;
 	ratio = 4.0f / 3.0f;
 	angle = glm::radians(45.0f);
 
@@ -154,17 +154,13 @@ int Camera::boxInFrustrum(BoundingCube * boundingCube)
 		{
 			glm::vec3 planeNormal = glm::vec3(pl[j]);
 			dist = (glm::dot(planeNormal, vertexPosition)  + pl[j].w);
-
-			if (dist <= 0.0f)
-			{
-				vertexInsideFrustrum = false;
-				break;
-			}
-			else
+			cout << "dist"<< dist << endl;
+			if (dist > 0.0f)
 			{
 				vertexInsideFrustrum = true;
 				break;
 			}
+			
 		}	
 
 		if (vertexInsideFrustrum)
@@ -174,6 +170,7 @@ int Camera::boxInFrustrum(BoundingCube * boundingCube)
 		}
 		
 	}
+
 	if (isInsideFrustum)
 		return States::INSIDE;
 		
@@ -181,4 +178,3 @@ int Camera::boxInFrustrum(BoundingCube * boundingCube)
 		return States::OUTSIDE;
 		
 }
-

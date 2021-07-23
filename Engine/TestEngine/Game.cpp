@@ -21,9 +21,9 @@ bool Game::OnStart() {
 
 	Node * node = sceneNode->GetChild(1);
 	node->GetTransfrom()->SetScale(1.0f, 1.0f, 1.0f);
-	//camera->Walk(-40.0f);
+	camera->Walk(-20.0f);
 	
-	//sceneNode->GetChild(1)->Move(-10.0f, 0.0f, 0.0f);
+	//sceneNode->GetChild(1)->Move(-20.0f, 0.0f, 0.0f);
 	//sceneNode->GetChild(2)->Move(-20.0f, 0.0f, 0.0f);
 	//sceneNode->GetChild(3)->Move(-30.0f, 0.0f, 0.0f);
 	//sceneNode->GetChild(4)->Move(10.0f, 0.0f, 0.0f);
@@ -46,21 +46,21 @@ bool Game::OnUpdate() {
 
 	//camera->Update();
 	if (inp->IsKeyPressed(87)) //w
-		camera->Walk(1.0);
+		camera->Walk(0.1);
 	if (inp->IsKeyPressed(83)) //s
-		camera->Walk(-1.0);
+		camera->Walk(-0.1);
 	if (inp->IsKeyPressed(65)) //a
-		camera->Strafe(-0.5); 
+		camera->Strafe(0.05); 
 	if (inp->IsKeyPressed(68)) //d
-		camera->Strafe(0.5);
-	if (inp->IsKeyPressed(265))
-		camera->Pitch(0.03);
-	if (inp->IsKeyPressed(264))
-		camera->Pitch(-0.03);
-	if (inp->IsKeyPressed(263))
-		camera->yaw(0.03);
-	if (inp->IsKeyPressed(262))
-		camera->yaw(-0.03);
+		camera->Strafe(-0.05);
+	if (inp->IsKeyPressed(265)) //
+		camera->Pitch(-0.003);
+	if (inp->IsKeyPressed(264)) //
+		camera->Pitch(0.003);
+	if (inp->IsKeyPressed(263)) //
+		camera->yaw(0.003);
+	if (inp->IsKeyPressed(262)) //
+		camera->yaw(-0.003);
 		
 	
 	//CollisionManager::Instance()->CollisionBoxDetector();
