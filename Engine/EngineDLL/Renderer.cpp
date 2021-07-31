@@ -300,7 +300,7 @@ void Renderer::SetViewMatrix(glm::vec3 eye, glm::vec3 cam, glm::vec3 up)
 		camPos,
 		upPos
 	);
-	worldMatrix = glm::mat4(1.0f);
+	
 	UpdateWVP();
 }
 void Renderer::SwitchProjectionMatrix(ProjectionMatrixType pmt  )

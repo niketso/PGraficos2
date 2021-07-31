@@ -21,24 +21,7 @@ bool Game::OnStart() {
 
 	Node * node = sceneNode->GetChild(1);
 	node->GetTransfrom()->SetScale(0.5f, 0.5f, 0.5f);
-	//camera->Pitch(-15.0f);
-	/*node = sceneNode->GetChild(2);
-	node->GetTransfrom()->SetScale(0.1f, 0.1f, 0.1f);
-	node = sceneNode->GetChild(3);
-	node->GetTransfrom()->SetScale(0.1f, 0.1f, 0.1f);
-	node = sceneNode->GetChild(4);
-	node->GetTransfrom()->SetScale(0.1f, 0.1f, 0.1f);
-	node = sceneNode->GetChild(5);
-	node->GetTransfrom()->SetScale(0.1f, 0.1f, 0.1f);
-	node = sceneNode->GetChild(6);
-	node->GetTransfrom()->SetScale(0.1f, 0.1f, 0.1f);
-	node = sceneNode->GetChild(7);
-	node->GetTransfrom()->SetScale(1.0f, 1.0f, 1.0f);
-	node = sceneNode->GetChild(8);
-	node->GetTransfrom()->SetScale(1.0f, 1.0f, 1.0f);
-	node = sceneNode->GetChild(9);
-	node->GetTransfrom()->SetScale(1.0f, 1.0f, 1.0f);
-	*/
+	
 	SetScene(sceneNode);
 	
 	cout << "Game::OnStart()" << endl;

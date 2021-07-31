@@ -6,7 +6,7 @@ Camera::Camera(ComponentType type,Renderer *render)
 	this->type = type;
 	this->SetType(type);
 
-	camPos = glm::vec3(0.0f, 0.0f, -20.0f);
+	camPos = glm::vec3(0.0f, 0.0f, -10.0f);
 	upVec = glm::vec3(0.0f, 1.0f, 0.0f);
 
 
@@ -37,7 +37,7 @@ Camera::~Camera()
 
 void Camera::Update() 
 {
-	render->SetViewMatrix(eyePos, camPos, upVec);	
+	render->SetViewMatrix(camPos, eyePos, upVec);	
 }
 void Camera::Draw()
 {
@@ -65,8 +65,7 @@ void Camera::Pitch(float dir)
 	 forward =  glm::rotate(glm::mat4(1.0f), dir, glm::vec3(right.x, right.y, right.z)) * forward;
 	 upDir = glm::rotate(glm::mat4(1.0f), dir, glm::vec3(right.x, right.y, right.z)) * upDir;
 	
-	 upVec = upDir;
-	 camPos = eyePos + (glm::vec3)forward;
+	 eyePos = camPos + (glm::vec3)forward;
 	 SetCamDef();
 	 Update();
 }
@@ -76,8 +75,7 @@ void Camera::yaw(float dir)
 	forward = glm::rotate(glm::mat4(1.0f), dir, glm::vec3(upVec.x, upVec.y, upVec.z)) * forward;
 	right = glm::rotate(glm::mat4(1.0f), dir, glm::vec3(upVec.x, upVec.y, upVec.z)) * right;
 
-	upVec = upDir;
-	camPos = eyePos + (glm::vec3)forward;
+	eyePos = camPos + (glm::vec3)forward;
 	SetCamDef();
 	Update();
 }
@@ -88,7 +86,6 @@ void Camera::Roll(float dir)
 	right = rot * right;
 	upDir = rot * upDir;
 
-	upVec = upDir;
 	camPos = eyePos + (glm::vec3)forward;
 	SetCamDef();
 	Update();
@@ -156,7 +153,7 @@ int Camera::boxInFrustum(BoundingCube * boundingCube)
 			glm::vec3 planeNormal = glm::vec3(pl[i]);
 
 			float dist = glm::dot(planeNormal, vertexPosition) + pl[i].w;
-			cout << "dist:" << dist << endl;
+			//cout << "dist:" << dist << endl;
 			if (dist < 0.0f)
 				break;
 			if (j == CUBE_VERTEX - 1)
