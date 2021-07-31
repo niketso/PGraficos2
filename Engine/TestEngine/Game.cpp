@@ -9,7 +9,7 @@ Game::~Game()
 bool Game::OnStart() {
 	CollisionManager* colManager = CollisionManager::Instance();
 	inp = new Input(window);
-	
+	speed = 30.0f;
 	camera = new Camera(_CameraComponent,render);
 	sceneNode = new Node(render);
 	cameraNode = new Node(render);
@@ -20,17 +20,25 @@ bool Game::OnStart() {
 	MeshLoader::GetInstance()->LoadMesh("cube.fbx", "rifle_texture.bmp", render, sceneNode, camera);
 
 	Node * node = sceneNode->GetChild(1);
+	node->GetTransfrom()->SetScale(0.5f, 0.5f, 0.5f);
+	//camera->Pitch(-15.0f);
+	/*node = sceneNode->GetChild(2);
+	node->GetTransfrom()->SetScale(0.1f, 0.1f, 0.1f);
+	node = sceneNode->GetChild(3);
+	node->GetTransfrom()->SetScale(0.1f, 0.1f, 0.1f);
+	node = sceneNode->GetChild(4);
+	node->GetTransfrom()->SetScale(0.1f, 0.1f, 0.1f);
+	node = sceneNode->GetChild(5);
+	node->GetTransfrom()->SetScale(0.1f, 0.1f, 0.1f);
+	node = sceneNode->GetChild(6);
+	node->GetTransfrom()->SetScale(0.1f, 0.1f, 0.1f);
+	node = sceneNode->GetChild(7);
 	node->GetTransfrom()->SetScale(1.0f, 1.0f, 1.0f);
-	camera->Walk(-20.0f);
-	
-	//sceneNode->GetChild(1)->Move(-20.0f, 0.0f, 0.0f);
-	//sceneNode->GetChild(2)->Move(-20.0f, 0.0f, 0.0f);
-	//sceneNode->GetChild(3)->Move(-30.0f, 0.0f, 0.0f);
-	//sceneNode->GetChild(4)->Move(10.0f, 0.0f, 0.0f);
-	//sceneNode->GetChild(5)->Move(20.0f, 0.0f, 0.0f);
-	//sceneNode->GetChild(6)->Move(30.0f, 0.0f, 0.0f);
-	
-
+	node = sceneNode->GetChild(8);
+	node->GetTransfrom()->SetScale(1.0f, 1.0f, 1.0f);
+	node = sceneNode->GetChild(9);
+	node->GetTransfrom()->SetScale(1.0f, 1.0f, 1.0f);
+	*/
 	SetScene(sceneNode);
 	
 	cout << "Game::OnStart()" << endl;
@@ -46,22 +54,22 @@ bool Game::OnUpdate() {
 
 	//camera->Update();
 	if (inp->IsKeyPressed(87)) //w
-		camera->Walk(0.1);
+		camera->Walk(speed * deltaTime);
 	if (inp->IsKeyPressed(83)) //s
-		camera->Walk(-0.1);
+		camera->Walk(-speed * deltaTime);
 	if (inp->IsKeyPressed(65)) //a
-		camera->Strafe(0.05); 
+		camera->Strafe(speed * deltaTime);
 	if (inp->IsKeyPressed(68)) //d
-		camera->Strafe(-0.05);
+		camera->Strafe(-speed * deltaTime);
 	if (inp->IsKeyPressed(265)) //
-		camera->Pitch(-0.003);
+		camera->Pitch(-deltaTime);
 	if (inp->IsKeyPressed(264)) //
-		camera->Pitch(0.003);
+		camera->Pitch(deltaTime);
 	if (inp->IsKeyPressed(263)) //
-		camera->yaw(0.003);
+		camera->yaw(deltaTime);
 	if (inp->IsKeyPressed(262)) //
-		camera->yaw(-0.003);
-		
+		camera->yaw(-deltaTime);
+	
 	
 	//CollisionManager::Instance()->CollisionBoxDetector();
 	//cout << "Game::OnUpdate(): " << i << endl;

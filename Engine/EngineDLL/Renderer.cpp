@@ -31,19 +31,24 @@ bool Renderer::Start(Window * windowPTR) {
 		//Inicializo la matriz de projeccion.
 		//projectionMatrix = glm::ortho(-10.0f, 10.0f, -10.0f,10.0f, 0.0f, 100.f);
 		//perspectiveProjectionMatrix = glm::perspective(45.0f, 1.06f, 0.1f, 1000.f);
-		perspectiveProjectionMatrix = glm::perspective(glm::radians(45.0f), 4.0f /3.0f, 0.1f, 100.0f);
-		projectionMatrix = perspectiveProjectionMatrix;
 		orthoProjectionMatrix  = glm::ortho(-10.0f, 10.0f, -10.0f, 10.0f, 0.0f, 100.f);
+
+		perspectiveProjectionMatrix = glm::perspective(glm::radians(45.0f), 4.0f /3.0f, 0.1f, 100.0f);
+
+		projectionMatrix = perspectiveProjectionMatrix;
+
 		//Inicializo la matriz de vista.
-		camPos =glm::vec3(0, 0, 0);
+		camPos = glm::vec3(0, 0, 0);
 		eyePos = glm::vec3(0, 0, 3);
+		upPos = glm::vec3(0, 1, 0);
 		viewMatrix = glm::lookAt(
 			eyePos,
 			camPos,
-			glm::vec3(0, 1, 0)
+			upPos
 		);
 		//Inicializo la matriz de mundo.
 		worldMatrix = glm::mat4(1.0f);
+		UpdateWVP();
 		glEnable(GL_DEPTH_TEST);
 		glDepthFunc(GL_LESS);
 		UpdateWVP();
@@ -238,12 +243,12 @@ void Renderer::TranslateCamera(glm::vec3 pos)
 {
 	
 	camPos += pos;
-	eyePos += glm::vec3(pos.x, pos.y, 0);
-
+	//eyePos += glm::vec3(pos.x, pos.y, 0);
+	eyePos += pos;
 	viewMatrix = glm::lookAt(
 		eyePos,
 		camPos,
-		glm::vec3(0, 1, 0)
+		upPos
 	);
 
 	UpdateWVP();
@@ -295,6 +300,7 @@ void Renderer::SetViewMatrix(glm::vec3 eye, glm::vec3 cam, glm::vec3 up)
 		camPos,
 		upPos
 	);
+	worldMatrix = glm::mat4(1.0f);
 	UpdateWVP();
 }
 void Renderer::SwitchProjectionMatrix(ProjectionMatrixType pmt  )

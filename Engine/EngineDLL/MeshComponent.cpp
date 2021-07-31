@@ -24,12 +24,12 @@ void MeshComponent::Update()
 
 void MeshComponent::Draw()
 {	
-	bool shouldDraw = false;
+	bool shouldDraw = true;
 	
 	
-	if ( _camera->boxInFrustrum(bCube) == States::INSIDE)
+	if ( _camera->boxInFrustum(bCube) != States::INSIDE)
 	{
-		shouldDraw = true;
+		shouldDraw = false;
 	}
 	
 	if (shouldDraw)
@@ -50,6 +50,7 @@ void MeshComponent::Draw()
 		_render->EndDraw(1);
 
 	}
+
 }
 
 void MeshComponent::UpdateData(glm::vec3 min, glm::vec3 max)

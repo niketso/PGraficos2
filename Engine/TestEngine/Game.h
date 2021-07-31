@@ -11,7 +11,7 @@
 class Game : public GameBase {
 private:
 	int i;
-
+	float speed;
 	Input *inp;	
 	Node *sceneNode;
 	Node *cameraNode;

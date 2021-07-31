@@ -15,9 +15,10 @@ private:
 	glm::mat4 worldMatrix;
 	glm::mat4 viewMatrix;
 	glm::mat4 projectionMatrix;
+	glm::mat4 wvp;
+
 	glm::mat4 orthoProjectionMatrix;
 	glm::mat4 perspectiveProjectionMatrix;
-	glm::mat4 wvp;
 
 
 	glm::vec3 camPos;

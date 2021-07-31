@@ -6,7 +6,7 @@ Camera::Camera(ComponentType type,Renderer *render)
 	this->type = type;
 	this->SetType(type);
 
-	eyePos = glm::vec3(0.0f, 0.0f, 10.0f);
+	camPos = glm::vec3(0.0f, 0.0f, -20.0f);
 	upVec = glm::vec3(0.0f, 1.0f, 0.0f);
 
 
@@ -14,17 +14,20 @@ Camera::Camera(ComponentType type,Renderer *render)
 	upDir =	  glm::vec4(0.0f, 1.0f, 0.0f, 0.0f);
 	forward = glm::vec4(0.0f, 0.0f, 1.0f, 0.0f);
 
-	camPos = eyePos + (glm::vec3)forward;
+	eyePos = camPos + (glm::vec3)forward;
 
 	render->SwitchProjectionMatrix(perspective);
-	nearD = 10.0f; 
-	farD = 100.00f;
+	//this->render->SwitchProjectionMatrix(perspective);
+	nearD = 0.1f; 
+	farD = 1000.00f;
 	ratio = 4.0f / 3.0f;
 	angle = glm::radians(45.0f);
 
 	render->SetPerspectiveProjectionMatrix(angle, ratio, nearD, farD);
+	this->render->SetPerspectiveProjectionMatrix(angle, ratio, nearD, farD);
 	SetCamInternals();
 	SetCamDef();
+	Update();
 		
 }
 
@@ -34,16 +37,13 @@ Camera::~Camera()
 
 void Camera::Update() 
 {
-	render->SetViewMatrix(eyePos, camPos, upVec);
-	
-	//std::cout << camPos.x << " , "<< camPos.y << " , "<<camPos.z << std::endl;
-
+	render->SetViewMatrix(eyePos, camPos, upVec);	
 }
 void Camera::Draw()
 {
 }
 void Camera::Walk(float dir)
-{
+{	
 	camPos += (glm::vec3)forward * dir;
 	eyePos += (glm::vec3)forward * dir;
 
@@ -58,13 +58,14 @@ void Camera::Strafe(float dir)
 	SetCamDef();
 	Update();
 }
+
 void Camera::Pitch(float dir) 
 {
 	//multiplicar por una matriz de rotacion a el eje x (right).
 	 forward =  glm::rotate(glm::mat4(1.0f), dir, glm::vec3(right.x, right.y, right.z)) * forward;
 	 upDir = glm::rotate(glm::mat4(1.0f), dir, glm::vec3(right.x, right.y, right.z)) * upDir;
 	
-	 upVec = (glm::vec3)upDir;
+	 upVec = upDir;
 	 camPos = eyePos + (glm::vec3)forward;
 	 SetCamDef();
 	 Update();
@@ -75,7 +76,7 @@ void Camera::yaw(float dir)
 	forward = glm::rotate(glm::mat4(1.0f), dir, glm::vec3(upVec.x, upVec.y, upVec.z)) * forward;
 	right = glm::rotate(glm::mat4(1.0f), dir, glm::vec3(upVec.x, upVec.y, upVec.z)) * right;
 
-	upVec = (glm::vec3)upDir;
+	upVec = upDir;
 	camPos = eyePos + (glm::vec3)forward;
 	SetCamDef();
 	Update();
@@ -87,7 +88,7 @@ void Camera::Roll(float dir)
 	right = rot * right;
 	upDir = rot * upDir;
 
-	upVec = (glm::vec3)upDir;
+	upVec = upDir;
 	camPos = eyePos + (glm::vec3)forward;
 	SetCamDef();
 	Update();
@@ -105,13 +106,13 @@ void Camera::SetCamDef() {
 	glm::vec3 right = (glm::vec3)this->right;
 	glm::vec3 up = (glm::vec3)upDir;
 	
-	glm::vec3 nearCenter = (glm::vec3)camPos + (glm::vec3)upDir * nearD;
-	glm::vec3 farCenter = (glm::vec3)camPos + (glm::vec3)forward * farD;
+	glm::vec3 nearCenter = camPos + (glm::vec3)forward * nearD;
+	glm::vec3 farCenter = camPos + (glm::vec3)forward * farD;
 
-	glm::vec3 leftPlaneVec = (nearCenter - right * nw) - (glm::vec3)camPos;
-	glm::vec3 rightPlaneVec = (nearCenter + right * nw) - (glm::vec3)camPos;
-	glm::vec3 topPlaneVec = (nearCenter + up * nh) - (glm::vec3)camPos;
-	glm::vec3 bottomPlaneVec = (nearCenter - up * nh) - (glm::vec3)camPos;
+	glm::vec3 leftPlaneVec = (nearCenter - right * nw) - camPos;
+	glm::vec3 rightPlaneVec = (nearCenter + right * nw) - camPos;
+	glm::vec3 topPlaneVec = (nearCenter + up * nh) - camPos;
+	glm::vec3 bottomPlaneVec = (nearCenter - up * nh) - camPos;
 
 	glm::vec3 normalLeft = glm::normalize(glm::cross(leftPlaneVec, up));
 	glm::vec3 normalRight =	-glm::normalize(glm::cross(rightPlaneVec, up));
@@ -121,10 +122,10 @@ void Camera::SetCamDef() {
 	
 	pl[NEARP] = generatePlane(-(glm::vec3)forward, nearCenter);
 	pl[FARP] = generatePlane((glm::vec3)forward, farCenter);	
-	pl[LEFT] = generatePlane(normalLeft, (glm::vec3)camPos);
-	pl[RIGHT] = generatePlane(normalRight, (glm::vec3)camPos);
-	pl[TOP] = generatePlane(normalTop, (glm::vec3)camPos);
-	pl[BOTTOM] = generatePlane(normalBottom, (glm::vec3)camPos);
+	pl[LEFT] = generatePlane(normalLeft, camPos);
+	pl[RIGHT] = generatePlane(normalRight, camPos);
+	pl[TOP] = generatePlane(normalTop, camPos);
+	pl[BOTTOM] = generatePlane(normalBottom, camPos);
 		
 }
 
@@ -140,41 +141,36 @@ glm::vec4 Camera::generatePlane(glm::vec3 normal, glm::vec3 point)
 	return plane;
 }
 
-int Camera::boxInFrustrum(BoundingCube * boundingCube)
+int Camera::boxInFrustum(BoundingCube * boundingCube)
 {
-	bool isInsideFrustum = false;
-	bool vertexInsideFrustrum = false;
-	
-	for (int i = 0; i < CUBE_VERTEX; i++) 
+	bool isInsideFrustum = true;
+	bool allOutsideCurrentPlane = false;
+
+	for (int i = 0; i < (int)Planes::COUNT; i++)
 	{
-		float dist;
-		glm::vec3 vertexPosition = boundingCube->GetVertex(i);
+		allOutsideCurrentPlane = false;
 
-		for (int j = 0; j < (int)Planes::COUNT; j++) 
+		for (int j = 0; j < CUBE_VERTEX; j++)
 		{
-			glm::vec3 planeNormal = glm::vec3(pl[j]);
-			dist = (glm::dot(planeNormal, vertexPosition)  + pl[j].w);
-			cout << "dist"<< dist << endl;
-			if (dist > 0.0f)
-			{
-				vertexInsideFrustrum = true;
+			glm::vec3 vertexPosition = boundingCube->GetVertex(j);
+			glm::vec3 planeNormal = glm::vec3(pl[i]);
+
+			float dist = glm::dot(planeNormal, vertexPosition) + pl[i].w;
+			cout << "dist:" << dist << endl;
+			if (dist < 0.0f)
 				break;
-			}
-			
-		}	
-
-		if (vertexInsideFrustrum)
+			if (j == CUBE_VERTEX - 1)
+				allOutsideCurrentPlane = true;
+		}
+		if (allOutsideCurrentPlane)
 		{
-			isInsideFrustum = true;
+			isInsideFrustum = false;
 			break;
 		}
-		
 	}
-
 	if (isInsideFrustum)
 		return States::INSIDE;
-		
-	else	
+	else
 		return States::OUTSIDE;
-		
 }
+

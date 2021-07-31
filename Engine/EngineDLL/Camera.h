@@ -24,7 +24,7 @@ private:
 	// camera dist
 	float nearD, farD, ratio, angle, tang;
 	//width height
-	float nw, nh, fw, fh;
+	float nw, nh;
 
 public:
 	//Camera * camera;
@@ -37,11 +37,10 @@ public:
 	void Pitch(float dir);
 	void yaw(float dir);
 	void Roll(float dir);
-
 	void SetCamInternals();
 	void SetCamDef();
 	glm::vec4 generatePlane(glm::vec3 normal, glm::vec3 point);
-	int boxInFrustrum(BoundingCube * boundingCube);
+	int boxInFrustum(BoundingCube * boundingCube);
 
 };
 
