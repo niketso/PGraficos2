@@ -73,6 +73,18 @@ void TransformComponent::SetScale(float x, float y, float z)
 	Update();
 }
 
+void TransformComponent::Translate(float x, float y, float z)
+{
+	pos[0] += x;
+	pos[1] += y;
+	pos[2] += z;
+
+
+	TranslationMatrix = glm::translate(glm::mat4(1.0f), pos);
+	Update();
+
+}
+
 void TransformComponent::SetRotationMatrix(float x, float y, float z, float w)
 {
 	float pitch, yaw, roll;
@@ -145,6 +157,10 @@ glm::vec3 TransformComponent::GetRot()
 	return rot;
 }
 
+glm::mat4 TransformComponent::GetRotMat()
+{
+	return RotationMatrix;
+}
 glm::vec3 TransformComponent::GetScale()
 {
 	return scale;

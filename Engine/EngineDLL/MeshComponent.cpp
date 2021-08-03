@@ -10,6 +10,8 @@ MeshComponent::MeshComponent(ComponentType type,Renderer *render,Camera *camera)
 	_camera = camera;
 	this->SetType(type);
 	bCube = new BoundingCube(render);
+
+	bspForward =  glm::vec3(0.0f, 0.0f, 0.0f);
 }
 
 
@@ -26,15 +28,24 @@ void MeshComponent::Draw()
 {	
 	bool shouldDraw = true;
 	
-	
-	if ( _camera->boxInFrustum(bCube) != States::INSIDE)
+	if (!isBsp)
 	{
-		shouldDraw = false;
+		if (_camera->BoxInFrustum(bCube) != States::INSIDE)
+		{
+			shouldDraw = false;
+		}
+		if (_camera->BoxInBSP(bCube) != States::INSIDE)
+		{
+			shouldDraw = false;
+		}
 	}
+	
 	
 	if (shouldDraw)
 	{
+		if(!isBsp)
 		_render->Draws++;
+
 		if (_material != NULL) {
 			_material->Bind();
 			_material->SetMatrixProperty("WVP", _render->GetWvp());
@@ -119,6 +130,25 @@ void MeshComponent::LoadMaterial()
 {
 	_material = new Material();
 	ProgramID = _material->LoadShaders("TextureVertexShader.txt","TextureFragmentShader.txt");
+}
+
+void MeshComponent::SetBSP(bool _isBSP, Node * node)
+{
+	if (!_isBSP)
+		return;
+	isBsp = _isBSP;
+	bspForward = glm::normalize((glm::vec3)(node->GetTransfrom()->GetRotMat() * glm::vec4(0.0f, 0.0f, 1.0f,0.0f)));
+	_camera->AddBSP(this, node->GetTransfrom()->GetPos());
+}
+
+bool MeshComponent::GetIsBsp()
+{
+	return isBsp;
+}
+
+glm::vec3 MeshComponent::GetForwardBSP()
+{
+	return bspForward;
 }
 
 void MeshComponent::SetTexture(const char * texturename)

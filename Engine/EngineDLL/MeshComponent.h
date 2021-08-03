@@ -7,6 +7,7 @@
 #include "Camera.h"
 #include "Definitions.h"
 #include <vector>
+#include "Node.h"
 
 class ENGINEDLL_API MeshComponent : public Component
 {
@@ -27,6 +28,9 @@ private:
 	unsigned int uvBufferID;
 	unsigned int indexBufferID;
 	unsigned int textureBufferID;
+
+	bool isBsp = false;
+	glm::vec3 bspForward;
 public:
 	BoundingCube * bCube;
 	
@@ -43,7 +47,9 @@ public:
 	void SetTexture(const char *texturename);
 	void LoadMaterial();
 	
-	
+	void SetBSP(bool _isBSP, Node * node);
+	bool GetIsBsp();
+	glm::vec3 GetForwardBSP();
 	
 	
 };

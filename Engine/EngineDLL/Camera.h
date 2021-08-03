@@ -1,3 +1,4 @@
+#pragma once
 #include "Exports.h"
 #include "Renderer.h"
 #include "Component.h"
@@ -5,6 +6,9 @@
 #include "Definitions.h"
 #include<glm\glm.hpp>
 #include<glm\gtc\matrix_transform.hpp>
+
+
+class MeshComponent;
 
 class ENGINEDLL_API Camera : public Component
 {
@@ -26,6 +30,10 @@ private:
 	//width height
 	float nw, nh;
 
+	vector<glm::vec4> * bspPlanes;
+	vector<glm::vec3> * bspPlanesNormals;
+
+
 public:
 	//Camera * camera;
 	Camera(ComponentType type,Renderer * render);
@@ -40,7 +48,11 @@ public:
 	void SetCamInternals();
 	void SetCamDef();
 	glm::vec4 generatePlane(glm::vec3 normal, glm::vec3 point);
-	int boxInFrustum(BoundingCube * boundingCube);
 
+	int BoxInFrustum(BoundingCube * boundingCube);
+	void AddBSP(MeshComponent * plane, glm::vec3 nodePos);
+	int BoxInBSP(BoundingCube * boundingCube);
+	float GetDistanceToPlane(glm::vec3 point, glm::vec4 _plane, glm::vec3 _planeNormal);
+	
 };
 

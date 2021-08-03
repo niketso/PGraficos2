@@ -1,4 +1,5 @@
 #include "Camera.h"
+#include "MeshComponent.h"
 
 Camera::Camera(ComponentType type,Renderer *render)
 {
@@ -6,7 +7,7 @@ Camera::Camera(ComponentType type,Renderer *render)
 	this->type = type;
 	this->SetType(type);
 
-	camPos = glm::vec3(0.0f, 0.0f, -10.0f);
+	camPos = glm::vec3(0.0f, 0.0f, -700.0f);
 	upVec = glm::vec3(0.0f, 1.0f, 0.0f);
 
 
@@ -19,7 +20,7 @@ Camera::Camera(ComponentType type,Renderer *render)
 	render->SwitchProjectionMatrix(perspective);
 	//this->render->SwitchProjectionMatrix(perspective);
 	nearD = 0.1f; 
-	farD = 1000.00f;
+	farD = 3000.00f;
 	ratio = 4.0f / 3.0f;
 	angle = glm::radians(45.0f);
 
@@ -28,6 +29,9 @@ Camera::Camera(ComponentType type,Renderer *render)
 	SetCamInternals();
 	SetCamDef();
 	Update();
+
+	bspPlanes = new vector<glm::vec4>();
+	bspPlanesNormals = new vector<glm::vec3>();
 		
 }
 
@@ -138,7 +142,7 @@ glm::vec4 Camera::generatePlane(glm::vec3 normal, glm::vec3 point)
 	return plane;
 }
 
-int Camera::boxInFrustum(BoundingCube * boundingCube)
+int Camera::BoxInFrustum(BoundingCube * boundingCube)
 {
 	bool isInsideFrustum = true;
 	bool allOutsideCurrentPlane = false;
@@ -169,5 +173,49 @@ int Camera::boxInFrustum(BoundingCube * boundingCube)
 		return States::INSIDE;
 	else
 		return States::OUTSIDE;
+}
+
+
+
+void Camera::AddBSP(MeshComponent * plane, glm::vec3 nodePos)
+{
+	if (!plane->GetIsBsp())
+		return;
+
+	bspPlanes->push_back(generatePlane(nodePos, plane->GetForwardBSP()));
+	bspPlanesNormals->push_back(plane->GetForwardBSP());
+}
+
+int Camera::BoxInBSP(BoundingCube * boundingCube)
+{
+	bool inTheSamePosition = false;
+	for (int i = 0; i < bspPlanes->size(); i++) {
+		float cameraDistanceToPlane = GetDistanceToPlane(camPos, bspPlanes->at(i), bspPlanesNormals->at(i));
+		float cameraDistanceSign = glm::sign(cameraDistanceToPlane);
+		for (int j = 0; j < CUBE_VERTEX; j++)
+		{
+			glm::vec3 vertexPosition = boundingCube->GetVertex(j);
+			float vertexDistanceToPlane = GetDistanceToPlane(vertexPosition, bspPlanes->at(i), bspPlanesNormals->at(i));
+			float vertexDistanceSign = glm::sign(vertexDistanceToPlane);
+
+			if (vertexDistanceSign == cameraDistanceSign)
+				break;
+			if (j == CUBE_VERTEX - 1)
+				inTheSamePosition = true;
+		}
+	}
+	if (!inTheSamePosition)
+		return States::INSIDE;
+	else
+		return States::OUTSIDE;
+}
+
+float Camera::GetDistanceToPlane(glm::vec3 point, glm::vec4 _plane, glm::vec3 _planeNormal)
+{
+	float distance = 0.0f;
+
+	distance = glm::dot(_planeNormal, point) + _plane.w;
+
+	return distance;
 }
 

@@ -8,6 +8,7 @@
 #include"../EngineDLL/MeshComponent.h"
 #include"../EngineDLL/MeshLoader.h"
 #include <iostream>
+#include <vector>
 class Game : public GameBase {
 private:
 	int i;
@@ -15,7 +16,9 @@ private:
 	Input *inp;	
 	Node *sceneNode;
 	Node *cameraNode;
+	Node * node;
 	Camera *camera;
+
 	
 	
 	

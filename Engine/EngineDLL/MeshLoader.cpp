@@ -47,7 +47,8 @@ void MeshLoader::InitFromScene(const aiScene* scene, Node *root,aiNode* aiNode, 
 		Node * child = new Node(render);
 		child->AddComponent((Component*)mesh);
 		root->AddChild(child);
-		SetNodeTransform(aiNode, child);		
+		SetNodeTransform(aiNode, child);
+		IsBspNode(scene->mMeshes[aiNode->mMeshes[i]], child, mesh);
 	}
 	for (int i = 0; i < (int)aiNode->mNumChildren; i++) 
 	{ 
@@ -139,4 +140,14 @@ void MeshLoader::SetNodeTransform(aiNode * aiNode, Node * node) {
 
 	
 
+}
+
+bool MeshLoader::IsBspNode(const aiMesh * paiMesh, Node * node, MeshComponent * meshComponent)
+{
+	string meshName = paiMesh->mName.C_Str();
+	if (meshName.compare(0, 5, "Plane") == 0) {
+		meshComponent->SetBSP(true, node);
+		return true;
+	}
+	return false;
 }

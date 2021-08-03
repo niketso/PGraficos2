@@ -25,6 +25,7 @@ public:
 	void SetPos(float x, float y, float z);
 	void SetRot(float x, float y, float z);
 	void SetScale(float x, float y, float z);
+	void Translate(float x, float y, float z);
 	void SetRotationMatrix(float x, float y, float z, float w);
 	void convertToEulerAngles(const glm::vec4 & quaternion, float & pitch, float & yaw, float & roll);
 	void clampEulerRotation();
@@ -32,5 +33,6 @@ public:
 	glm::vec3 GetRot();
 	glm::vec3 GetScale();
 	glm::mat4 GetWorldMat();
+	glm::mat4 GetRotMat();
 };
 

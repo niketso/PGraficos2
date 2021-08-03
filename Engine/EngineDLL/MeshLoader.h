@@ -27,7 +27,7 @@ public:
 	void InitMesh(const aiMesh* mesh,MeshComponent *meshcomponent, Renderer * render);
 	void GenerateBoundingBox(MeshComponent * mesh,Renderer * render);
 	void SetNodeTransform(aiNode * aiNode, Node * node);
-		
+	bool IsBspNode(const aiMesh * paiMesh, Node * node, MeshComponent * meshComponent);
 	static MeshLoader* GetInstance()
 	{
 		if (instance == NULL)
