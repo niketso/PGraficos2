@@ -33,7 +33,7 @@ public:
 	void Draw();
 	void Move(float x, float y, float z);
 	int GetCantChild();	
-	TransformComponent* GetTransfrom();
+	TransformComponent* GetTransform();
 	
 	
 };

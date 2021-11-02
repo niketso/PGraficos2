@@ -26,7 +26,7 @@ public:
 	void InitFromScene(const aiScene* scene, Node *node,aiNode* root, const char * texturename, Renderer * render,Camera *camera);
 	void InitMesh(const aiMesh* mesh,MeshComponent *meshcomponent, Renderer * render);
 	void GenerateBoundingBox(MeshComponent * mesh,Renderer * render);
-	void SetNodeTransform(aiNode * aiNode, Node * node);
+	void SetNodeTransform(aiNode * aiNode, Node * node, Renderer * render);
 		
 	static MeshLoader* GetInstance()
 	{

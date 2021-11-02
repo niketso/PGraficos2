@@ -63,7 +63,11 @@ void Node::AddChild(Node* _node)
 
 void Node::Update()
 {
-	 
+	glm::mat4 actualWorldMatrix = render->GetWorldMatrix();
+	glm::mat4 actualViewMatrix = render->GetViewMatrix();
+	glm::mat4 actualProjectionMatrix = render->GetProjectionMatrix();
+
+	render->MultiplyWorldMatrix(render->GetWorldMatrix());
 	for (int i = 0; i < componentVec->size(); i++)
 	{
 		componentVec->at(i)->Update();
@@ -72,14 +76,19 @@ void Node::Update()
 	{
 		childVec->at(i)->Update();
 	}
+	render->SetWorldMatrix(actualWorldMatrix);
+	render->SetViewMatrix(actualViewMatrix);
+	render->SetProjectionMatrix(actualProjectionMatrix);
 }
 
 void Node::Draw()
 {
 	// guardar world matrix antes de usar y al final del draw volver a poner la vieja.
+	glm::mat4 actualWorldMatrix = render->GetWorldMatrix();
+	glm::mat4 actualViewMatrix = render->GetViewMatrix();
+	glm::mat4 actualProjectionMatrix = render->GetProjectionMatrix();
 
-	aux = render->GetWorldMatrix();
-	render->MultiplyWorldMatrix(transformComponent->GetWorldMat());
+	render->MultiplyWorldMatrix(render->GetWorldMatrix());
 	
 	for (int i = 0;i < componentVec->size();i++)
 	{
@@ -89,7 +98,10 @@ void Node::Draw()
 	{
 		childVec->at(i)->Draw();
 	}
-	render->SetWorldMatrix(aux);
+	render->SetWorldMatrix(actualWorldMatrix);
+	render->SetViewMatrix(actualViewMatrix);	
+	render->SetProjectionMatrix(actualProjectionMatrix);
+
 }
 
 void Node::Move(float x, float y, float z)
@@ -99,6 +111,8 @@ void Node::Move(float x, float y, float z)
 	z = transformComponent->GetPos().z + z;
 
 	transformComponent->SetPos(x, y, z);
+
+
 }
 
 int Node::GetCantChild()
@@ -107,7 +121,7 @@ int Node::GetCantChild()
 	return childs;
 }
 
-TransformComponent * Node::GetTransfrom()
-{
+TransformComponent * Node::GetTransform()
+{	
 	return transformComponent;
 }

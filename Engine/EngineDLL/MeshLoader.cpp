@@ -19,7 +19,10 @@ Node* MeshLoader::LoadMesh(const char * meshname, const char * texturename, Rend
 		
 	Assimp::Importer Importer;
 
-	const aiScene* Scene = Importer.ReadFile(meshname, aiProcess_Triangulate | aiProcess_GenSmoothNormals | aiProcess_JoinIdenticalVertices);
+	const aiScene* Scene = Importer.ReadFile(meshname,
+		aiProcess_Triangulate |
+		aiProcess_JoinIdenticalVertices |
+		aiProcess_SortByPType);
 
 	if (!Scene || !Scene->HasMeshes())
 	{
@@ -36,25 +39,36 @@ Node* MeshLoader::LoadMesh(const char * meshname, const char * texturename, Rend
 
 void MeshLoader::InitFromScene(const aiScene* scene, Node *root,aiNode* aiNode, const char * texturename, Renderer * render,Camera * camera)
 {	
-	
-	for (int i = 0; i < (int)aiNode->mNumMeshes; i++)
+
+	for (int i = 0; i < aiNode->mNumChildren; i++)
 	{
-		MeshComponent * mesh = new MeshComponent(ComponentType::_MeshComponent, render,camera);
-		mesh->SetTexture(texturename);
-		mesh->LoadMaterial();
-		InitMesh(scene->mMeshes[aiNode->mMeshes[i]], mesh, render);	
-		GenerateBoundingBox(mesh ,render);
-		Node * child = new Node(render);
-		child->AddComponent((Component*)mesh);
-		root->AddChild(child);
-		SetNodeTransform(aiNode, child);		
-	}
-	for (int i = 0; i < (int)aiNode->mNumChildren; i++) 
-	{ 
-		InitFromScene(scene, root, aiNode->mChildren[i], texturename, render,camera);
+		
+		
+		Node* childNode = new Node(render);
+		root->AddChild(childNode);
+		SetNodeTransform(aiNode->mChildren[i], childNode,render);
+
+		if (aiNode->mChildren[i]->mNumMeshes > 0)
+		{
+			MeshComponent* meshComponent = new MeshComponent(ComponentType::_MeshComponent,render, camera);
+			meshComponent->SetTexture(texturename);
+			meshComponent->LoadMaterial();			
+			unsigned int index = aiNode->mChildren[i]->mMeshes[0];
+			InitMesh(scene->mMeshes[index], meshComponent, render);
+			GenerateBoundingBox(meshComponent, render);
+			childNode->AddComponent(meshComponent);			
+		}
+		
+		if (aiNode->mChildren[i]->mNumChildren > 0)
+		{
+			InitFromScene(scene, childNode, aiNode->mChildren[i], texturename, render, camera); 
+		}
 	}
 
+	
 }
+
+
 void MeshLoader::InitMesh(const aiMesh* mesh, MeshComponent *meshcomponent, Renderer * render)
 {
 	
@@ -123,20 +137,24 @@ void MeshLoader::GenerateBoundingBox(MeshComponent * mesh, Renderer *render)
 		mesh->bCube->SetVertex(boundingBoxVertices);
 }
 
-void MeshLoader::SetNodeTransform(aiNode * aiNode, Node * node) {
+void MeshLoader::SetNodeTransform(aiNode * aiNode, Node * node,Renderer * render) {
 
 	aiVector3D aiScaling;
 	aiVector3D aiPosition;
 	aiQuaternion aiRotation;
 
+	TransformComponent * transform = node->GetTransform();
+
 	aiNode->mTransformation.Decompose(aiScaling, aiRotation, aiPosition);
-
-	TransformComponent * transform = node->GetTransfrom();
-
+	
 	transform->SetRotationMatrix(aiRotation.x, aiRotation.y, aiRotation.z, aiRotation.w);
 	transform->SetPos(aiPosition.x, aiPosition.y, aiPosition.z);
 	transform->SetScale(aiScaling.x, aiScaling.y, aiScaling.z);
 
+	node->SetPos(aiPosition.x, aiPosition.y, aiPosition.z);
+	node->SetRotationMatrix(aiRotation.x, aiRotation.y, aiRotation.z, aiRotation.w);
+	node->SetScale(aiScaling.x, aiScaling.y, aiScaling.z);
+	
 	
 
 }

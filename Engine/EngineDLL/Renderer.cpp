@@ -253,6 +253,10 @@ void Renderer::TranslateCamera(glm::vec3 pos)
 
 	UpdateWVP();
 }
+glm::mat4 & Renderer::GetProjectionMatrix()
+{
+	return projectionMatrix;
+}
 void Renderer::MultiplyWorldMatrix(glm::mat4 mat)
 {
 	worldMatrix *= mat;
@@ -264,9 +268,26 @@ void Renderer::SetWorldMatrix(glm::mat4 mat)
 	UpdateWVP();
 }
 
+void Renderer::SetViewMatrix(glm::mat4 mat)
+{
+	viewMatrix = mat;
+	UpdateWVP();
+}
+
+void Renderer::SetProjectionMatrix(glm::mat4 mat)
+{
+	projectionMatrix = mat;
+	UpdateWVP();
+}
+
 glm::mat4& Renderer::GetWorldMatrix()
 {
 	return worldMatrix;
+}
+
+glm::mat4 & Renderer::GetViewMatrix()
+{
+	return viewMatrix;
 }
 
 void Renderer::UpdateTexture(unsigned int txt) 

@@ -10,9 +10,9 @@ TransformComponent::TransformComponent(ComponentType type,Renderer * render)
 
 	this->SetType(type);
 	
-	pos = glm::vec3(0,0,0);
-	rot = glm::vec3(0,0,0);
-	scale = glm::vec3(1,1,1);
+	pos = glm::vec3(0.0f,0.0f,0.0f);
+	rot = glm::vec3(0.0f,0.0f,0.0f);
+	scale = glm::vec3(1.0f,1.0f,1.0f);
 
 	worldMatrix = glm::mat4(1.0f);
 	TranslationMatrix = glm::mat4(1.0f);
@@ -31,6 +31,7 @@ void TransformComponent::Update()
 
 void TransformComponent::Start()
 {
+	Update();
 }
 
 void TransformComponent::Draw()
@@ -43,10 +44,10 @@ void TransformComponent::Draw(Renderer * rend)
 
 void TransformComponent::SetPos(float x, float y, float z)
 {
-	pos[0] = x;
-	pos[1] = y;
-	pos[2] = z;
+	pos = glm::vec3(x,y,z);
+	
 	TranslationMatrix = glm::translate(glm::mat4(1.0f), pos);
+
 	Update();
 }
 
