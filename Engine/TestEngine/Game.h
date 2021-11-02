@@ -16,6 +16,7 @@ private:
 	Input *inp;	
 	Node *sceneNode;
 	Node *cameraNode;
+	Node *MeshNode;
 	Node * node;
 	Camera *camera;
 

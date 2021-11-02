@@ -79,6 +79,9 @@ void Node::Draw()
 	// guardar world matrix antes de usar y al final del draw volver a poner la vieja.
 
 	aux = render->GetWorldMatrix();
+	glm::mat4 actualWorldMatrix = render->GetWorldMatrix();
+	glm::mat4 actualViewMatrix = render->GetViewMatrix();
+	glm::mat4 actualProjectionMatrix = render->GetProjectionMatrix();
 	render->MultiplyWorldMatrix(transformComponent->GetWorldMat());
 	
 	for (int i = 0;i < componentVec->size();i++)
@@ -90,6 +93,8 @@ void Node::Draw()
 		childVec->at(i)->Draw();
 	}
 	render->SetWorldMatrix(aux);
+	render->SetViewMatrix(actualViewMatrix);
+	render->SetProjectionMatrix(actualProjectionMatrix);
 }
 
 void Node::Move(float x, float y, float z)

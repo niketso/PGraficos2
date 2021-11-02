@@ -9,18 +9,21 @@ Game::~Game()
 bool Game::OnStart() {
 	CollisionManager* colManager = CollisionManager::Instance();
 	inp = new Input(window);
-	speed = 30.0f;
+	speed = 300.0f;
 	camera = new Camera(_CameraComponent,render);
 	sceneNode = new Node(render);
 	cameraNode = new Node(render);
+	MeshNode = new Node(render);
 	
-	sceneNode->AddChild(cameraNode);
 	cameraNode->AddComponent(camera);
+	sceneNode->AddChild(cameraNode);
+	sceneNode->AddChild(MeshNode);
 	
-	MeshLoader::GetInstance()->LoadMesh("BSP.fbx", "rifle_texture.bmp", render, sceneNode, camera);
+	MeshLoader::GetInstance()->LoadMesh("Rifle.fbx", "rifle_texture.bmp", render, MeshNode, camera);
 
-	 node = sceneNode->GetChild(1);
-	
+	 node = MeshNode->GetChild(2);
+	 //node = node->GetChild(0);
+	 //camera->Walk(500.0f);
 	SetScene(sceneNode);
 	
 	cout << "Game::OnStart()" << endl;
@@ -54,12 +57,17 @@ bool Game::OnUpdate() {
 	
 	if (inp->IsKeyPressed(74)) //j
 		node->GetTransfrom()->Translate(speed * deltaTime,0.0f,0.0f);
+		
 	if (inp->IsKeyPressed(76)) //l
 		node->GetTransfrom()->Translate(-speed * deltaTime, 0.0f, 0.0f);
 	if (inp->IsKeyPressed(73)) //i
-		node->GetTransfrom()->Translate(0.0f,0.0f,speed * deltaTime);
+		//node->GetTransfrom()->Translate(0.0f,0.0f,speed * deltaTime);
+		node->GetTransfrom()->SetScale(0.5f, 0.5f, 0.5f);
 	if (inp->IsKeyPressed(75)) //k
-		node->GetTransfrom()->Translate(0.0f, 0.0f, -speed * deltaTime);
+		//node->GetTransfrom()->Translate(0.0f, 0.0f, -speed * deltaTime);
+		node->GetTransfrom()->SetScale(1.0f, 1.0f, 1.0f);
+
+
 	//CollisionManager::Instance()->CollisionBoxDetector();
 	//cout << "Game::OnUpdate(): " << i << endl;
 	

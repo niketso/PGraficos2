@@ -53,12 +53,16 @@ public:
 	void LoadIdentityMatrix();
 	void SetWorldMatrix(glm::mat4 mat);
 	glm::mat4& GetWorldMatrix();
+	glm::mat4& GetViewMatrix();
+	glm::mat4& GetProjectionMatrix();
 	void MultiplyWorldMatrix(glm::mat4 mat);
 	void UpdateTexture(unsigned int txt);
 	void SetOrthoProjectionMatrix(const float left, const float right, const float bottom, const float top, const float ZNear, const float ZFar);
 	void SetPerspectiveProjectionMatrix(const float angle, const float aspect, const float ZNear, const float ZFar);
 	void SwitchProjectionMatrix(ProjectionMatrixType pmt);
 	void SetViewMatrix(glm::vec3 eye, glm::vec3 cam, glm::vec3 up);
+	void SetViewMatrix(glm::mat4 mat);
+	void SetProjectionMatrix(glm::mat4 mat);
 	glm::vec3 GetCameraPos();
 	int Draws = 0;
 };

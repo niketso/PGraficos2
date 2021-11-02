@@ -37,22 +37,27 @@ Node* MeshLoader::LoadMesh(const char * meshname, const char * texturename, Rend
 void MeshLoader::InitFromScene(const aiScene* scene, Node *root,aiNode* aiNode, const char * texturename, Renderer * render,Camera * camera)
 {	
 	
-	for (int i = 0; i < (int)aiNode->mNumMeshes; i++)
+	for (int i = 0; i < aiNode->mNumChildren; i++)
 	{
-		MeshComponent * mesh = new MeshComponent(ComponentType::_MeshComponent, render,camera);
-		mesh->SetTexture(texturename);
-		mesh->LoadMaterial();
-		InitMesh(scene->mMeshes[aiNode->mMeshes[i]], mesh, render);	
-		GenerateBoundingBox(mesh ,render);
-		Node * child = new Node(render);
-		child->AddComponent((Component*)mesh);
-		root->AddChild(child);
-		SetNodeTransform(aiNode, child);
-		IsBspNode(scene->mMeshes[aiNode->mMeshes[i]], child, mesh);
-	}
-	for (int i = 0; i < (int)aiNode->mNumChildren; i++) 
-	{ 
-		InitFromScene(scene, root, aiNode->mChildren[i], texturename, render,camera);
+		Node* childNode = new Node(render);
+		root->AddChild(childNode);
+		SetNodeTransform(aiNode->mChildren[i], childNode);
+
+		if (aiNode->mChildren[i]->mNumMeshes > 0)
+		{
+			MeshComponent* meshComponent = new MeshComponent(ComponentType::_MeshComponent, render, camera);
+			meshComponent->SetTexture(texturename);
+			meshComponent->LoadMaterial();
+			unsigned int index = aiNode->mChildren[i]->mMeshes[0];
+			InitMesh(scene->mMeshes[index], meshComponent, render);
+			GenerateBoundingBox(meshComponent, render);
+			childNode->AddComponent(meshComponent);
+		}
+
+		if (aiNode->mChildren[i]->mNumChildren > 0)
+		{
+			InitFromScene(scene, childNode, aiNode->mChildren[i], texturename, render, camera);
+		}
 	}
 
 }

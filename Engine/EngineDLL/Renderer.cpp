@@ -269,6 +269,16 @@ glm::mat4& Renderer::GetWorldMatrix()
 	return worldMatrix;
 }
 
+glm::mat4 & Renderer::GetViewMatrix()
+{
+	return viewMatrix;
+}
+
+glm::mat4 & Renderer::GetProjectionMatrix()
+{
+	return projectionMatrix;
+}
+
 void Renderer::UpdateTexture(unsigned int txt) 
 {
 	glGenTextures(1, &txt);
@@ -301,6 +311,17 @@ void Renderer::SetViewMatrix(glm::vec3 eye, glm::vec3 cam, glm::vec3 up)
 		upPos
 	);
 	
+	UpdateWVP();
+}
+void Renderer::SetViewMatrix(glm::mat4 mat)
+{
+	viewMatrix = mat;
+	UpdateWVP();
+}
+
+void Renderer::SetProjectionMatrix(glm::mat4 mat)
+{
+	projectionMatrix = mat;
 	UpdateWVP();
 }
 void Renderer::SwitchProjectionMatrix(ProjectionMatrixType pmt  )
