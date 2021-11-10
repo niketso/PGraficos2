@@ -18,6 +18,11 @@ private:
 	Node *cameraNode;
 	Node *MeshNode;
 	Node * node;
+	Node * node1;
+	Node * node2;
+	Node * node3;
+	Node * node4;
+	Node * node5;
 	Camera *camera;
 
 	
